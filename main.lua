@@ -21,9 +21,24 @@ SMODS.Atlas({
   py = 95
 }):register()
 
+SMODS.Atlas({
+  key = "nacho_regionals",
+  path = "nacho_regionals.png",
+  px = 71,
+  py = 95
+}):register()
+
+SMODS.Atlas({
+  key = "nacho_shiny_regionals",
+  path = "nacho_shiny_regionals.png",
+  px = 71,
+  py = 95
+}):register()
+
 table.insert(family, {"turtwig", "grotle", "torterra"})
 table.insert(family, {"chimchar", "monferno", "infernape"})
 table.insert(family, {"piplup", "prinplup", "empoleon"})
+table.insert(family, {"hisuian_zorua, hisuian_zoroark"})
 
 nacho_config = SMODS.current_mod.config
 SMODS.current_mod.optional_features = { quantum_enhancements = true }
@@ -198,8 +213,15 @@ if (SMODS.Mods["Pokermon"] or {}).can_load and SMODS.Mods["Pokermon"] then
   end
 end 
 
+--Load Draw Logic file
+local sprite, load_error = SMODS.load_file("functions/nacho_pokedraw.lua")
+if load_error then
+  sendDebugMessage ("The error is: "..load_error)
+else
+  sprite()
+end
 
-
+--[[]
 --Load Debuff logic
 local sprite, load_error = SMODS.load_file("functions/functions.lua")
 if load_error then
@@ -207,6 +229,7 @@ if load_error then
 else
   sprite()
 end
+]]
 
 if (SMODS.Mods["Pokermon"] or {}).can_load and SMODS.Mods["Pokermon"] and not pokermon_config.jokers_only then
   if (SMODS.Mods["CardSleeves"] or {}).can_load then

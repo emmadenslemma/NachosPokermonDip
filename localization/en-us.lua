@@ -5,12 +5,10 @@ return {
                 name = "Turtwig",
                 text = {
                     "{C:attention}+#1#{} hand size",
-                    "Played cards have a {C:green}1 in #2#{}",
+                    "Cards {C:attention}held in hand{} have a {C:green}1 in #2#{}",
                     "chance of earning {C:money}$#3#{}",
-                    "{C:inactive,s:0.8}(Odds increase per scored card beyond the first)",
-                    "Cards {C:attention}held in hand{}",
-                    "give Mult equal to {C:money}${}",
-                    "earned this way",
+                    "{C:inactive,s:0.8}(Odds increase by 1 per", 
+                    "{C:inactive,s:0.8}scoring card beyond the first)",
                     "{C:inactive,s:0.8}(Evolves after earning {C:money,s:0.8}$#4#{C:inactive,s:0.8})",
                 } 
             },
@@ -18,12 +16,10 @@ return {
                 name = "Grotle",
                 text = {
                     "{C:attention}+#1#{} hand size",
-                    "Played cards have a {C:green}1 in #2#{}",
+                    "Cards {C:attention}held in hand{} have a {C:green}1 in #2#{}",
                     "chance of earning {C:money}$#3#{}",
-                    "{C:inactive,s:0.8}(Odds increase per scored card beyond the first)",
-                    "Cards {C:attention}held in hand{}",
-                    "give Mult equal to {C:money}${}",
-                    "earned this way",
+                    "{C:inactive,s:0.8}(Odds increase by 1 per", 
+                    "{C:inactive,s:0.8}scoring card beyond the first)",
                     "{C:inactive,s:0.8}(Evolves after earning {C:money,s:0.8}$#4#{C:inactive,s:0.8})",
                 } 
             },
@@ -31,12 +27,12 @@ return {
                 name = "Torterra",
                 text = {
                     "{C:attention}+#1#{} hand size",
-                    "Played cards have a {C:green}1 in #2#{}",
-                    "chance of earning {C:money}$#3#{}",
-                    "{C:inactive,s:0.8}(Odds increase per scored card beyond the first)",
-                    "Cards {C:attention}held in hand{}",
-                    "give Chips and Mult equal to {C:money}${}",
-                    "earned this way",
+                    "{C:mult}+#2#{} Mult for every {C:money}$10{} you have",
+                    "{br:2}ERROR - CONTACT STEAK",
+                    "Cards {C:attention}held in hand{} have a {C:green}1 in #3#{}",
+                    "chance of earning {C:money}$#4#{}",
+                    "{C:inactive,s:0.8}(Odds increase by 1 per", 
+                    "{C:inactive,s:0.8}scoring card beyond the first)",
                 } 
             },
             j_nacho_chimchar = {
@@ -64,8 +60,8 @@ return {
             j_nacho_infernape = {
                 name = "Infernape",
                 text = {
-                    "{C:red}+#1#{} discard, {C:mult}+#2#{} mult",
-                    "Gains {C:mult}X#3#{} mult for each",
+                    "{C:red}+#1#{} discard, {C:mult}+#2#{} Mult",
+                    "Gains {C:mult}X#3#{} Mult for each",
                     "discarded {C:attention}face card{} or {C:attention}Ace{}",
                     "{C:inactive,s:0.8}(Resets at end of round)",
                     "{C:inactive}(Currently {C:mult}X#4#{} {C:inactive}Mult)",
@@ -86,6 +82,7 @@ return {
                     "{C:blue}+#1#{} hand, {C:chips}+#2#{} Chips",
                     "Each Bonus card held in hand",
                     "gives {C:chips}+#3#{} Chips",
+                    "{br:2}ERROR - CONTACT STEAK",
                     "If played hand has exactly 1 card,",
                     "it becomes a Bonus card",
                     "{C:inactive,s:0.8}(Evolves after {C:attention,s:0.8}#4#{C:inactive,s:0.8} rounds)",
@@ -97,10 +94,30 @@ return {
                     "{C:blue}+#1#{} hand, {C:chips}+#2#{} Chips",
                     "Each Bonus card held in hand",
                     "gives {C:chips}+#3#{} Chips",
+                    "{br:2}ERROR - CONTACT STEAK",
                     "If played hand has exactly 1 card,",
                     "it becomes a Bonus card",
-                    "Bonus Cards are also considered Steel Cards",
+                    "{br:2}ERROR - CONTACT STEAK",
+                    "Bonus Cards are also",
+                    "considered Steel Cards",
                 } 
+            },
+            j_nacho_hisuian_zorua = {
+                name = "{s:0.6}Hisuian{}Zorua",
+                text = {
+                    "{V:1}Copies ability of leftmost {C:attention}Joker{}",
+                    "{br:2.5}ERROR - CONTACT STEAK",
+                    "After scoring played hand while",
+                    "copying, remove copy effect",
+                    "until end of round",
+                    "{C:inactive,s:0.8}(Evolves after {C:attention,s:0.8}#1#{C:inactive,s:0.8} rounds)",
+                }
+            },
+            j_nacho_hisuian_zoroark = {
+                name = "{s:0.6}Hisuian{}Zoroark",
+                text = {
+                    "Copies ability of leftmost {C:attention}Joker{}",
+                }
             },
         }
     },
