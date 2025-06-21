@@ -918,8 +918,8 @@ local galarian_meowth={
     info_queue[#info_queue+1] = G.P_CENTERS.m_steel
 		return {vars = {card.ability.extra.retriggers}}
   end,
-  rarity = 2, 
-  cost = 7, 
+  rarity = 3, 
+  cost = 10, 
   stage = "Basic",
   ptype = "Metal",
   atlas = "nacho_regionals",
