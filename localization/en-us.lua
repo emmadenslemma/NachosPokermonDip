@@ -84,7 +84,7 @@ return {
                     "gives {C:chips}+#3#{} Chips",
                     "{br:2}ERROR - CONTACT STEAK",
                     "If played hand has exactly 1 card,",
-                    "it becomes a Bonus card",
+                    "it becomes a {C:attention}Bonus{} card",
                     "{C:inactive,s:0.8}(Evolves after {C:attention,s:0.8}#4#{C:inactive,s:0.8} rounds)",
                 } 
             },
@@ -96,10 +96,10 @@ return {
                     "gives {C:chips}+#3#{} Chips",
                     "{br:2}ERROR - CONTACT STEAK",
                     "If played hand has exactly 1 card,",
-                    "it becomes a Bonus card",
+                    "it becomes a {C:attention}Bonus{} card",
                     "{br:2}ERROR - CONTACT STEAK",
-                    "Bonus Cards are also",
-                    "considered Steel Cards",
+                    "{C:attention}Bonus{} Cards are also",
+                    "considered {C:attention}Steel{} Cards",
                 } 
             },
             j_nacho_hisuian_zorua = {
@@ -119,6 +119,44 @@ return {
                     "Copies ability of leftmost {C:attention}Joker{}",
                 }
             },
+            j_nacho_skwovet = {
+                name = "Skwovet",
+                text = {
+                    "Gains {C:mult}+#2#{} Mult when a",
+                    "consumable is used",
+                    "during a blind",
+                    "{C:inactive}(Evolves at {C:mult}+#1#{C:inactive} / +16 Mult)",
+
+                }
+            },
+            j_nacho_greedent = {
+                name = "Greedent",
+                text = {
+                    "Gains {C:mult}+#2#{} Mult and",
+                    "has a {C:green}1 in #3#{} chance to",
+                    "create a {C:dark_edition}Negative{} {C:item}Leftovers{}",
+                    "when a consumable is used",
+                    "during a blind",
+                    "{C:inactive,s:0.8}(Leftovers excluded)",
+                    "{C:inactive}(Currently {C:mult}+#1#{} {C:inactive}Mult)",
+                }
+            },
+            j_nacho_galarian_meowth = {
+                name = "{s:0.6}Galarian{}Meowth",
+                text = {
+                    "Retriggers the first two",
+                    "{C:attention}Steel{} cards {C:attention}held in hand{}",
+                    "{C:inactive,s:0.8}(Evolves when each adjacent joker",
+                    "{C:inactive,s:0.8}has a {C:metal,s:0.8}Metal{C:inactive,s:0.8} sticker)",
+                }
+            },
+            j_nacho_perrserker = {
+                name = "Perrserker",
+                text = {
+                    "Retriggers each other",
+                    "{C:metal}Metal {C:attention}Joker{}",
+                }
+            },
         }
     },
     misc = {
@@ -127,6 +165,8 @@ return {
             poke_close_combat_ex = "Close Combat!",
             -- From Empoleon
             poke_brine_ex = "Brine!",
+            -- From Greedent
+            poke_stuff_cheeks_ex = "Stuff Cheeks!",
         },
     },
 }

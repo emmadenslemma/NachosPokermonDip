@@ -22,6 +22,20 @@ SMODS.Atlas({
 }):register()
 
 SMODS.Atlas({
+  key = "nacho_pokedex_8",
+  path = "nacho_pokedex_8.png",
+  px = 71,
+  py = 95
+}):register()
+
+SMODS.Atlas({
+  key = "nacho_shiny_pokedex_8",
+  path = "nacho_shiny_pokedex_8.png",
+  px = 71,
+  py = 95
+}):register()
+
+SMODS.Atlas({
   key = "nacho_regionals",
   path = "nacho_regionals.png",
   px = 71,
@@ -38,10 +52,12 @@ SMODS.Atlas({
 table.insert(family, {"turtwig", "grotle", "torterra"})
 table.insert(family, {"chimchar", "monferno", "infernape"})
 table.insert(family, {"piplup", "prinplup", "empoleon"})
-table.insert(family, {"hisuian_zorua, hisuian_zoroark"})
+table.insert(family, {"hisuian_zorua", "hisuian_zoroark"})
+table.insert(family, {"skwovet", "greedent"})
+table.insert(family, {"galarian_meowth", "perrserker"})
 
 nacho_config = SMODS.current_mod.config
-SMODS.current_mod.optional_features = { quantum_enhancements = true }
+SMODS.current_mod.optional_features = { retrigger_joker = true, quantum_enhancements = true }
 mod_dir = ''..SMODS.current_mod.path
 if (SMODS.Mods["Pokermon"] or {}).can_load then
     pokermon_config = SMODS.Mods["Pokermon"].config
