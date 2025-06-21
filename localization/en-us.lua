@@ -125,7 +125,7 @@ return {
                     "Gains {C:mult}+#2#{} Mult when a",
                     "consumable is used",
                     "during a blind",
-                    "{C:inactive}(Evolves at {C:mult}+#1#{C:inactive} / +16 Mult)",
+                    "{C:inactive}(Evolves at {C:mult}+#1#{C:inactive} / +12 Mult)",
 
                 }
             },
