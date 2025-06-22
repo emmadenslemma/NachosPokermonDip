@@ -13,11 +13,10 @@ local turtwig={
   name = "turtwig",
   poke_custom_prefix = "nacho",
   pos = {x = 0, y = 0},
-  config = {extra = {h_size = 1, odds = 15, money_mod = 1, money_earned = 0}, evo_rqmt = 15},
+  config = {extra = {h_size = 1, odds = 15, interest = 5, counter = 0, rounds = 4}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
-    local money_left = math.max(0, self.config.evo_rqmt - card.ability.extra.money_earned)
-    return {vars = {card.ability.extra.h_size, card.ability.extra.odds, card.ability.extra.money_mod, money_left}}
+    return {vars = {card.ability.extra.h_size, card.ability.extra.odds, card.ability.extra.rounds}}
   end,
   rarity = 2,
   cost = 6,
@@ -30,21 +29,28 @@ local turtwig={
   calculate = function(self, card, context)
     if context.individual and not context.end_of_round and context.cardarea == G.hand then
       if (pseudorandom('turtwig') < (G.GAME.probabilities.normal + #context.scoring_hand - 1)/card.ability.extra.odds) and not context.other_card.debuff then
-        local earned = ease_poke_dollars(card, "turtwig", card.ability.extra.money_mod, true)
-        card.ability.extra.money_earned = card.ability.extra.money_earned + earned
+        G.GAME.interest_cap = G.GAME.interest_cap + card.ability.extra.interest
+        card.ability.extra.counter = card.ability.extra.counter + 1
           return {
-            dollars = earned,
+            message = localize("poke_leech_seed_ex"),
             card = card,
           }
       end
     end
-    return scaling_evo(self, card, context, "j_nacho_grotle", card.ability.extra.money_earned, self.config.evo_rqmt)
+    if context.ending_shop and card.ability.extra.counter > 0 then
+      G.GAME.interest_cap = G.GAME.interest_cap - card.ability.extra.counter * card.ability.extra.interest
+      return true
+    end
+    return level_evo(self, card, context, "j_nacho_grotle")
   end,
   add_to_deck = function(self, card, from_debuff)
     G.hand:change_size(card.ability.extra.h_size)
   end,
   remove_from_deck = function(self, card, from_debuff)
     G.hand:change_size(-card.ability.extra.h_size)
+    if card.ability.extra.counter > 0 then
+      G.GAME.interest_cap = G.GAME.interest_cap - card.ability.extra.counter * card.ability.extra.interest
+    end
   end
 }
 
@@ -53,11 +59,10 @@ local grotle={
   name = "grotle",
   poke_custom_prefix = "nacho",
   pos = {x = 1, y = 0},
-  config = {extra = {h_size = 1, odds = 10, money_mod = 2, money_earned = 0}, evo_rqmt = 30},
+  config = {extra = {h_size = 1, odds = 10, interest = 10, counter = 0, rounds = 5}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
-    local money_left = math.max(0, self.config.evo_rqmt - card.ability.extra.money_earned)
-    return {vars = {card.ability.extra.h_size, card.ability.extra.odds, card.ability.extra.money_mod, money_left}}
+    return {vars = {card.ability.extra.h_size, card.ability.extra.odds, card.ability.extra.rounds}}
   end,
   rarity = "poke_safari",
   cost = 8,
@@ -70,21 +75,28 @@ local grotle={
   calculate = function(self, card, context)
     if context.individual and not context.end_of_round and context.cardarea == G.hand then
       if (pseudorandom('grotle') < (G.GAME.probabilities.normal + #context.scoring_hand - 1)/card.ability.extra.odds) and not context.other_card.debuff then
-        local earned = ease_poke_dollars(card, "grotle", card.ability.extra.money_mod, true)
-        card.ability.extra.money_earned = card.ability.extra.money_earned + earned
+        G.GAME.interest_cap = G.GAME.interest_cap + card.ability.extra.interest
+        card.ability.extra.counter = card.ability.extra.counter + 1
           return {
-            dollars = earned,
+            message = localize("poke_leech_seed_ex"),
             card = card,
           }
       end
     end
-    return scaling_evo(self, card, context, "j_nacho_torterra", card.ability.extra.money_earned, self.config.evo_rqmt)
+    if context.ending_shop and card.ability.extra.counter > 0 then
+      G.GAME.interest_cap = G.GAME.interest_cap - card.ability.extra.counter * card.ability.extra.interest
+      return true
+    end
+    return level_evo(self, card, context, "j_nacho_torterra")
   end,
   add_to_deck = function(self, card, from_debuff)
     G.hand:change_size(card.ability.extra.h_size)
   end,
   remove_from_deck = function(self, card, from_debuff)
     G.hand:change_size(-card.ability.extra.h_size)
+    if card.ability.extra.counter > 0 then
+      G.GAME.interest_cap = G.GAME.interest_cap - card.ability.extra.counter * card.ability.extra.interest
+    end
   end
 }
 
@@ -93,10 +105,10 @@ local torterra={
   name = "torterra",
   poke_custom_prefix = "nacho",
   pos = {x = 2, y = 0},
-  config = {extra = {h_size = 1, mult = 2, odds = 5, money_mod = 3}},
+  config = {extra = {h_size = 1, mult = 2, odds = 5, interest = 15, counter = 0}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
-    return {vars = {card.ability.extra.h_size, card.ability.extra.mult, card.ability.extra.odds, card.ability.extra.money_mod}}
+    return {vars = {card.ability.extra.h_size, card.ability.extra.mult, card.ability.extra.odds}}
   end,
   rarity = "poke_safari",
   cost = 10,
@@ -109,9 +121,10 @@ local torterra={
   calculate = function(self, card, context)
     if context.individual and not context.end_of_round and context.cardarea == G.hand then
       if (pseudorandom('torterra') < (G.GAME.probabilities.normal + #context.scoring_hand - 1)/card.ability.extra.odds) and not context.other_card.debuff then
-        local earned = ease_poke_dollars(card, "torterra", card.ability.extra.money_mod, true)
+        G.GAME.interest_cap = G.GAME.interest_cap + card.ability.extra.interest
+        card.ability.extra.counter = card.ability.extra.counter + 1
           return {
-            dollars = earned,
+            message = localize("poke_leech_seed_ex"),
             card = card,
           }
       end
@@ -119,12 +132,19 @@ local torterra={
     if context.joker_main then
       return { mult = card.ability.extra.mult * math.floor(((G.GAME.dollars or 0) + (G.GAME.dollar_buffer or 0)) / 10) }
     end
+    if context.ending_shop and card.ability.extra.counter > 0 then
+      G.GAME.interest_cap = G.GAME.interest_cap - card.ability.extra.counter * card.ability.extra.interest
+      return true
+    end
   end,
   add_to_deck = function(self, card, from_debuff)
     G.hand:change_size(card.ability.extra.h_size)
   end,
   remove_from_deck = function(self, card, from_debuff)
     G.hand:change_size(-card.ability.extra.h_size)
+    if card.ability.extra.counter > 0 then
+      G.GAME.interest_cap = G.GAME.interest_cap - card.ability.extra.counter * card.ability.extra.interest
+    end
   end
 }
 
@@ -533,6 +553,209 @@ local empoleon={
   end
 }
 
+-- Skwovet 819
+local skwovet={
+  name = "skwovet", 
+  poke_custom_prefix = "nacho",
+  pos = {x = 9, y = 0}, 
+  config = {extra = {mult = 0, mult_mod = 1, rounds = 5, in_blind = false}, evo_rqmt = 12},
+  loc_vars = function(self, info_queue, card)
+    type_tooltip(self, info_queue, card)
+    return {vars = {card.ability.extra.mult, card.ability.extra.mult_mod}}
+  end,
+  rarity = 1, 
+  cost = 5, 
+  stage = "Basic", 
+  ptype = "Colorless",
+  atlas = "nacho_pokedex_8",
+  perishable_compat = true,
+  blueprint_compat = true,
+  eternal_compat = true,
+  calculate = function(self, card, context)
+    if context.setting_blind and not context.blueprint then
+      card.ability.extra.in_blind = true
+      return{}
+    end
+
+    if context.using_consumeable and card.ability.extra.in_blind and not context.blueprint then
+      card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod
+      return {
+          message = localize('k_upgrade_ex'),
+          colour = G.C.RED
+        }
+    end
+
+    if context.cardarea == G.jokers and context.scoring_hand then
+      if context.joker_main then
+        return {
+          message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult}}, 
+          colour = G.C.MULT,
+          mult = card.ability.extra.mult
+        }
+      end
+    end
+
+    return scaling_evo(self, card, context, "j_nacho_greedent", card.ability.extra.mult, self.config.evo_rqmt)
+  end
+}
+
+-- Greedent 820
+local greedent={
+  name = "greedent", 
+  poke_custom_prefix = "nacho",
+  pos = {x = 10, y = 0}, 
+  config = {extra = {mult = 0, mult_mod = 2, odds = 4, in_blind = false}},
+  loc_vars = function(self, info_queue, card)
+    type_tooltip(self, info_queue, card)
+    return {vars = {card.ability.extra.mult, card.ability.extra.mult_mod, card.ability.extra.odds}}
+  end,
+  rarity = "poke_safari", 
+  cost = 10, 
+  stage = "One", 
+  ptype = "Colorless",
+  atlas = "nacho_pokedex_8",
+  perishable_compat = true,
+  blueprint_compat = true,
+  eternal_compat = true,
+  calculate = function(self, card, context)
+    if context.setting_blind and not context.blueprint then
+      card.ability.extra.in_blind = true
+      return{}
+    end
+
+    if context.using_consumeable and card.ability.extra.in_blind then
+      if not context.blueprint then
+        card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod
+      end
+      if (pseudorandom('greedent') < G.GAME.probabilities.normal/card.ability.extra.odds) and not from_debuff and context.consumeable.ability.name ~= 'leftovers' then
+        local _card = create_card('Item', G.consumeables, nil, nil, nil, nil, 'c_poke_leftovers')
+        local edition = {negative = true}
+        _card:set_edition(edition, true)
+        _card:add_to_deck()
+        G.consumeables:emplace(_card)
+        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('poke_stuff_cheeks_ex'), colour = G.C.FILTER})
+      end
+      return {
+          message = localize('k_upgrade_ex'),
+          colour = G.C.RED
+        }
+    end
+
+    if context.cardarea == G.jokers and context.scoring_hand then
+      if context.joker_main then
+        return {
+          message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult}}, 
+          colour = G.C.MULT,
+          mult = card.ability.extra.mult
+        }
+      end
+    end
+  end
+}
+
+-- Meowth 52-2
+local galarian_meowth={
+  name = "galarian_meowth", 
+  poke_custom_prefix = "nacho",
+  pos = {x = 0, y = 2},
+  config = {extra = {metals = 0, retriggers = 1, counter = 0}, evo_rqmt = 2},
+  loc_vars = function(self, info_queue, card)
+    type_tooltip(self, info_queue, card)
+    info_queue[#info_queue+1] = G.P_CENTERS.m_steel
+		return {vars = {card.ability.extra.retriggers}}
+  end,
+  rarity = 2,
+  cost = 6,
+  stage = "Basic",
+  ptype = "Metal",
+  atlas = "nacho_regionals",
+  perishable_compat = true,
+  blueprint_compat = true,
+  eternal_compat = true,
+  calculate = function(self, card, context)
+    if context.before and context.cardarea == G.jokers and not context.blueprint then
+      card.ability.extra.counter = 0
+      return{}
+    end
+    if context.repetition and context.cardarea == G.hand and (next(context.card_effects[1]) or #context.card_effects > 1) 
+    and SMODS.has_enhancement(context.other_card, "m_steel") and card.ability.extra.counter < 2 then
+      if not context.blueprint and not context.retrigger_joker then
+        card.ability.extra.counter = card.ability.extra.counter + 1
+      end
+      return {
+        message = localize('k_again_ex'),
+        repetitions = card.ability.extra.retriggers,
+        card = card
+      }
+    end
+
+    return scaling_evo(self, card, context, "j_nacho_perrserker", card.ability.extra.metals, self.config.evo_rqmt)
+  end,
+  update = function(self, card, dt)
+    if G.STAGE == G.STAGES.RUN and card.area == G.jokers then
+      local metals = 0
+      local adjacent_jokers = poke_get_adjacent_jokers(card)
+      for i = 1, #adjacent_jokers do
+        if is_type(adjacent_jokers[i], "Metal") then metals = metals + 1 end
+      end
+      card.ability.extra.metals = metals
+      return {}
+    end
+  end
+}
+
+-- Perrserker 863
+local perrserker = {
+  name = "perrserker",
+  poke_custom_prefix = "nacho",
+  pos = {x = 0, y = 4},
+  config = { extra = {Ymult = 1.5} },
+  loc_vars = function(self, info_queue, card)
+    type_tooltip(self, info_queue, card)
+    return { vars = {card.ability.extra.Ymult} }
+  end,
+  rarity = "poke_safari",
+  cost = 10,
+  stage = "One",
+  atlas = "nacho_pokedex_8",
+  ptype = "Metal",
+  perishable_compat = true,
+  blueprint_compat = true,
+  eternal_compat = true,
+  calculate = function(self, card, context)
+    if context.other_joker and is_type(context.other_joker, "Metal") then
+      G.E_MANAGER:add_event(Event({
+        func = function()
+            context.other_joker:juice_up(0.5, 0.5)
+            return true
+        end
+      })) 
+      return {
+        message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.Ymult}}, 
+        colour = G.C.XMULT,
+        Xmult_mod = card.ability.extra.Ymult,
+        message_card = context.other_joker,
+      }
+    end
+
+    if context.retrigger_joker_check and not context.retrigger_joker then
+      local metals = 0
+      for k, v in pairs(G.jokers.cards) do
+          if is_type(v, "Metal") then metals = metals + 1 end
+      end
+      if metals == #G.jokers.cards and (context.other_card.ability and context.other_card.ability.name == "perrserker") then
+        return {
+          message = localize("k_again_ex"),
+          colour = G.C.BLACK,
+          repetitions = 1,
+          card = card,
+        }
+      end
+		end
+
+  end
+}
+
 -- Hisuian Zorua 570-1
 local hisuian_zorua = {
   name = "hisuian_zorua", 
@@ -679,7 +902,7 @@ local hisuian_zorua = {
   end,
 }
 
--- Zoroark 571-1
+-- Hisuian Zoroark 571-1
 local hisuian_zoroark = {
   name = "hisuian_zoroark", 
   poke_custom_prefix = "nacho",
@@ -807,188 +1030,7 @@ local hisuian_zoroark = {
   end,
 }
 
--- Skwovet 819
-local skwovet={
-  name = "skwovet", 
-  poke_custom_prefix = "nacho",
-  pos = {x = 9, y = 0}, 
-  config = {extra = {mult = 0, mult_mod = 1, rounds = 5, in_blind = false}, evo_rqmt = 12},
-  loc_vars = function(self, info_queue, card)
-    type_tooltip(self, info_queue, card)
-    return {vars = {card.ability.extra.mult, card.ability.extra.mult_mod}}
-  end,
-  rarity = 1, 
-  cost = 5, 
-  stage = "Basic", 
-  ptype = "Colorless",
-  atlas = "nacho_pokedex_8",
-  perishable_compat = true,
-  blueprint_compat = true,
-  eternal_compat = true,
-  calculate = function(self, card, context)
-    if context.setting_blind and not context.blueprint then
-      card.ability.extra.in_blind = true
-      return{}
-    end
-
-    if context.using_consumeable and card.ability.extra.in_blind and not context.blueprint then
-      card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod
-      return {
-          message = localize('k_upgrade_ex'),
-          colour = G.C.RED
-        }
-    end
-
-    if context.cardarea == G.jokers and context.scoring_hand then
-      if context.joker_main then
-        return {
-          message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult}}, 
-          colour = G.C.MULT,
-          mult = card.ability.extra.mult
-        }
-      end
-    end
-
-    return scaling_evo(self, card, context, "j_nacho_greedent", card.ability.extra.mult, self.config.evo_rqmt)
-  end
-}
-
--- Greedent 820
-local greedent={
-  name = "greedent", 
-  poke_custom_prefix = "nacho",
-  pos = {x = 10, y = 0}, 
-  config = {extra = {mult = 0, mult_mod = 2, odds = 4, in_blind = false}},
-  loc_vars = function(self, info_queue, card)
-    type_tooltip(self, info_queue, card)
-    return {vars = {card.ability.extra.mult, card.ability.extra.mult_mod, card.ability.extra.odds}}
-  end,
-  rarity = "poke_safari", 
-  cost = 10, 
-  stage = "One", 
-  ptype = "Colorless",
-  atlas = "nacho_pokedex_8",
-  perishable_compat = true,
-  blueprint_compat = true,
-  eternal_compat = true,
-  calculate = function(self, card, context)
-    if context.setting_blind and not context.blueprint then
-      card.ability.extra.in_blind = true
-      return{}
-    end
-
-    if context.using_consumeable and card.ability.extra.in_blind then
-      if not context.blueprint then
-        card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod
-      end
-      if (pseudorandom('greedent') < G.GAME.probabilities.normal/card.ability.extra.odds) and not from_debuff and context.consumeable.ability.name ~= 'leftovers' then
-        local _card = create_card('Item', G.consumeables, nil, nil, nil, nil, 'c_poke_leftovers')
-        local edition = {negative = true}
-        _card:set_edition(edition, true)
-        _card:add_to_deck()
-        G.consumeables:emplace(_card)
-        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('poke_stuff_cheeks_ex'), colour = G.C.FILTER})
-      end
-      return {
-          message = localize('k_upgrade_ex'),
-          colour = G.C.RED
-        }
-    end
-
-    if context.cardarea == G.jokers and context.scoring_hand then
-      if context.joker_main then
-        return {
-          message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult}}, 
-          colour = G.C.MULT,
-          mult = card.ability.extra.mult
-        }
-      end
-    end
-  end
-}
-
--- Meowth 52-2
-local galarian_meowth={
-  name = "galarian_meowth", 
-  poke_custom_prefix = "nacho",
-  pos = {x = 0, y = 2},
-  config = {extra = {metals = 0, retriggers = 1, counter = 0}, evo_rqmt = 2},
-  loc_vars = function(self, info_queue, card)
-    type_tooltip(self, info_queue, card)
-    info_queue[#info_queue+1] = G.P_CENTERS.m_steel
-		return {vars = {card.ability.extra.retriggers}}
-  end,
-  rarity = 3, 
-  cost = 10, 
-  stage = "Basic",
-  ptype = "Metal",
-  atlas = "nacho_regionals",
-  perishable_compat = true,
-  blueprint_compat = true,
-  eternal_compat = true,
-  calculate = function(self, card, context)
-    if context.before and context.cardarea == G.jokers and not context.blueprint then
-      card.ability.extra.counter = 0
-      return{}
-    end
-    if context.repetition and context.cardarea == G.hand and (next(context.card_effects[1]) or #context.card_effects > 1) 
-    and SMODS.has_enhancement(context.other_card, "m_steel") and card.ability.extra.counter < 2 then
-      if not context.blueprint and not context.retrigger_joker then
-        card.ability.extra.counter = card.ability.extra.counter + 1
-      end
-      return {
-        message = localize('k_again_ex'),
-        repetitions = card.ability.extra.retriggers,
-        card = card
-      }
-    end
-
-    return scaling_evo(self, card, context, "j_nacho_perrserker", card.ability.extra.metals, self.config.evo_rqmt)
-  end,
-  update = function(self, card, dt)
-    if G.STAGE == G.STAGES.RUN and card.area == G.jokers then
-      local metals = 0
-      local adjacent_jokers = poke_get_adjacent_jokers(card)
-      for i = 1, #adjacent_jokers do
-        if is_type(adjacent_jokers[i], "Metal") then metals = metals + 1 end
-      end
-      card.ability.extra.metals = metals
-      return {}
-    end
-  end
-}
-
--- Perrserker 863
-local perrserker = {
-  name = "perrserker",
-  poke_custom_prefix = "nacho",
-  pos = {x = 0, y = 4},
-  config = { extra = {} },
-  loc_vars = function(self, info_queue, card)
-    type_tooltip(self, info_queue, card)
-    return { vars = {} }
-  end,
-  rarity = "poke_safari",
-  cost = 12,
-  stage = "One",
-  atlas = "nacho_pokedex_8",
-  ptype = "Metal",
-  perishable_compat = true,
-  blueprint_compat = true,
-  eternal_compat = true,
-  calculate = function(self, card, context)
-    if context.retrigger_joker_check and not context.retrigger_joker and is_type(context.other_card, "Metal")
-			  and not (context.other_card.ability and context.other_card.ability.name == "perrserker") then
-      return {
-        message = localize("k_again_ex"),
-        repetitions = 1,
-        card = card,
-      }
-		end
-  end
-}
-
-list = {turtwig, grotle, torterra, chimchar, monferno, infernape, piplup, prinplup, empoleon, hisuian_zorua, hisuian_zoroark, skwovet, greedent, galarian_meowth, perrserker}
+list = {turtwig, grotle, torterra, chimchar, monferno, infernape, piplup, prinplup, empoleon, skwovet, greedent, galarian_meowth, perrserker, hisuian_zorua, hisuian_zoroark}
 
 return {name = "nachopokemon1",
 list = list

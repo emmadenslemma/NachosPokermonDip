@@ -5,22 +5,26 @@ return {
                 name = "Turtwig",
                 text = {
                     "{C:attention}+#1#{} hand size",
-                    "Cards {C:attention}held in hand{} have a {C:green}1 in #2#{}",
-                    "chance of earning {C:money}$#3#{}",
+                    "Cards {C:attention}held in hand{}",
+                    "have a {C:green}1 in #2#{} chance",
+                    "to raise the cap on interest",
+                    "earned this round by {C:money}$1{}",
                     "{C:inactive,s:0.8}(Odds increase by 1 per", 
                     "{C:inactive,s:0.8}scoring card beyond the first)",
-                    "{C:inactive,s:0.8}(Evolves after earning {C:money,s:0.8}$#4#{C:inactive,s:0.8})",
+                    "{C:inactive,s:0.8}(Evolves after {C:attention,s:0.8}#3#{C:inactive,s:0.8} rounds)",
                 } 
             },
             j_nacho_grotle = {
                 name = "Grotle",
                 text = {
                     "{C:attention}+#1#{} hand size",
-                    "Cards {C:attention}held in hand{} have a {C:green}1 in #2#{}",
-                    "chance of earning {C:money}$#3#{}",
+                    "Cards {C:attention}held in hand{}",
+                    "have a {C:green}1 in #2#{} chance",
+                    "to raise the cap on interest",
+                    "earned this round by {C:money}$2{}",
                     "{C:inactive,s:0.8}(Odds increase by 1 per", 
                     "{C:inactive,s:0.8}scoring card beyond the first)",
-                    "{C:inactive,s:0.8}(Evolves after earning {C:money,s:0.8}$#4#{C:inactive,s:0.8})",
+                    "{C:inactive,s:0.8}(Evolves after {C:attention,s:0.8}#3#{C:inactive,s:0.8} rounds)",
                 } 
             },
             j_nacho_torterra = {
@@ -29,8 +33,10 @@ return {
                     "{C:attention}+#1#{} hand size",
                     "{C:mult}+#2#{} Mult for every {C:money}$10{} you have",
                     "{br:2}ERROR - CONTACT STEAK",
-                    "Cards {C:attention}held in hand{} have a {C:green}1 in #3#{}",
-                    "chance of earning {C:money}$#4#{}",
+                    "Cards {C:attention}held in hand{}",
+                    "have a {C:green}1 in #3#{} chance",
+                    "to raise the cap on interest",
+                    "earned this round by {C:money}$3{}",
                     "{C:inactive,s:0.8}(Odds increase by 1 per", 
                     "{C:inactive,s:0.8}scoring card beyond the first)",
                 } 
@@ -102,23 +108,6 @@ return {
                     "considered {C:attention}Steel{} Cards",
                 } 
             },
-            j_nacho_hisuian_zorua = {
-                name = "{s:0.6}Hisuian{}Zorua",
-                text = {
-                    "{V:1}Copies ability of leftmost {C:attention}Joker{}",
-                    "{br:2.5}ERROR - CONTACT STEAK",
-                    "After scoring played hand while",
-                    "copying, remove copy effect",
-                    "until end of round",
-                    "{C:inactive,s:0.8}(Evolves after {C:attention,s:0.8}#1#{C:inactive,s:0.8} rounds)",
-                }
-            },
-            j_nacho_hisuian_zoroark = {
-                name = "{s:0.6}Hisuian{}Zoroark",
-                text = {
-                    "Copies ability of leftmost {C:attention}Joker{}",
-                }
-            },
             j_nacho_skwovet = {
                 name = "Skwovet",
                 text = {
@@ -153,14 +142,36 @@ return {
             j_nacho_perrserker = {
                 name = "Perrserker",
                 text = {
-                    "Retriggers each other",
-                    "{C:metal}Metal {C:attention}Joker{}",
+                    "Each {C:metal}Metal {C:attention}Joker{}",
+                    "gives {X:mult,C:white}X#1#{} Mult",
+                    "Retriggers if all",
+                    "{C:attention}Jokers{} are {C:metal}Metal{}",
+                }
+            },
+            
+            j_nacho_hisuian_zorua = {
+                name = "{s:0.6}Hisuian{}Zorua",
+                text = {
+                    "{V:1}Copies ability of leftmost {C:attention}Joker{}",
+                    "{br:2.5}ERROR - CONTACT STEAK",
+                    "After scoring played hand while",
+                    "copying, remove copy effect",
+                    "until end of round",
+                    "{C:inactive,s:0.8}(Evolves after {C:attention,s:0.8}#1#{C:inactive,s:0.8} rounds)",
+                }
+            },
+            j_nacho_hisuian_zoroark = {
+                name = "{s:0.6}Hisuian{}Zoroark",
+                text = {
+                    "Copies ability of leftmost {C:attention}Joker{}",
                 }
             },
         }
     },
     misc = {
         dictionary = {
+            -- From Turtwig, Grotle, Torterra
+            poke_leech_seed_ex = "Leech Seed!",
             -- From Infernape
             poke_close_combat_ex = "Close Combat!",
             -- From Empoleon
