@@ -7,54 +7,13 @@ SMODS.Atlas({
     py = 32
 })
 
-SMODS.Atlas({
-  key = "nacho_pokedex_4",
-  path = "nacho_pokedex_4.png",
-  px = 71,
-  py = 95
-}):register()
-
-SMODS.Atlas({
-  key = "nacho_shiny_pokedex_4",
-  path = "nacho_shiny_pokedex_4.png",
-  px = 71,
-  py = 95
-}):register()
-
-SMODS.Atlas({
-  key = "nacho_pokedex_8",
-  path = "nacho_pokedex_8.png",
-  px = 71,
-  py = 95
-}):register()
-
-SMODS.Atlas({
-  key = "nacho_shiny_pokedex_8",
-  path = "nacho_shiny_pokedex_8.png",
-  px = 71,
-  py = 95
-}):register()
-
-SMODS.Atlas({
-  key = "nacho_regionals",
-  path = "nacho_regionals.png",
-  px = 71,
-  py = 95
-}):register()
-
-SMODS.Atlas({
-  key = "nacho_shiny_regionals",
-  path = "nacho_shiny_regionals.png",
-  px = 71,
-  py = 95
-}):register()
-
-table.insert(family, {"turtwig", "grotle", "torterra"})
-table.insert(family, {"chimchar", "monferno", "infernape"})
-table.insert(family, {"piplup", "prinplup", "empoleon"})
-table.insert(family, {"hisuian_zorua", "hisuian_zoroark"})
-table.insert(family, {"skwovet", "greedent"})
-table.insert(family, {"galarian_meowth", "perrserker"})
+table.insert(pokermon.family, {"turtwig", "grotle", "torterra"})
+table.insert(pokermon.family, {"chimchar", "monferno", "infernape"})
+table.insert(pokermon.family, {"piplup", "prinplup", "empoleon"})
+table.insert(pokermon.family, {"skwovet", "greedent"})
+table.insert(pokermon.family, {"galarian_meowth", "perrserker"})
+table.insert(pokermon.family, {"hisuian_zorua", "hisuian_zoroark"})
+table.insert(pokermon.family, {"ralts", "kirlia", "gardevoir", "mega_gardevoir"})
 
 nacho_config = SMODS.current_mod.config
 SMODS.current_mod.optional_features = { retrigger_joker = true, quantum_enhancements = true }
@@ -203,7 +162,9 @@ if (SMODS.Mods["Pokermon"] or {}).can_load and SMODS.Mods["Pokermon"] then
                 item.config.extra = {ptype = item.ptype}
               end
             end
-            item.set_badges = poke_set_type_badge
+            if not item.set_badges then
+              item.set_badges = poke_set_type_badge
+            end
             if item.item_req then
               if item.config and item.config.extra then
                 item.config.extra.item_req = item.item_req
