@@ -8,6 +8,299 @@ function table.contains(table, element)
 end
 
 
+-- Ralts 280
+local ralts={
+  name = "ralts",
+  poke_custom_prefix = "nacho",
+  pos = {x = 8, y = 2},
+  config = {extra = {mult_mod = 1, rounds = 4}},
+  loc_vars = function(self, info_queue, card)
+    type_tooltip(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Foxthor, One Punch Idiot"}}
+    local mult = 0
+    for _, v in pairs(G.GAME.hands) do
+      mult = mult + (v.level - 1) * card.ability.extra.mult_mod
+    end
+    return {vars = {card.ability.extra.mult_mod, mult, card.ability.extra.rounds}}
+  end,
+  rarity = 3,
+  cost = 8,
+  stage = "Base",
+  ptype = "Psychic",
+  atlas = "poke_Pokedex3",
+  perishable_compat = true,
+  blueprint_compat = true,
+  eternal_compat = true,
+  set_badges = function(self, card, badges)
+    poke_set_type_badge(self, card, badges)
+    local size = 0.9
+    local font = G.LANG.font
+    local max_text_width = 2 - 2*0.05 - 4*0.03*size - 2*0.03
+    local calced_text_width = 0
+    local scale_fac = calced_text_width > max_text_width and max_text_width/calced_text_width or 1
+    local modcredits = string.sub(localize('maelmc'), 1, 20)
+    for _, c in utf8.chars(modcredits) do
+      local tx = font.FONT:getWidth(c)*(0.33*size)*G.TILESCALE*font.FONTSCALE + 2.7*1*G.TILESCALE*font.FONTSCALE
+      calced_text_width = calced_text_width + tx/(G.TILESIZE*G.TILESCALE)
+    end
+    badges[#badges+1] = {n=G.UIT.R, config={align = "cm"}, nodes={
+                {n=G.UIT.R, config={align = "cm", colour = HEX('EA6F22'), r = 0.1, minw = 2, minh = 0.36, emboss = 0.05, padding = 0.03*size}, nodes={
+                  {n=G.UIT.B, config={h=0.1,w=0.03}},
+                  {n=G.UIT.O, config={object = DynaText({string = modcredits, colours = {HEX('FFFFFF')}, float = true, shadow = true, offset_y = -0.05, silent = true, spacing = 1*scale_fac, scale = 0.27*size*scale_fac})}},
+                  {n=G.UIT.B, config={h=0.1,w=0.03}},
+                }}
+              }}
+ 	end,
+  calculate = function(self, card, context)
+
+    if context.cardarea == G.jokers and context.scoring_hand then
+      if context.joker_main then
+        local mult = 0
+        for _, v in pairs(G.GAME.hands) do
+          mult = mult + (v.level - 1) * card.ability.extra.mult_mod
+        end
+        if mult > 0 then
+          return {
+            colour = G.C.MULT,
+            mult = mult,
+            card = card
+          }
+        end
+      end
+    end
+
+    return level_evo(self, card, context, "j_nacho_kirlia")
+  end,
+  prefix_config = {
+    atlas = false,
+  },
+}
+
+-- Kirlia 281
+local kirlia={
+  name = "kirlia",
+  poke_custom_prefix = "nacho",
+  pos = {x = 9, y = 2},
+  config = {extra = {mult_mod = 2, rounds = 5}},
+  loc_vars = function(self, info_queue, card)
+    type_tooltip(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Foxthor, One Punch Idiot"}}
+    local mult = 0
+    for _, v in pairs(G.GAME.hands) do
+      mult = mult + (v.level - 1) * card.ability.extra.mult_mod
+    end
+    return {vars = {card.ability.extra.mult_mod, mult, card.ability.extra.rounds}}
+  end,
+  rarity = "poke_safari",
+  cost = 9,
+  item_req = "dawnstone",
+  stage = "One",
+  ptype = "Psychic",
+  atlas = "poke_Pokedex3",
+  perishable_compat = true,
+  blueprint_compat = true,
+  eternal_compat = true,
+  set_badges = function(self, card, badges)
+    poke_set_type_badge(self, card, badges)
+    local size = 0.9
+    local font = G.LANG.font
+    local max_text_width = 2 - 2*0.05 - 4*0.03*size - 2*0.03
+    local calced_text_width = 0
+    local scale_fac = calced_text_width > max_text_width and max_text_width/calced_text_width or 1
+    local modcredits = string.sub(localize('maelmc'), 1, 20)
+    for _, c in utf8.chars(modcredits) do
+      local tx = font.FONT:getWidth(c)*(0.33*size)*G.TILESCALE*font.FONTSCALE + 2.7*1*G.TILESCALE*font.FONTSCALE
+      calced_text_width = calced_text_width + tx/(G.TILESIZE*G.TILESCALE)
+    end
+    badges[#badges+1] = {n=G.UIT.R, config={align = "cm"}, nodes={
+                {n=G.UIT.R, config={align = "cm", colour = HEX('EA6F22'), r = 0.1, minw = 2, minh = 0.36, emboss = 0.05, padding = 0.03*size}, nodes={
+                  {n=G.UIT.B, config={h=0.1,w=0.03}},
+                  {n=G.UIT.O, config={object = DynaText({string = modcredits, colours = {HEX('FFFFFF')}, float = true, shadow = true, offset_y = -0.05, silent = true, spacing = 1*scale_fac, scale = 0.27*size*scale_fac})}},
+                  {n=G.UIT.B, config={h=0.1,w=0.03}},
+                }}
+              }}
+ 	end,
+  calculate = function(self, card, context)
+    if context.cardarea == G.jokers and context.scoring_hand then
+      if context.joker_main then
+        local mult = 0
+        for _, v in pairs(G.GAME.hands) do
+          mult = mult + (v.level - 1) * card.ability.extra.mult_mod
+        end
+        if mult > 0 then
+          return {
+            colour = G.C.MULT,
+            mult = mult,
+            card = card
+          }
+        end
+      end
+    end
+    local evolve = item_evo(self, card, context, "j_nacho_gallade")
+    if evolve then
+      return evolve
+    else 
+      return level_evo(self, card, context, "j_nacho_gardevoir")
+    end
+  end,
+  prefix_config = {
+    atlas = false,
+  },
+}
+
+-- Gardevoir 282
+local gardevoir={
+  name = "gardevoir",
+  poke_custom_prefix = "nacho",
+  pos = {x = 0, y = 3},
+  config = {extra = {Xmult_mod = 0.1}},
+  loc_vars = function(self, info_queue, card)
+    type_tooltip(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Foxthor, One Punch Idiot"}}
+    local xmult = 1
+    for _, v in pairs(G.GAME.hands) do
+      xmult = xmult + (v.level - 1) * card.ability.extra.Xmult_mod
+    end
+    return {vars = {card.ability.extra.Xmult_mod, xmult}}
+  end,
+  rarity = "poke_safari",
+  cost = 10,
+  stage = "Two",
+  ptype = "Psychic",
+  atlas = "poke_Pokedex3",
+  perishable_compat = true,
+  blueprint_compat = true,
+  eternal_compat = true,
+  set_badges = function(self, card, badges)
+    poke_set_type_badge(self, card, badges)
+    local size = 0.9
+    local font = G.LANG.font
+    local max_text_width = 2 - 2*0.05 - 4*0.03*size - 2*0.03
+    local calced_text_width = 0
+    local scale_fac = calced_text_width > max_text_width and max_text_width/calced_text_width or 1
+    local modcredits = string.sub(localize('maelmc'), 1, 20)
+    for _, c in utf8.chars(modcredits) do
+      local tx = font.FONT:getWidth(c)*(0.33*size)*G.TILESCALE*font.FONTSCALE + 2.7*1*G.TILESCALE*font.FONTSCALE
+      calced_text_width = calced_text_width + tx/(G.TILESIZE*G.TILESCALE)
+    end
+    badges[#badges+1] = {n=G.UIT.R, config={align = "cm"}, nodes={
+                {n=G.UIT.R, config={align = "cm", colour = HEX('EA6F22'), r = 0.1, minw = 2, minh = 0.36, emboss = 0.05, padding = 0.03*size}, nodes={
+                  {n=G.UIT.B, config={h=0.1,w=0.03}},
+                  {n=G.UIT.O, config={object = DynaText({string = modcredits, colours = {HEX('FFFFFF')}, float = true, shadow = true, offset_y = -0.05, silent = true, spacing = 1*scale_fac, scale = 0.27*size*scale_fac})}},
+                  {n=G.UIT.B, config={h=0.1,w=0.03}},
+                }}
+              }}
+ 	end,
+  calculate = function(self, card, context)
+    if context.cardarea == G.jokers and context.scoring_hand then
+      if context.joker_main then
+        local xmult = 1
+        for _, v in pairs(G.GAME.hands) do
+          xmult = xmult + (v.level - 1) * card.ability.extra.Xmult_mod
+        end
+        if xmult > 1 then
+          return {
+            colour = G.C.MULT,
+            xmult = xmult,
+            card = card
+          }
+        end
+      end
+    end
+  end,
+  megas = {"mega_gardevoir"},
+  prefix_config = {
+    atlas = false,
+  },
+}
+
+-- Mega Gardevoir 282-1
+local mega_gardevoir={
+  name = "mega_gardevoir",
+  poke_custom_prefix = "nacho",
+  pos = {x = 3, y = 3},
+  soul_pos = { x = 4, y = 3 },
+  config = {extra = {blackhole_amount = 2}},
+  loc_vars = function(self, info_queue, card)
+    type_tooltip(self, info_queue, card)
+    info_queue[#info_queue+1] = {key = 'tag_orbital', set = 'Tag', specific_vars = {"Random Hand", 3}}
+    return {vars = {card.ability.extra.blackhole_amount}}
+  end,
+  rarity = "poke_mega",
+  cost = 12,
+  stage = "Mega",
+  ptype = "Psychic",
+  atlas = "poke_Megas",
+  perishable_compat = true,
+  blueprint_compat = true,
+  eternal_compat = true,
+  set_badges = function(self, card, badges)
+    poke_set_type_badge(self, card, badges)
+    local size = 0.9
+    local font = G.LANG.font
+    local max_text_width = 2 - 2*0.05 - 4*0.03*size - 2*0.03
+    local calced_text_width = 0
+    local scale_fac = calced_text_width > max_text_width and max_text_width/calced_text_width or 1
+    local modcredits = string.sub(localize('maelmc'), 1, 20)
+    for _, c in utf8.chars(modcredits) do
+      local tx = font.FONT:getWidth(c)*(0.33*size)*G.TILESCALE*font.FONTSCALE + 2.7*1*G.TILESCALE*font.FONTSCALE
+      calced_text_width = calced_text_width + tx/(G.TILESIZE*G.TILESCALE)
+    end
+    badges[#badges+1] = {n=G.UIT.R, config={align = "cm"}, nodes={
+                {n=G.UIT.R, config={align = "cm", colour = HEX('EA6F22'), r = 0.1, minw = 2, minh = 0.36, emboss = 0.05, padding = 0.03*size}, nodes={
+                  {n=G.UIT.B, config={h=0.1,w=0.03}},
+                  {n=G.UIT.O, config={object = DynaText({string = modcredits, colours = {HEX('FFFFFF')}, float = true, shadow = true, offset_y = -0.05, silent = true, spacing = 1*scale_fac, scale = 0.27*size*scale_fac})}},
+                  {n=G.UIT.B, config={h=0.1,w=0.03}},
+                }}
+              }}
+ 	end,
+  calculate = function(self, card, context)
+    if context.using_consumeable and context.consumeable and context.consumeable.ability then
+      if context.consumeable.ability.set == 'Planet' then
+        local tag = Tag('tag_orbital')
+        local _poker_hands = {}
+        for k, v in pairs(G.GAME.hands) do
+          if v.visible then
+            _poker_hands[#_poker_hands + 1] = k
+          end
+        end
+        tag.ability.orbital_hand = pseudorandom_element(_poker_hands, pseudoseed('mega_gardevoir'))
+        G.E_MANAGER:add_event(Event({
+          func = (function()
+              add_tag(tag)
+              play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
+              play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
+              return true
+          end)
+        }))
+      end
+    end
+
+    if context.end_of_round and not context.blueprint then
+      for k, v in ipairs(G.consumeables.cards) do
+        if v.ability.set == 'Planet' and not v.edition then
+          local edition = {polychrome = true}
+          v:set_edition(edition, true)
+        end
+      end
+    end
+
+  end,
+  add_to_deck = function(self, card, from_debuff)
+    if not from_debuff then
+      local _card = create_card("Spectral", G.consumeables, nil, nil, nil, nil, "c_black_hole")
+      local edition = {negative = true}
+      _card:set_edition(edition, true)
+      _card:add_to_deck()
+      G.consumeables:emplace(_card)
+      card_eval_status_text(_card, 'extra', nil, nil, nil, {message = localize('k_plus_spectral'), colour = G.C.SECONDARY_SET.Spectral})
+    end
+  end,
+  prefix_config = {
+    atlas = false,
+  },
+}
+
 -- Turtwig 387
 local turtwig={
   name = "turtwig",
@@ -16,13 +309,14 @@ local turtwig={
   config = {extra = {h_size = 1, odds = 15, interest = 5, counter = 0, rounds = 4}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
     return {vars = {card.ability.extra.h_size, card.ability.extra.odds, card.ability.extra.rounds}}
   end,
   rarity = 2,
   cost = 6,
   stage = "Basic",
   ptype = "Grass",
-  atlas = "nacho_pokedex_4",
+  atlas = "poke_Pokedex4",
   perishable_compat = true,
   blueprint_compat = true,
   eternal_compat = true,
@@ -51,7 +345,10 @@ local turtwig={
     if card.ability.extra.counter > 0 then
       G.GAME.interest_cap = G.GAME.interest_cap - card.ability.extra.counter * card.ability.extra.interest
     end
-  end
+  end,
+  prefix_config = {
+    atlas = false,
+  },
 }
 
 -- Grotle 388
@@ -62,13 +359,14 @@ local grotle={
   config = {extra = {h_size = 1, odds = 10, interest = 10, counter = 0, rounds = 5}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
     return {vars = {card.ability.extra.h_size, card.ability.extra.odds, card.ability.extra.rounds}}
   end,
   rarity = "poke_safari",
   cost = 8,
   stage = "One",
   ptype = "Grass",
-  atlas = "nacho_pokedex_4",
+  atlas = "poke_Pokedex4",
   perishable_compat = true,
   blueprint_compat = true,
   eternal_compat = true,
@@ -97,7 +395,10 @@ local grotle={
     if card.ability.extra.counter > 0 then
       G.GAME.interest_cap = G.GAME.interest_cap - card.ability.extra.counter * card.ability.extra.interest
     end
-  end
+  end,
+  prefix_config = {
+    atlas = false,
+  },
 }
 
 -- Torterra 389
@@ -108,13 +409,14 @@ local torterra={
   config = {extra = {h_size = 1, mult = 2, odds = 5, interest = 15, counter = 0}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
     return {vars = {card.ability.extra.h_size, card.ability.extra.mult, card.ability.extra.odds}}
   end,
   rarity = "poke_safari",
   cost = 10,
   stage = "Two",
   ptype = "Grass",
-  atlas = "nacho_pokedex_4",
+  atlas = "poke_Pokedex4",
   perishable_compat = true,
   blueprint_compat = true,
   eternal_compat = true,
@@ -145,7 +447,10 @@ local torterra={
     if card.ability.extra.counter > 0 then
       G.GAME.interest_cap = G.GAME.interest_cap - card.ability.extra.counter * card.ability.extra.interest
     end
-  end
+  end,
+  prefix_config = {
+    atlas = false,
+  },
 }
 
 -- Chimchar 390
@@ -156,13 +461,14 @@ local chimchar={
   config = {extra = {d_size = 1, mult = 0, mult_mod = 0, max_scored = 0}, evo_rqmt = 4},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
     return {vars = {card.ability.extra.d_size, card.ability.extra.mult, math.max(0, self.config.evo_rqmt - card.ability.extra.max_scored)}}
   end,
   rarity = 2,
   cost = 6,
   stage = "Basic",
   ptype = "Fire",
-  atlas = "nacho_pokedex_4",
+  atlas = "poke_Pokedex4",
   perishable_compat = true,
   blueprint_compat = true,
   eternal_compat = true,
@@ -223,6 +529,9 @@ local chimchar={
     G.GAME.round_resets.discards = G.GAME.round_resets.discards - card.ability.extra.d_size
     ease_discard(-card.ability.extra.d_size)
   end,
+  prefix_config = {
+    atlas = false,
+  },
 }
 
 -- Monferno 391
@@ -233,13 +542,14 @@ local monferno={
   config = {extra = {d_size = 1, mult = 0, mult_mod = 0, max_scored = 0}, evo_rqmt = 4},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
     return {vars = {card.ability.extra.d_size, card.ability.extra.mult, math.max(0, self.config.evo_rqmt - card.ability.extra.max_scored)}}
   end,
   rarity = "poke_safari",
   cost = 8,
   stage = "One",
   ptype = "Fire",
-  atlas = "nacho_pokedex_4",
+  atlas = "poke_Pokedex4",
   perishable_compat = true,
   blueprint_compat = true,
   eternal_compat = true,
@@ -299,6 +609,9 @@ local monferno={
     G.GAME.round_resets.discards = G.GAME.round_resets.discards - card.ability.extra.d_size
     ease_discard(-card.ability.extra.d_size)
   end,
+  prefix_config = {
+    atlas = false,
+  },
 }
 
 -- Infernape 392
@@ -309,13 +622,14 @@ local infernape = {
   config = {extra = {d_size = 1, mult = 30, Ymult = 1.0, Xmult_mod = 0.3}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
     return {vars = {card.ability.extra.d_size, card.ability.extra.mult, card.ability.extra.Xmult_mod, card.ability.extra.Ymult}}
   end,
   rarity = "poke_safari",
   cost = 10,
   stage = "Two",
   ptype = "Fire",
-  atlas = "nacho_pokedex_4",
+  atlas = "poke_Pokedex4",
   perishable_compat = true,
   blueprint_compat = true,
   eternal_compat = true,
@@ -359,6 +673,9 @@ local infernape = {
     G.GAME.round_resets.discards = G.GAME.round_resets.discards - card.ability.extra.d_size
     ease_discard(-card.ability.extra.d_size)
   end,
+  prefix_config = {
+    atlas = false,
+  },
 }
 
 -- Piplup 393
@@ -369,13 +686,14 @@ local piplup={
   config = {extra = {hands = 1, chips = 80, chip_loss = 20, rounds = 4}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
     return {vars = {card.ability.extra.hands, card.ability.extra.chips, card.ability.extra.chip_loss, card.ability.extra.rounds}}
   end,
   rarity = 2,
   cost = 6,
   stage = "Basic",
   ptype = "Water",
-  atlas = "nacho_pokedex_4",
+  atlas = "poke_Pokedex4",
   perishable_compat = true,
   blueprint_compat = true,
   eternal_compat = true,
@@ -383,6 +701,7 @@ local piplup={
      if context.cardarea == G.jokers and context.scoring_hand then
       if context.joker_main then
         local chip_total = card.ability.extra.chips - card.ability.extra.chip_loss * (#context.scoring_hand)
+        if chip_total < 0 then chip_total = 0 end
         return {
           message = localize{type = 'variable', key = 'a_chips', vars = {chip_total}}, 
           colour = G.C.CHIPS,
@@ -404,7 +723,10 @@ local piplup={
     if to_decrease > 0 then
       ease_hands_played(-to_decrease)
     end
-  end
+  end,
+  prefix_config = {
+    atlas = false,
+  },
 }
 
 -- Prinplup 394
@@ -415,6 +737,7 @@ local prinplup={
   config = {extra = {hands = 1, chips = 30, chip_mod = 30, rounds = 4}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
     info_queue[#info_queue+1] = G.P_CENTERS.m_bonus
     return {vars = {card.ability.extra.hands, card.ability.extra.chips, card.ability.extra.chip_mod, card.ability.extra.rounds}}
   end,
@@ -422,7 +745,7 @@ local prinplup={
   cost = 8,
   stage = "One",
   ptype = "Water",
-  atlas = "nacho_pokedex_4",
+  atlas = "poke_Pokedex4",
   perishable_compat = true,
   blueprint_compat = true,
   eternal_compat = true,
@@ -475,7 +798,10 @@ local prinplup={
     if to_decrease > 0 then
       ease_hands_played(-to_decrease)
     end
-  end
+  end,
+  prefix_config = {
+    atlas = false,
+  },
 }
 
 -- Empoleon 395
@@ -486,6 +812,7 @@ local empoleon={
   config = {extra = {hands = 1, chips = 50, chip_mod = 30}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
     info_queue[#info_queue+1] = G.P_CENTERS.m_bonus
     return {vars = {card.ability.extra.hands, card.ability.extra.chips, card.ability.extra.chip_mod, card.ability.extra.rounds}}
   end,
@@ -493,7 +820,7 @@ local empoleon={
   cost = 10,
   stage = "Two",
   ptype = "Water",
-  atlas = "nacho_pokedex_4",
+  atlas = "poke_Pokedex4",
   perishable_compat = true,
   blueprint_compat = true,
   eternal_compat = true,
@@ -550,7 +877,129 @@ local empoleon={
     if to_decrease > 0 then
       ease_hands_played(-to_decrease)
     end
-  end
+  end,
+  prefix_config = {
+    atlas = false,
+  },
+}
+
+-- Gallade 475
+local gallade={
+  name = "gallade",
+  poke_custom_prefix = "nacho",
+  pos = {x = 4, y = 6},
+  config = {extra = {planets = 0, mult_mod = 1, Xmult_mod = 0.1}},
+  loc_vars = function(self, info_queue, card)
+    type_tooltip(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
+    return {vars = {card.ability.extra.planets, card.ability.extra.mult_mod, card.ability.extra.Xmult_mod}}
+  end,
+  rarity = "poke_safari",
+  cost = 10,
+  stage = "Two",
+  ptype = "Fighting",
+  atlas = "poke_Pokedex4",
+  perishable_compat = true,
+  blueprint_compat = true,
+  eternal_compat = true,
+  calculate = function(self, card, context)
+    -- Consumable used - Planet
+    if context.using_consumeable and context.consumeable and context.consumeable.ability then
+      if context.consumeable.ability.set == 'Planet' then
+        card.ability.extra.planets = card.ability.extra.planets + 1
+        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('poke_psycho_cut_ex'), colour = G.C.SECONDARY_SET.Planet, sound = 'slice1', pitch = 0.96+math.random()*0.08})
+        -- Third Planet = Levels function
+        if card.ability.extra.planets >= 3 then
+          if not context.blueprint then
+              card.ability.extra.planets = 0
+          end
+          local _hand, _tally = nil, 0
+          for k, v in ipairs(G.handlist) do
+              if G.GAME.hands[v].visible and G.GAME.hands[v].played >= _tally then
+                  _hand = v
+                  _tally = G.GAME.hands[v].played
+              end
+          end
+          card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_level_up_ex')})
+          update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(_hand, 'poker_hands'),chips = G.GAME.hands[_hand].chips, mult = G.GAME.hands[_hand].mult, level=G.GAME.hands[_hand].level})
+          level_up_hand(context.blueprint_card or card, _hand, nil, 3)
+          update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
+        end
+      end
+    end
+
+    -- Main Scoring
+    if context.cardarea == G.jokers and context.scoring_hand then
+      if context.joker_main then
+        local mult = 2 * G.GAME.hands[context.scoring_name].played
+        local Xmult = 1 + card.ability.extra.Xmult_mod * G.GAME.hands[context.scoring_name].played
+        return {
+          mult = mult,
+          xmult = Xmult,
+          card = card
+        }
+      end
+    end
+  end,
+  megas = {"mega_gallade"},
+  prefix_config = {
+    atlas = false,
+  },
+}
+
+-- Mega-Gallade 475-1
+local mega_gallade={
+  name = "mega_gallade",
+  poke_custom_prefix = "nacho",
+  pos = {x = 2, y = 6},
+  soul_pos = { x = 3, y = 6 },
+  config = {extra = {mult_mod = 2, Xmult_mod = 0.2}},
+  loc_vars = function(self, info_queue, card)
+    type_tooltip(self, info_queue, card)
+    return {vars = {card.ability.extra.mult_mod, card.ability.extra.Xmult_mod}}
+  end,
+  rarity = "poke_mega",
+  cost = 12,
+  stage = "Mega",
+  ptype = "Fighting",
+  atlas = "poke_Megas",
+  perishable_compat = true,
+  blueprint_compat = true,
+  eternal_compat = true,
+  calculate = function(self, card, context)
+
+    -- Un-debuff cards logic *I hate everything, will fix later
+    -- if context.cardarea == G.play then
+    --   local _hand, _tally = nil, 0
+    --   for k, v in ipairs(G.handlist) do
+    --       if G.GAME.hands[v].visible and G.GAME.hands[v].played >= _tally then
+    --           _hand = v
+    --           _tally = G.GAME.hands[v].played
+    --       end
+    --   end
+    --   if context.scoring_name == localize(_hand, 'poker_hands') then
+    --     for i in #context.scoring_hand do
+    --       if context.scoring_hand[i].debuff then context.scoring_hand[i]:can_calculate(context.ignore_debuff) end
+    --     end
+    --   end
+    -- end
+
+    -- Main Scoring
+    if context.cardarea == G.jokers and context.scoring_hand then
+      if context.joker_main then
+        local mult = card.ability.extra.mult_mod * G.GAME.hands[context.scoring_name].played
+        local Xmult = 1 + card.ability.extra.Xmult_mod * G.GAME.hands[context.scoring_name].played
+        return {
+          mult = mult,
+          xmult = Xmult,
+          card = card
+        }
+      end
+    end
+  end,
+  prefix_config = {
+    atlas = false,
+  },
 }
 
 -- Skwovet 819
@@ -561,22 +1010,25 @@ local skwovet={
   config = {extra = {mult = 0, mult_mod = 1, rounds = 5, in_blind = false}, evo_rqmt = 12},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
     return {vars = {card.ability.extra.mult, card.ability.extra.mult_mod}}
   end,
   rarity = 1, 
   cost = 5, 
   stage = "Basic", 
   ptype = "Colorless",
-  atlas = "nacho_pokedex_8",
+  atlas = "poke_Pokedex8",
   perishable_compat = true,
   blueprint_compat = true,
   eternal_compat = true,
   calculate = function(self, card, context)
+    -- Check if blind starts
     if context.setting_blind and not context.blueprint then
       card.ability.extra.in_blind = true
       return{}
     end
 
+    -- Consumable Used
     if context.using_consumeable and card.ability.extra.in_blind and not context.blueprint then
       card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod
       return {
@@ -585,6 +1037,7 @@ local skwovet={
         }
     end
 
+    -- Main Scoring
     if context.cardarea == G.jokers and context.scoring_hand then
       if context.joker_main then
         return {
@@ -596,7 +1049,10 @@ local skwovet={
     end
 
     return scaling_evo(self, card, context, "j_nacho_greedent", card.ability.extra.mult, self.config.evo_rqmt)
-  end
+  end,
+  prefix_config = {
+    atlas = false,
+  },
 }
 
 -- Greedent 820
@@ -607,26 +1063,30 @@ local greedent={
   config = {extra = {mult = 0, mult_mod = 2, odds = 4, in_blind = false}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
     return {vars = {card.ability.extra.mult, card.ability.extra.mult_mod, card.ability.extra.odds}}
   end,
   rarity = "poke_safari", 
   cost = 10, 
   stage = "One", 
   ptype = "Colorless",
-  atlas = "nacho_pokedex_8",
+  atlas = "poke_Pokedex8",
   perishable_compat = true,
   blueprint_compat = true,
   eternal_compat = true,
   calculate = function(self, card, context)
+    -- Check if blind starts
     if context.setting_blind and not context.blueprint then
       card.ability.extra.in_blind = true
       return{}
     end
 
+    -- Consumable used
     if context.using_consumeable and card.ability.extra.in_blind then
       if not context.blueprint then
         card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod
       end
+      -- 1 in 4 chance for Leftovers
       if (pseudorandom('greedent') < G.GAME.probabilities.normal/card.ability.extra.odds) and not from_debuff and context.consumeable.ability.name ~= 'leftovers' then
         local _card = create_card('Item', G.consumeables, nil, nil, nil, nil, 'c_poke_leftovers')
         local edition = {negative = true}
@@ -641,6 +1101,7 @@ local greedent={
         }
     end
 
+    -- Main Scoring
     if context.cardarea == G.jokers and context.scoring_hand then
       if context.joker_main then
         return {
@@ -650,7 +1111,10 @@ local greedent={
         }
       end
     end
-  end
+  end,
+  prefix_config = {
+    atlas = false,
+  },
 }
 
 -- Meowth 52-2
@@ -661,6 +1125,7 @@ local galarian_meowth={
   config = {extra = {metals = 0, retriggers = 1, counter = 0}, evo_rqmt = 2},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
     info_queue[#info_queue+1] = G.P_CENTERS.m_steel
 		return {vars = {card.ability.extra.retriggers}}
   end,
@@ -668,7 +1133,7 @@ local galarian_meowth={
   cost = 6,
   stage = "Basic",
   ptype = "Metal",
-  atlas = "nacho_regionals",
+  atlas = "poke_Regionals",
   perishable_compat = true,
   blueprint_compat = true,
   eternal_compat = true,
@@ -701,7 +1166,10 @@ local galarian_meowth={
       card.ability.extra.metals = metals
       return {}
     end
-  end
+  end,
+  prefix_config = {
+    atlas = false,
+  },
 }
 
 -- Perrserker 863
@@ -712,12 +1180,13 @@ local perrserker = {
   config = { extra = {Ymult = 1.5} },
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
     return { vars = {card.ability.extra.Ymult} }
   end,
   rarity = "poke_safari",
   cost = 10,
   stage = "One",
-  atlas = "nacho_pokedex_8",
+  atlas = "poke_Pokedex8",
   ptype = "Metal",
   perishable_compat = true,
   blueprint_compat = true,
@@ -752,8 +1221,10 @@ local perrserker = {
         }
       end
 		end
-
-  end
+  end,
+  prefix_config = {
+    atlas = false,
+  },
 }
 
 -- Hisuian Zorua 570-1
@@ -763,11 +1234,16 @@ local hisuian_zorua = {
   pos = { x = 9, y = 4 },
   soul_pos = { x = 9, y = 5 },
   config = {extra = {hidden_key = nil, rounds = 5, active = true}},
+  loc_vars = function(self, info_queue, card)
+    type_tooltip(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
+    return { vars = {} }
+  end,
   rarity = 3,
   cost = 8,
   stage = "Basic",
   ptype = "Colorless",
-  atlas = "nacho_regionals",
+  atlas = "poke_Regionals",
   blueprint_compat = true,
   rental_compat = false,
   calculate = function(self, card, context)
@@ -900,6 +1376,9 @@ local hisuian_zorua = {
       self:set_ability(card)
     end
   end,
+  prefix_config = {
+    atlas = false,
+  },
 }
 
 -- Hisuian Zoroark 571-1
@@ -909,11 +1388,16 @@ local hisuian_zoroark = {
   pos = { x = 10, y = 4 },
   soul_pos = { x = 10, y = 5 },
   config = {extra = {hidden_key = nil}},
+  loc_vars = function(self, info_queue, card)
+    type_tooltip(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
+    return { vars = {} }
+  end,
   rarity = "poke_safari",
   cost = 12,
   stage = "One",
   ptype = "Colorless",
-  atlas = "nacho_regionals",
+  atlas = "poke_Regionals",
   blueprint_compat = true,
   calculate = function(self, card, context)
     local other_joker = G.jokers.cards[1]
@@ -1028,10 +1512,12 @@ local hisuian_zoroark = {
       self:set_ability(card)
     end
   end,
+  prefix_config = {
+    atlas = false,
+  },
 }
 
-list = {turtwig, grotle, torterra, chimchar, monferno, infernape, piplup, prinplup, empoleon, skwovet, greedent, galarian_meowth, perrserker, hisuian_zorua, hisuian_zoroark}
 
-return {name = "nachopokemon1",
-list = list
-}
+
+list = {ralts, kirlia, gardevoir, mega_gardevoir, turtwig, grotle, torterra, chimchar, monferno, infernape, piplup, prinplup, empoleon, gallade, mega_gallade, skwovet, greedent, galarian_meowth, perrserker, hisuian_zorua, hisuian_zoroark}
+return {name = "nachopokemon1", list = list}

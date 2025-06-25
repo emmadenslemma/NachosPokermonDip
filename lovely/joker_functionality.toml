@@ -1,0 +1,54 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+# Gallade Planet Hack-Job
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''
+    amount = amount or 1
+        G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)
+        G.GAME.hands[hand].mult = math.max(G.GAME.hands[hand].s_mult + G.GAME.hands[hand].l_mult*(G.GAME.hands[hand].level - 1), 1)
+        G.GAME.hands[hand].chips = math.max(G.GAME.hands[hand].s_chips + G.GAME.hands[hand].l_chips*(G.GAME.hands[hand].level - 1), 0)
+'''
+position = "before"
+payload = '''
+if next(SMODS.find_card('j_nacho_gallade')) and card.config.center.set == 'Planet' then
+    return true
+else
+'''
+match_indent = true
+
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''
+    G.E_MANAGER:add_event(Event({
+            trigger = 'immediate',
+            func = (function() check_for_unlock{type = 'upgrade_hand', hand = hand, level = G.GAME.hands[hand].level} return true end)
+        }))
+'''
+position = "after"
+payload = '''
+end
+'''
+match_indent = true
+
+# Mega Gallade Hand Debuff Logic
+[[patches]]
+[patches.pattern]
+target = "blind.lua"
+pattern = '''
+if self.disabled then return end
+    local obj = self.config.blind
+    if obj.debuff_hand and type(obj.debuff_hand) == 'function' then
+'''
+position = "before"
+payload = '''
+if next(SMODS.find_card('j_nacho_mega_gallade')) then return end
+'''
+match_indent = true
+

@@ -1,6 +1,42 @@
 return {
     descriptions = {
         Joker = {
+            j_nacho_ralts = {
+                name = "Ralts",
+                text = {
+                    "{C:red}+#1#{} Mult per {C:attention}hand level",
+                    "above 1 {C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)",
+                    "{C:inactive,s:0.8}(Evolves after {C:attention,s:0.8}#3#{C:inactive,s:0.8} rounds)",
+                } 
+            },
+            j_nacho_kirlia = {
+                name = "Kirlia",
+                text = {
+                    "{C:red}+#1#{} Mult per {C:attention}hand level",
+                    "above 1 {C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)",
+                    "{C:inactive,s:0.8}(Evolves with a {C:attention,s:0.8}Dawn Stone{C:inactive,s:0.8})",
+                    "{C:inactive,s:0.8}(Evolves after {C:attention,s:0.8}#3#{C:inactive,s:0.8} rounds)",
+                } 
+            },
+            j_nacho_gardevoir = {
+                name = "Gardevoir",
+                text = {
+                    "{X:red,C:white}X#1#{} Mult per {C:attention}hand level",
+                    "above 1 {C:inactive}(Currently {X:red,C:white}X#2#{C:inactive} Mult)",
+                } 
+            },
+            j_nacho_mega_gardevoir = {
+                name = "Mega Gardevoir",
+                text = {
+                    "{C:attention}Holding{} {C:dark_edition}Negative{} {C:spectral}Black Hole{}",
+                    "{br:2}ERROR - CONTACT STEAK",
+                    "Create an {C:attention}Orbital Tag{}",
+                    "when a {C:planet}Planet{} card is used",
+                    "{br:2}ERROR - CONTACT STEAK",
+                    "Held {C:planet}Planet{} cards without an edition",
+                    "gain {C:spectral}Polychrome{} at end of round",
+                } 
+            },
             j_nacho_turtwig = {
                 name = "Turtwig",
                 text = {
@@ -47,7 +83,7 @@ return {
                     "{C:red}+#1#{} discard",
                     "Adds the rank of",
                     "{C:attention}highest{} ranked card",
-                    "discarded to Mult",
+                    "discarded this round to Mult",
                     "{C:inactive}(Currently {C:mult}+#2#{} {C:inactive}Mult)",        
                     "{C:inactive,s:0.8}(Evolves after scoring {C:red,s:0.8}+11{} {C:inactive,s:0.8}Mult{} {C:attention,s:0.8}#3#{C:inactive,s:0.8} Times){}",
                 }
@@ -68,8 +104,7 @@ return {
                 text = {
                     "{C:red}+#1#{} discard, {C:mult}+#2#{} Mult",
                     "Gains {C:mult}X#3#{} Mult for each",
-                    "discarded {C:attention}face card{} or {C:attention}Ace{}",
-                    "{C:inactive,s:0.8}(Resets at end of round)",
+                    "{C:attention}face{} card or {C:attention}Ace{} discarded this round",
                     "{C:inactive}(Currently {C:mult}X#4#{} {C:inactive}Mult)",
                 }
             },
@@ -107,6 +142,31 @@ return {
                     "{C:attention}Bonus{} Cards are also",
                     "considered {C:attention}Steel{} Cards",
                 } 
+            },
+            j_nacho_gallade = {
+                name = "Gallade",
+                text = {
+                    "Your most played hand gains three levels",
+                    "every 3 {C:planet}Planet{} cards used {C:inactive}[#1#/3]{}",
+                    "{br:2}ERROR - CONTACT STEAK",
+                    "{C:planet}Planet{} cards do not raise",
+                    "the level of {C:attention}poker hands{}",
+                    "{br:2}ERROR - CONTACT STEAK",
+                    "{C:red}+#2#{} Mult and {X:red,C:white}X#3#{} Mult for each time",
+                    "{C:attention}poker hand{} has been played this run",
+                }
+            },
+            j_nacho_mega_gallade = {
+                name = "Mega Gallade",
+                text = {
+                    "{C:attention}Poker hands{} cannot be debuffed",
+                    -- "{br:2}ERROR - CONTACT STEAK",
+                    -- "Scoring cards cannot be debuffed",
+                    -- "if {C:attention}poker hand{} is your most played hand",
+                    "{br:2}ERROR - CONTACT STEAK",
+                    "{C:red}+#1#{} Mult and {X:red,C:white}X#2#{} Mult for each time",
+                    "{C:attention}poker hand{} has been played this run",
+                }
             },
             j_nacho_skwovet = {
                 name = "Skwovet",
@@ -152,7 +212,8 @@ return {
             j_nacho_hisuian_zorua = {
                 name = "{s:0.6}Hisuian{}Zorua",
                 text = {
-                    "{V:1}Copies ability of leftmost {C:attention}Joker{}",
+                    "{V:1}Copies the ability",
+                    "of leftmost {C:attention}Joker{}",
                     "{br:2.5}ERROR - CONTACT STEAK",
                     "After scoring played hand while",
                     "copying, remove copy effect",
@@ -163,7 +224,8 @@ return {
             j_nacho_hisuian_zoroark = {
                 name = "{s:0.6}Hisuian{}Zoroark",
                 text = {
-                    "Copies ability of leftmost {C:attention}Joker{}",
+                    "Copies the ability",
+                    "of leftmost {C:attention}Joker{}",
                 }
             },
         }
@@ -176,8 +238,14 @@ return {
             poke_close_combat_ex = "Close Combat!",
             -- From Empoleon
             poke_brine_ex = "Brine!",
+            -- From Gallade
+            poke_psycho_cut_ex = "Psycho Cut!",
             -- From Greedent
             poke_stuff_cheeks_ex = "Stuff Cheeks!",
+
+
+            -- Maelmc Badge
+            maelmc = "Pokermon-Maelmc",
         },
     },
 }
