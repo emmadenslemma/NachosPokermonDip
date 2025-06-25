@@ -956,6 +956,7 @@ local mega_gallade={
   config = {extra = {mult_mod = 2, Xmult_mod = 0.2}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
     return {vars = {card.ability.extra.mult_mod, card.ability.extra.Xmult_mod}}
   end,
   rarity = "poke_mega",
