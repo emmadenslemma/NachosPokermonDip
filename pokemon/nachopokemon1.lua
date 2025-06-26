@@ -307,11 +307,11 @@ local turtwig={
   name = "turtwig",
   poke_custom_prefix = "nacho",
   pos = {x = 0, y = 0},
-  config = {extra = {h_size = 1, odds = 15, interest = 5, counter = 0, rounds = 4}},
+  config = {extra = {h_size = 1, interest = 5, counter = 0, raised = false, rounds = 4}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
     info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
-    return {vars = {card.ability.extra.h_size, card.ability.extra.odds, card.ability.extra.rounds}}
+    return {vars = {card.ability.extra.h_size, card.ability.extra.rounds}}
   end,
   rarity = 2,
   cost = 6,
@@ -322,28 +322,31 @@ local turtwig={
   blueprint_compat = true,
   eternal_compat = true,
   calculate = function(self, card, context)
-    if context.individual and not context.end_of_round and context.cardarea == G.hand then
-      if (pseudorandom('turtwig') < (G.GAME.probabilities.normal + #context.scoring_hand - 1)/card.ability.extra.odds) and not context.other_card.debuff then
-        G.GAME.interest_cap = G.GAME.interest_cap + card.ability.extra.interest
-        card.ability.extra.counter = card.ability.extra.counter + 1
-          return {
-            message = localize("poke_leech_seed_ex"),
-            card = card,
-          }
+    if context.end_of_round and context.cardarea == G.jokers then
+      local evolved = level_evo(self, card, context, "j_nacho_grotle")
+      if evolved then
+        return evolved
       end
+      card.ability.extra.counter = card.ability.extra.counter + 1
+      G.GAME.interest_cap = G.GAME.interest_cap + (card.ability.extra.counter * card.ability.extra.interest)
+      card.ability.extra.raised = true
+      return {
+          message = localize("poke_leech_seed_ex"),
+          card = card,
+        }
     end
-    if context.ending_shop and card.ability.extra.counter > 0 then
-      G.GAME.interest_cap = G.GAME.interest_cap - card.ability.extra.counter * card.ability.extra.interest
-      return true
+    if context.ending_shop and card.ability.extra.raised then
+      G.GAME.interest_cap = G.GAME.interest_cap - (card.ability.extra.counter * card.ability.extra.interest)
+      card.ability.extra.raised = false
+      return
     end
-    return level_evo(self, card, context, "j_nacho_grotle")
   end,
   add_to_deck = function(self, card, from_debuff)
     G.hand:change_size(card.ability.extra.h_size)
   end,
   remove_from_deck = function(self, card, from_debuff)
     G.hand:change_size(-card.ability.extra.h_size)
-    if card.ability.extra.counter > 0 then
+    if card.ability.extra.raised then
       G.GAME.interest_cap = G.GAME.interest_cap - card.ability.extra.counter * card.ability.extra.interest
     end
   end,
@@ -357,11 +360,11 @@ local grotle={
   name = "grotle",
   poke_custom_prefix = "nacho",
   pos = {x = 1, y = 0},
-  config = {extra = {h_size = 1, odds = 10, interest = 10, counter = 0, rounds = 5}},
+  config = {extra = {h_size = 1, interest = 10, counter = 0, raised = false, rounds = 5}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
     info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
-    return {vars = {card.ability.extra.h_size, card.ability.extra.odds, card.ability.extra.rounds}}
+    return {vars = {card.ability.extra.h_size, card.ability.extra.rounds}}
   end,
   rarity = "poke_safari",
   cost = 8,
@@ -372,28 +375,31 @@ local grotle={
   blueprint_compat = true,
   eternal_compat = true,
   calculate = function(self, card, context)
-    if context.individual and not context.end_of_round and context.cardarea == G.hand then
-      if (pseudorandom('grotle') < (G.GAME.probabilities.normal + #context.scoring_hand - 1)/card.ability.extra.odds) and not context.other_card.debuff then
-        G.GAME.interest_cap = G.GAME.interest_cap + card.ability.extra.interest
-        card.ability.extra.counter = card.ability.extra.counter + 1
-          return {
-            message = localize("poke_leech_seed_ex"),
-            card = card,
-          }
+    if context.end_of_round and context.cardarea == G.jokers then
+      local evolved = level_evo(self, card, context, "j_nacho_torterra")
+      if evolved then
+        return evolved
       end
+      card.ability.extra.counter = card.ability.extra.counter + 1
+      G.GAME.interest_cap = G.GAME.interest_cap + (card.ability.extra.counter * card.ability.extra.interest)
+      card.ability.extra.raised = true
+      return {
+          message = localize("poke_leech_seed_ex"),
+          card = card,
+        }
     end
-    if context.ending_shop and card.ability.extra.counter > 0 then
-      G.GAME.interest_cap = G.GAME.interest_cap - card.ability.extra.counter * card.ability.extra.interest
-      return true
+    if context.ending_shop and card.ability.extra.raised then
+      G.GAME.interest_cap = G.GAME.interest_cap - (card.ability.extra.counter * card.ability.extra.interest)
+      card.ability.extra.raised = false
+      return
     end
-    return level_evo(self, card, context, "j_nacho_torterra")
   end,
   add_to_deck = function(self, card, from_debuff)
     G.hand:change_size(card.ability.extra.h_size)
   end,
   remove_from_deck = function(self, card, from_debuff)
     G.hand:change_size(-card.ability.extra.h_size)
-    if card.ability.extra.counter > 0 then
+    if card.ability.extra.raised then
       G.GAME.interest_cap = G.GAME.interest_cap - card.ability.extra.counter * card.ability.extra.interest
     end
   end,
@@ -407,11 +413,11 @@ local torterra={
   name = "torterra",
   poke_custom_prefix = "nacho",
   pos = {x = 2, y = 0},
-  config = {extra = {h_size = 1, mult = 2, odds = 5, interest = 15, counter = 0}},
+  config = {extra = {h_size = 1, mult = 2, interest = 15, counter = 0, raised = false}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
     info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
-    return {vars = {card.ability.extra.h_size, card.ability.extra.mult, card.ability.extra.odds}}
+    return {vars = {card.ability.extra.h_size, card.ability.extra.mult}}
   end,
   rarity = "poke_safari",
   cost = 10,
@@ -422,22 +428,22 @@ local torterra={
   blueprint_compat = true,
   eternal_compat = true,
   calculate = function(self, card, context)
-    if context.individual and not context.end_of_round and context.cardarea == G.hand then
-      if (pseudorandom('torterra') < (G.GAME.probabilities.normal + #context.scoring_hand - 1)/card.ability.extra.odds) and not context.other_card.debuff then
-        G.GAME.interest_cap = G.GAME.interest_cap + card.ability.extra.interest
-        card.ability.extra.counter = card.ability.extra.counter + 1
-          return {
-            message = localize("poke_leech_seed_ex"),
-            card = card,
-          }
-      end
-    end
     if context.joker_main then
-      return { mult = card.ability.extra.mult * math.floor(((G.GAME.dollars or 0) + (G.GAME.dollar_buffer or 0)) / 10) }
+      return { mult = card.ability.extra.mult * math.floor(((G.GAME.dollars or 0) + (G.GAME.dollar_buffer or 0)) / 5) }
     end
-    if context.ending_shop and card.ability.extra.counter > 0 then
-      G.GAME.interest_cap = G.GAME.interest_cap - card.ability.extra.counter * card.ability.extra.interest
-      return true
+    if context.end_of_round and context.cardarea == G.jokers then
+      card.ability.extra.counter = card.ability.extra.counter + 1
+      G.GAME.interest_cap = G.GAME.interest_cap + (card.ability.extra.counter * card.ability.extra.interest)
+      card.ability.extra.raised = true
+      return {
+          message = localize("poke_leech_seed_ex"),
+          card = card,
+        }
+    end
+    if context.ending_shop and card.ability.extra.raised then
+      G.GAME.interest_cap = G.GAME.interest_cap - (card.ability.extra.counter * card.ability.extra.interest)
+      card.ability.extra.raised = false
+      return
     end
   end,
   add_to_deck = function(self, card, from_debuff)
@@ -445,7 +451,7 @@ local torterra={
   end,
   remove_from_deck = function(self, card, from_debuff)
     G.hand:change_size(-card.ability.extra.h_size)
-    if card.ability.extra.counter > 0 then
+    if card.ability.extra.raised then
       G.GAME.interest_cap = G.GAME.interest_cap - card.ability.extra.counter * card.ability.extra.interest
     end
   end,
@@ -735,11 +741,10 @@ local prinplup={
   name = "prinplup",
   poke_custom_prefix = "nacho",
   pos = {x = 7, y = 0},
-  config = {extra = {hands = 1, chips = 30, chip_mod = 30, rounds = 4}},
+  config = {extra = {hands = 1, chips = 30, chip_mod = 0, rounds = 4}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
     info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
-    info_queue[#info_queue+1] = G.P_CENTERS.m_bonus
     return {vars = {card.ability.extra.hands, card.ability.extra.chips, card.ability.extra.chip_mod, card.ability.extra.rounds}}
   end,
   rarity = "poke_safari",
@@ -750,30 +755,13 @@ local prinplup={
   perishable_compat = true,
   blueprint_compat = true,
   eternal_compat = true,
-  calculate = function(self, card, context)
-    if context.before and context.cardarea == G.jokers and not context.blueprint then
-      if context.full_hand and #context.full_hand == 1 then
-        for k, v in ipairs(context.scoring_hand) do
-          message = localize("poke_brine_ex"),
-          v:set_ability(G.P_CENTERS.m_bonus, nil, true)
-          G.E_MANAGER:add_event(Event({
-            func = function()
-              card:juice_up()
-              return true
-            end
-          }))
-        end
-        return {message = localize("poke_brine_ex"),}
-      end
-    end
-      
+  calculate = function(self, card, context)    
     if context.individual and not context.end_of_round and context.cardarea == G.hand then
-      if SMODS.get_enhancements(context.other_card)["m_bonus"] == true then
-        return {
-          h_chips = card.ability.extra.chip_mod,
-          card = card,
-        }
-      end
+      card.ability.extra.chip_mod = context.other_card.base.nominal
+      return {
+        h_chips = card.ability.extra.chip_mod,
+        card = card,
+      }
     end
 
     if context.cardarea == G.jokers and context.scoring_hand then
@@ -810,11 +798,10 @@ local empoleon={
   name = "empoleon",
   poke_custom_prefix = "nacho",
   pos = {x = 8, y = 0},
-  config = {extra = {hands = 1, chips = 50, chip_mod = 30}},
+  config = {extra = {hands = 1, chips = 50, chip_mod = 0}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
     info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
-    info_queue[#info_queue+1] = G.P_CENTERS.m_bonus
     return {vars = {card.ability.extra.hands, card.ability.extra.chips, card.ability.extra.chip_mod, card.ability.extra.rounds}}
   end,
   rarity = "poke_safari",
@@ -825,35 +812,13 @@ local empoleon={
   perishable_compat = true,
   blueprint_compat = true,
   eternal_compat = true,
-  calculate = function(self, card, context)
-    if context.check_enhancement and not context.blueprint then
-      if context.other_card.config.center.key == "m_bonus" then
-          return {m_steel = true}
-      end
-    end
-
-    if context.before and context.cardarea == G.jokers and not context.blueprint then
-      if context.full_hand and #context.full_hand == 1 then
-        for k, v in ipairs(context.scoring_hand) do
-          v:set_ability(G.P_CENTERS.m_bonus, nil, true)
-          G.E_MANAGER:add_event(Event({
-            func = function()
-              card:juice_up()
-              return true
-            end
-          }))
-        end
-        return {message = localize("poke_brine_ex"),}
-      end
-    end
-      
+  calculate = function(self, card, context)    
      if context.individual and not context.end_of_round and context.cardarea == G.hand then
-      if SMODS.get_enhancements(context.other_card)["m_bonus"] == true then
-        return {
-          h_chips = card.ability.extra.chip_mod,
-          card = card,
-        }
-      end
+      card.ability.extra.chip_mod = context.other_card.base.nominal * 2
+      return {
+        h_chips = card.ability.extra.chip_mod,
+        card = card,
+      }
     end
 
     if context.cardarea == G.jokers and context.scoring_hand then

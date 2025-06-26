@@ -41,49 +41,36 @@ return {
                 name = "Turtwig",
                 text = {
                     "{C:attention}+#1#{} hand size",
-                    "Cards {C:attention}held in hand{}",
-                    "have a {C:green}1 in #2#{} chance",
-                    "to raise the cap on interest",
-                    "earned this round by {C:money}$1{}",
-                    "{C:inactive,s:0.8}(Odds increase by 1 per", 
-                    "{C:inactive,s:0.8}scoring card beyond the first)",
-                    "{C:inactive,s:0.8}(Evolves after {C:attention,s:0.8}#3#{C:inactive,s:0.8} rounds)",
+                    "Raises the cap on interest", 
+                    "earned each round by {C:money}$1{}",
+                    "{C:inactive,s:0.8}(Evolves after {C:attention,s:0.8}#2#{C:inactive,s:0.8} rounds)",
                 } 
             },
             j_nacho_grotle = {
                 name = "Grotle",
                 text = {
                     "{C:attention}+#1#{} hand size",
-                    "Cards {C:attention}held in hand{}",
-                    "have a {C:green}1 in #2#{} chance",
-                    "to raise the cap on interest",
-                    "earned this round by {C:money}$2{}",
-                    "{C:inactive,s:0.8}(Odds increase by 1 per", 
-                    "{C:inactive,s:0.8}scoring card beyond the first)",
-                    "{C:inactive,s:0.8}(Evolves after {C:attention,s:0.8}#3#{C:inactive,s:0.8} rounds)",
+                    "Raises the cap on interest", 
+                    "earned each round by {C:money}$2{}",
+                    "{C:inactive,s:0.8}(Evolves after {C:attention,s:0.8}#2#{C:inactive,s:0.8} rounds)",
                 } 
             },
             j_nacho_torterra = {
                 name = "Torterra",
                 text = {
                     "{C:attention}+#1#{} hand size",
-                    "{C:mult}+#2#{} Mult for every {C:money}$10{} you have",
+                    "{C:mult}+#2#{} Mult for every {C:money}$5{} you have",
                     "{br:2}ERROR - CONTACT STEAK",
-                    "Cards {C:attention}held in hand{}",
-                    "have a {C:green}1 in #3#{} chance",
-                    "to raise the cap on interest",
-                    "earned this round by {C:money}$3{}",
-                    "{C:inactive,s:0.8}(Odds increase by 1 per", 
-                    "{C:inactive,s:0.8}scoring card beyond the first)",
+                    "Raises the cap on interest", 
+                    "earned each round by {C:money}$3{}",
                 } 
             },
             j_nacho_chimchar = {
                 name = "Chimchar",
                 text = {
                     "{C:red}+#1#{} discard",
-                    "Adds the rank of",
-                    "{C:attention}highest{} ranked card",
-                    "discarded this round to Mult",
+                    "Adds the rank of {C:attention}highest{} ranked",
+                    "card discarded this round to Mult",
                     "{C:inactive}(Currently {C:mult}+#2#{} {C:inactive}Mult)",        
                     "{C:inactive,s:0.8}(Evolves after scoring {C:red,s:0.8}+11{} {C:inactive,s:0.8}Mult{} {C:attention,s:0.8}#3#{C:inactive,s:0.8} Times){}",
                 }
@@ -92,9 +79,9 @@ return {
                 name = "Monferno",
                 text = {
                     "{C:red}+#1#{} discard",
-                    "Gains Mult equal to the rank",
-                    "of {C:attention}highest{} ranked card discarded",
-                    "{C:inactive,s:0.8}(Resets at end of round)",
+                    "Gains Mult equal to the rank of",
+                    "{C:attention}highest{} ranked card discarded,",
+                    "resets at end of round",
                     "{C:inactive}(Currently {C:mult}+#2#{} {C:inactive}Mult)",
                     "{C:inactive,s:0.8}(Evolves after scoring {C:red,s:0.8}+30{} {C:inactive,s:0.8}Mult{} {C:attention,s:0.8}#3#{C:inactive,s:0.8} Times){}",
                 }
@@ -104,7 +91,8 @@ return {
                 text = {
                     "{C:red}+#1#{} discard, {C:mult}+#2#{} Mult",
                     "Gains {C:mult}X#3#{} Mult for each",
-                    "{C:attention}face{} card or {C:attention}Ace{} discarded this round",
+                    "{C:attention}face{} card or {C:attention}Ace{}",
+                    "discarded this round",
                     "{C:inactive}(Currently {C:mult}X#4#{} {C:inactive}Mult)",
                 }
             },
@@ -112,8 +100,8 @@ return {
                 name = "Piplup",
                 text = {
                     "{C:blue}+#1#{} hand, {C:chips}+#2#{} Chips",
-                    "{C:chips}-#3#{} Chips per scoring card",
-                    "in played hand",
+                    "{C:chips}-#3#{} Chips per",
+                    "scoring card in played hand",
                     "{C:inactive,s:0.8}(Evolves after {C:attention,s:0.8}#4#{C:inactive,s:0.8} rounds)",
                 } 
             },
@@ -121,11 +109,8 @@ return {
                 name = "Prinplup",
                 text = {
                     "{C:blue}+#1#{} hand, {C:chips}+#2#{} Chips",
-                    "Each Bonus card held in hand",
-                    "gives {C:chips}+#3#{} Chips",
-                    "{br:2}ERROR - CONTACT STEAK",
-                    "If played hand has exactly 1 card,",
-                    "it becomes a {C:attention}Bonus{} card",
+                    "Each card {C:attention}held in hand{}",
+                    "gives Chips equal to its rank",
                     "{C:inactive,s:0.8}(Evolves after {C:attention,s:0.8}#4#{C:inactive,s:0.8} rounds)",
                 } 
             },
@@ -133,14 +118,8 @@ return {
                 name = "Empoleon",
                 text = {
                     "{C:blue}+#1#{} hand, {C:chips}+#2#{} Chips",
-                    "Each Bonus card held in hand",
-                    "gives {C:chips}+#3#{} Chips",
-                    "{br:2}ERROR - CONTACT STEAK",
-                    "If played hand has exactly 1 card,",
-                    "it becomes a {C:attention}Bonus{} card",
-                    "{br:2}ERROR - CONTACT STEAK",
-                    "{C:attention}Bonus{} Cards are also",
-                    "considered {C:attention}Steel{} Cards",
+                    "Each card {C:attention}held in hand{} gives ",
+                    "Chips equal to {C:attention}double{} its rank",
                 } 
             },
             j_nacho_gallade = {
@@ -242,6 +221,14 @@ return {
             text = {"{X:gray,C:attention}+2{} Ante win requirement",
                     "Last 4 Antes are Showdown Boss Blinds",
                     "{s:0.8}Applies all previous Stakes"
+                },
+            },
+        },
+        Other={
+            nacho_elite_stake_sticker = {
+            name = "Elite Sticker",
+            text = {"Used this {C:attention}Joker{} to win on", 
+                    "{C:attention}Elite Stake{} difficulty",
                 },
             },
         },

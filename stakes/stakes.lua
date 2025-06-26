@@ -13,6 +13,7 @@ local elite = { -- Elite Stake
     sticker_pos = {x = 0, y = 0},
     atlas = 'stakes',
     sticker_atlas = 'stake_stickers',
+    colour = HEX("786104"),
     shiny = true
 }
 

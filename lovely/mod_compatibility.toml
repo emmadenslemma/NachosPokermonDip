@@ -1,7 +1,7 @@
 [manifest]
 version = "1.0.0"
 dump_lua = true
-priority = 0
+priority = 1
 
 # Remoraid + Octillery Retrigger Fix
 [[patches]]
@@ -42,13 +42,9 @@ match_indent = true
 target = '=[SMODS Pokermon-Maelmc "pokemon/pokemon-maelmc_03.lua"]'
 pattern = '''
     ralts, kirlia, gardevoir, mega_gardevoir,
-    kecleon,
-    lunatone, solrock,
 '''
 position = "at"
 payload = '''
-    kecleon,
-    lunatone, solrock,
 '''
 match_indent = true
 
