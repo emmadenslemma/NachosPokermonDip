@@ -48,3 +48,9 @@ This is an add-on mod for Pokermon - an add-on mod for Balatro.
 | ------ | ------ |
 | Hisuian Zorua | Copies the leftmost joker <br/>After scoring played hand while copying,<br/> remove copy effect |
 | Hisuian Zoroark | Copies the leftmost joker |
+
+## Stakes
+
+| Stake | Effect |
+| ------ | ------ |
+| Elite Stake | +2 Ante win requirement, last four Antes are Showdown Boss Blinds |
