@@ -6,6 +6,20 @@ SMODS.Atlas({
     py = 32
 })
 
+SMODS.Atlas({
+    key = "stakes",
+    px = 29,
+    py = 29,
+    path = "stakes.png"
+}):register()
+
+SMODS.Atlas({
+    key = "stake_stickers",
+    px = 71,
+    py = 95,
+    path = "stakes_stickers.png"
+}):register()
+
 pokermon.add_family({"turtwig", "grotle", "torterra"})
 pokermon.add_family({"chimchar", "monferno", "infernape"})
 pokermon.add_family({"piplup", "prinplup", "empoleon"})

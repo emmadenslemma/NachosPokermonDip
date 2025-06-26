@@ -168,6 +168,13 @@ return {
                     "{C:attention}poker hand{} has been played this run",
                 }
             },
+            j_nacho_carbink = {
+                name = "Carbink",
+                text = {
+                    "{C:attention}Hazard{} cards are also",
+                    "considered {C:attention}Gold{} cards",
+                } 
+            },
             j_nacho_skwovet = {
                 name = "Skwovet",
                 text = {
@@ -228,7 +235,16 @@ return {
                     "of leftmost {C:attention}Joker{}",
                 }
             },
-        }
+        },
+        Stake={
+            stake_nacho_elite_stake = {
+            name = "Elite Stake",
+            text = {"{X:gray,C:attention}+2{} Ante win requirement",
+                    "Last 4 Antes are Showdown Boss Blinds",
+                    "{s:0.8}Applies all previous Stakes"
+                },
+            },
+        },
     },
     misc = {
         dictionary = {

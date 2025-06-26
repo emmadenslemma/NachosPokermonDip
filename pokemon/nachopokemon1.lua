@@ -223,6 +223,7 @@ local mega_gardevoir={
   config = {extra = {blackhole_amount = 2}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho, Maelmc"}}
     info_queue[#info_queue+1] = {key = 'tag_orbital', set = 'Tag', specific_vars = {"Random Hand", 3}}
     return {vars = {card.ability.extra.blackhole_amount}}
   end,
@@ -1003,6 +1004,43 @@ local mega_gallade={
   },
 }
 
+-- Carbink 703
+local carbink = {
+  name = "carbink", 
+  poke_custom_prefix = "nacho",
+  pos = {x = 11, y = 3},
+  config = {extra = {}},
+  loc_vars = function(self, info_queue, card)
+    type_tooltip(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
+    info_queue[#info_queue+1] = G.P_CENTERS.m_poke_hazard
+    info_queue[#info_queue+1] = G.P_CENTERS.m_gold
+    return {vars = {}}
+  end,
+  rarity = 2,
+  cost = 8,
+  stage = "Basic",
+  ptype = "Fairy",
+  atlas = "poke_Pokedex6",
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.check_enhancement and not context.blueprint then
+      if context.other_card.config.center.key == "m_poke_hazard" then
+        return {m_gold = true}
+      end
+    end
+  end,
+  in_pool = function(self, args)
+    for _, joker in ipairs(G.jokers or {}) do
+        if joker.ability.extra.hazard_ratio then return true end
+    end
+    return false
+  end,
+  prefix_config = {
+    atlas = false,
+  },
+}
+
 -- Skwovet 819
 local skwovet={
   name = "skwovet", 
@@ -1237,7 +1275,7 @@ local hisuian_zorua = {
   config = {extra = {hidden_key = nil, rounds = 5, active = true}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
-    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
+    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"ESN64"}}
     return { vars = {} }
   end,
   rarity = 3,
@@ -1368,9 +1406,9 @@ local hisuian_zorua = {
           card.children.floating_sprite:set_sprite_pos(self.soul_pos)
         end
       else
-        card.children.center.atlas = G.ASSET_ATLAS[card.edition and card.edition.poke_shiny and "nacho_shiny_regionals" or "nacho_regionals"]
+        card.children.center.atlas = G.ASSET_ATLAS[card.edition and card.edition.poke_shiny and "poke_ShinyRegionals" or "poke_Regionals"]
         card.children.center:set_sprite_pos(self.pos)
-        card.children.floating_sprite.atlas = G.ASSET_ATLAS[card.edition and card.edition.poke_shiny and "nacho_shiny_regionals" or "nacho_regionals"]
+        card.children.floating_sprite.atlas = G.ASSET_ATLAS[card.edition and card.edition.poke_shiny and "poke_ShinyRegionals" or "poke_Regionals"]
         card.children.floating_sprite:set_sprite_pos(self.soul_pos)
       end
     elseif poke_is_in_collection(card) and card.children.center.sprite_pos ~= self.pos and card.children.center.atlas.name ~= self.atlas then
@@ -1391,7 +1429,7 @@ local hisuian_zoroark = {
   config = {extra = {hidden_key = nil}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
-    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
+    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"ESN64"}}
     return { vars = {} }
   end,
   rarity = "poke_safari",
@@ -1504,9 +1542,9 @@ local hisuian_zoroark = {
           card.children.floating_sprite:set_sprite_pos(self.soul_pos)
         end
       else
-        card.children.center.atlas = G.ASSET_ATLAS[card.edition and card.edition.poke_shiny and "nacho_shiny_regionals" or "nacho_regionals"]
+        card.children.center.atlas = G.ASSET_ATLAS[card.edition and card.edition.poke_shiny and "poke_ShinyRegionals" or "poke_Regionals"]
         card.children.center:set_sprite_pos(self.pos)
-        card.children.floating_sprite.atlas = G.ASSET_ATLAS[card.edition and card.edition.poke_shiny and "nacho_shiny_regionals" or "nacho_regionals"]
+        card.children.floating_sprite.atlas = G.ASSET_ATLAS[card.edition and card.edition.poke_shiny and "poke_ShinyRegionals" or "poke_Regionals"]
         card.children.floating_sprite:set_sprite_pos(self.soul_pos)
       end
     elseif poke_is_in_collection(card) and card.children.center.sprite_pos ~= self.pos and card.children.center.atlas.name ~= self.atlas then
@@ -1520,5 +1558,5 @@ local hisuian_zoroark = {
 
 
 
-list = {ralts, kirlia, gardevoir, mega_gardevoir, turtwig, grotle, torterra, chimchar, monferno, infernape, piplup, prinplup, empoleon, gallade, mega_gallade, skwovet, greedent, galarian_meowth, perrserker, hisuian_zorua, hisuian_zoroark}
+list = {ralts, kirlia, gardevoir, mega_gardevoir, turtwig, grotle, torterra, chimchar, monferno, infernape, piplup, prinplup, empoleon, gallade, mega_gallade, carbink, skwovet, greedent, galarian_meowth, perrserker, hisuian_zorua, hisuian_zoroark}
 return {name = "nachopokemon1", list = list}

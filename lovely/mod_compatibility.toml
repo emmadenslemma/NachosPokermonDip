@@ -52,6 +52,19 @@ payload = '''
 '''
 match_indent = true
 
+# Challenge update
+[[patches]]
+[patches.pattern]
+target = '=[SMODS Pokermon-Maelmc "challenges/maelmcchallenges.lua"]'
+pattern = '''
+{id = "j_maelmc_ralts"},
+'''
+position = "at"
+payload = '''
+{id = "j_nacho_ralts"},
+'''
+match_indent = true
+
 
 
 
