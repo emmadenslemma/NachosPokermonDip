@@ -30,7 +30,9 @@ This is an add-on mod for Pokermon - an add-on mod for Balatro.
 | Gallade | +1 and X0.1 Mult for each time poker hand has been played this run<br/>Your most played hand gains three levels every 3 Planet cards used<br/>Planet cards do not raise the level of poker hands |
 | Mega Gallade | +2 and X0.2 Mult for each time poker hand has been played this run<br/>Poker hands cannot be debuffed |
 
-
+| Joker | Effect |
+| ------ | ------ |
+| Carbink | Hazard cards are also considered Gold cards |
 
 | Joker | Effect |
 | ------ | ------ |
