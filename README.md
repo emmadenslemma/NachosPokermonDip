@@ -5,21 +5,21 @@ This is an add-on mod for Pokermon - an add-on mod for Balatro.
 
 | Joker | Effect |
 | ------ | ------ |
-| Turtwig  | +1 hand size, <br/>Cards held in hand have a 1 in 15 chance to <br/>raise the cap on interest earned this round by $2 <br/>(Odds increase by 1 per scoring card beyond the first)|
-| Grotle | +1 hand size, <br/>Cards held in hand have a 1 in 10 chance to <br/>raise the cap on interest earned this round by $2 <br/>(Odds increase by 1 per scoring card beyond the first)|
-| Torterra | +1 hand size, <br/>Cards held in hand have a 1 in 5 chance to <br/>raise the cap on interest earned this round by $3 <br/>(Odds increase by 1 per scoring card beyond the first)|
+| Turtwig  | +1 hand size, <br/>Raises the cap on interest earned each round by $1|
+| Grotle | +1 hand size, <br/>Raises the cap on interest earned each round by $2|
+| Torterra | +1 hand size, +2 Mult for every $5 you have, <br/>Raises the cap on interest earned each round by $3|
 
 | Joker | Effect |
 | ------ | ------ |
-| Chimchar | +1 discard, <br/>Adds the rank of highest ranked card discarded to Mult <br/>(Resets and end of round)|
-| Monferno | +1 discard, <br/>Gains mult equal to the rank of highest card discarded <br/>(Resets and end of round)|
-| Infernape | +1 discard, +30 Mult <br/>Gains X0.3 Mult for each discarded face card or Ace <br/>(Resets and end of round)|
+| Chimchar | +1 discard, <br/>Adds the rank of highest ranked card discarded this round to Mult|
+| Monferno | +1 discard, <br/>Gains mult equal to the rank of highest card discarded (Resets and end of round)|
+| Infernape | +1 discard, +30 Mult <br/>Gains X0.3 Mult for each discarded face card or Ace (Resets and end of round)|
 
 | Joker | Effect |
 | ------ | ------ |
-| Piplup | +1 hand, +80 Chips <br/>-20 Chips per scoring card in played hand
-| Prinplup | +1 hand, +30 Chips <br/> Bonus cards held in hand give +30 Chips <br/>If played hand is exactly 1 card, it becomes a Bonus card
-| Empoleon | +1 hand, +50 Chips <br/> Bonus cards held in hand give +30 Chips <br/> Bonus cards are also considered Steel cards <br/>If played hand is exactly 1 card, it becomes a Bonus card
+| Piplup | +1 hand, +80 Chips <br/>-20 Chips per scoring card in played hand |
+| Prinplup | +1 hand, +30 Chips <br/> Cards held in hand give chips equal to their rank |
+| Empoleon | +1 hand, +50 Chips <br/> Cards held in hand give chips equal to double their rank |
 
 | Joker | Effect |
 | ------ | ------ |
