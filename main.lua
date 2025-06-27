@@ -260,3 +260,61 @@ for _, file in ipairs(pchallenges) do
     end
   end
 end 
+
+
+
+-- Take ownership of ralts line if Maelmc mod found
+if next(SMODS.find_mod("Pokermon-Maelmc")) then
+  SMODS.Joker:take_ownership('maelmc_ralts', -- object key (class prefix not required)
+    { -- table of properties to change from the existing object
+	  aux_poke = true,
+    no_collection = true,
+    custom_pool_func = true,
+    in_pool = function(self)
+        return false
+    end, 
+		-- more on this later
+
+    },
+    true -- silent | suppresses mod badge
+  )
+  SMODS.Joker:take_ownership('maelmc_kirlia', -- object key (class prefix not required)
+    { -- table of properties to change from the existing object
+	  aux_poke = true,
+    no_collection = true,
+    custom_pool_func = true,
+    in_pool = function(self)
+        return false
+    end, 
+		-- more on this later
+
+    },
+    true -- silent | suppresses mod badge
+  )
+  SMODS.Joker:take_ownership('maelmc_gardevoir', -- object key (class prefix not required)
+    { -- table of properties to change from the existing object
+	  aux_poke = true,
+    no_collection = true,
+    custom_pool_func = true,
+    in_pool = function(self)
+        return false
+    end, 
+		-- more on this later
+
+    },
+    true -- silent | suppresses mod badge
+  )
+  SMODS.Joker:take_ownership('maelmc_mega_gardevoir', -- object key (class prefix not required)
+    { -- table of properties to change from the existing object
+	  aux_poke = true,
+    no_collection = true,
+    custom_pool_func = true,
+    in_pool = function(self)
+        return false
+    end, 
+		-- more on this later
+
+    },
+    true -- silent | suppresses mod badge
+  )
+end

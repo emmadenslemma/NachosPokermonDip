@@ -24,30 +24,6 @@ match_indent = true
 
 # Ralts-line Cross-Compatibility with Pokermon-Maelmc
 
-# Family table update
-[[patches]]
-[patches.pattern]
-target = '=[SMODS Pokermon-Maelmc "pokermon-maelmc.lua"]'
-pattern = '''
-table.insert(pokermon.family,{"ralts","kirlia","gardevoir","mega_gardevoir"})
-'''
-position = "at"
-payload = '''
-'''
-match_indent = true
-
-# List update
-[[patches]]
-[patches.pattern]
-target = '=[SMODS Pokermon-Maelmc "pokemon/pokemon-maelmc_03.lua"]'
-pattern = '''
-    ralts, kirlia, gardevoir, mega_gardevoir,
-'''
-position = "at"
-payload = '''
-'''
-match_indent = true
-
 # Challenge update
 [[patches]]
 [patches.pattern]
