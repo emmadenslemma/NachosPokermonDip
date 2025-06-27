@@ -12,7 +12,7 @@ This is an add-on mod for Pokermon - an add-on mod for Balatro.
 | Joker | Effect |
 | ------ | ------ |
 | Chimchar | +1 discard, <br/>Adds the rank of highest ranked card discarded this round to Mult|
-| Monferno | +1 discard, <br/>Gains mult equal to the rank of highest card discarded (Resets and end of round)|
+| Monferno | +1 discard, <br/>Gains Mult equal to the rank of highest card discarded (Resets and end of round)|
 | Infernape | +1 discard, +30 Mult <br/>Gains X0.3 Mult for each discarded face card or Ace (Resets and end of round)|
 
 | Joker | Effect |
@@ -33,6 +33,10 @@ This is an add-on mod for Pokermon - an add-on mod for Balatro.
 | Joker | Effect |
 | ------ | ------ |
 | Carbink | Hazard cards are also considered Gold cards |
+
+| Joker | Effect |
+| ------ | ------ |
+| Turtonator | If Boss Blind was triggered in the previous hand, scoring cards give X1.5 Mult |
 
 | Joker | Effect |
 | ------ | ------ |
