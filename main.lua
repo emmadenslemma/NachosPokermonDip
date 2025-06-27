@@ -243,3 +243,20 @@ if (SMODS.Mods["Pokermon"] or {}).can_load and SMODS.Mods["Pokermon"] and not po
     end
   end
 end
+
+--Load challenges file
+local pchallenges = NFS.getDirectoryItems(mod_dir.."challenges")
+
+for _, file in ipairs(pchallenges) do
+  local challenge, load_error = SMODS.load_file("challenges/"..file)
+  if load_error then
+    sendDebugMessage ("The error is: "..load_error)
+  else
+    local curr_challenge = challenge()
+    if curr_challenge.init then curr_challenge:init() end
+    
+    for i, item in ipairs(curr_challenge.list) do
+      SMODS.Challenge(item)
+    end
+  end
+end 

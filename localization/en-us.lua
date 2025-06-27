@@ -152,7 +152,14 @@ return {
                 text = {
                     "{C:attention}Hazard{} cards are also",
                     "considered {C:attention}Gold{} cards",
-                } 
+                }
+            },
+            j_nacho_turtonator = {
+                name = "Turtonator",
+                text = {
+                    "If Boss Blind was triggered in previous hand,",
+                    "scoring cards give {X:red,C:white}X#1#{} Mult {C:inactive}(#2#){}",
+                }
             },
             j_nacho_skwovet = {
                 name = "Skwovet",
@@ -194,7 +201,6 @@ return {
                     "{C:attention}Jokers{} are {C:metal}Metal{}",
                 }
             },
-            
             j_nacho_hisuian_zorua = {
                 name = "{s:0.6}Hisuian{}Zorua",
                 text = {
@@ -234,6 +240,11 @@ return {
         },
     },
     misc = {
+        challenge_names = {
+            c_nacho_sinnoh_adv = "Sinnoh Adventure",
+            c_nacho_hibernation = "Hibernation",
+            c_nacho_gems = "Precious Stones",
+        },
         dictionary = {
             -- From Turtwig, Grotle, Torterra
             poke_leech_seed_ex = "Leech Seed!",
@@ -243,12 +254,19 @@ return {
             poke_brine_ex = "Brine!",
             -- From Gallade
             poke_psycho_cut_ex = "Psycho Cut!",
+            -- From Turtonator
+            poke_shell_trap_ex = "Shell Trap!",
             -- From Greedent
             poke_stuff_cheeks_ex = "Stuff Cheeks!",
 
 
             -- Maelmc Badge
             maelmc = "Pokermon-Maelmc",
+        },
+        v_text = {
+            ch_c_sinnoh_adv={
+                "Sinnoh starter pokemon appear in starting shop",
+            },
         },
     },
 }

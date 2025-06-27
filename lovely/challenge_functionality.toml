@@ -1,0 +1,24 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = -1
+
+
+# Sinnoh Adventure Shop Function
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''
+else
+                                        for i = 1, G.GAME.shop.joker_max - #G.shop_jokers.cards do
+                                            G.shop_jokers:emplace(create_card_for_shop(G.shop_jokers))
+                                        end
+'''
+position = "before"
+payload = '''
+elseif G.GAME.modifiers.sinnoh_adv and SMODS.calculate_context({starting_shop = true}) then
+                                        G.shop_jokers:emplace(SMODS.create_card({key = 'j_nacho_turtwig'}))
+                                        G.shop_jokers:emplace(SMODS.create_card({key = 'j_nacho_chimchar'}))
+                                        G.shop_jokers:emplace(SMODS.create_card({key = 'j_nacho_piplup'}))
+'''
+match_indent = true
