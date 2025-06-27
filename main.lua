@@ -264,7 +264,7 @@ end
 
 
 -- Take ownership of ralts line if Maelmc mod found
-if next(SMODS.find_mod("Pokermon-Maelmc")) then
+if next(SMODS.find_mod("PokermonMaelmc")) then
   SMODS.Joker:take_ownership('maelmc_ralts', -- object key (class prefix not required)
     { -- table of properties to change from the existing object
 	  aux_poke = true,
@@ -312,6 +312,19 @@ if next(SMODS.find_mod("Pokermon-Maelmc")) then
     in_pool = function(self)
         return false
     end, 
+		-- more on this later
+
+    },
+    true -- silent | suppresses mod badge
+  )
+  SMODS.Challenge:take_ownership('maelmc_ralts', -- object key (class prefix not required)
+    { -- table of properties to change from the existing object
+	  jokers = {
+        {id = "j_poke_sentret"},
+        {id = "j_poke_natu"},
+        {id = "j_nacho_ralts"},
+        {id = "j_poke_elgyem"},
+    },
 		-- more on this later
 
     },

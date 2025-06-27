@@ -1,7 +1,7 @@
 [manifest]
 version = "1.0.0"
 dump_lua = true
-priority = -5
+priority = 0
 
 # Remoraid + Octillery Retrigger Fix
 [[patches]]
@@ -17,23 +17,6 @@ payload = '''
 if not context.blueprint and not context.retrigger_joker then
         card.ability.extra.cards = card.ability.extra.cards + 1
       end
-'''
-match_indent = true
-
-
-
-# Ralts-line Cross-Compatibility with Pokermon-Maelmc
-
-# Challenge update
-[[patches]]
-[patches.pattern]
-target = '=[SMODS Pokermon-Maelmc "challenges/maelmcchallenges.lua"]'
-pattern = '''
-{id = "j_maelmc_ralts"},
-'''
-position = "at"
-payload = '''
-{id = "j_nacho_ralts"},
 '''
 match_indent = true
 
