@@ -1020,8 +1020,8 @@ local turtonator={
     else active = "Inactive" end
     return {vars = {card.ability.extra.Xmult_mod, active}}
   end,
-  rarity = 3,
-  cost = 10,
+  rarity = 2,
+  cost = 8,
   stage = "Basic",
   ptype = "Dragon",
   atlas = "poke_Pokedex7",
