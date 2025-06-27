@@ -157,8 +157,10 @@ return {
             j_nacho_turtonator = {
                 name = "Turtonator",
                 text = {
-                    "If Boss Blind was triggered in previous hand,",
-                    "scoring cards give {X:red,C:white}X#1#{} Mult {C:inactive}(#2#){}",
+                    "If previous hand triggered",
+                    "the {C:attention}Boss Blind{} ability,",
+                    "scoring cards give {X:red,C:white}X#1#{} Mult",
+                    "{C:inactive}(#2#){}",
                 }
             },
             j_nacho_skwovet = {
