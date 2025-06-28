@@ -90,10 +90,10 @@ return {
                 name = "Infernape",
                 text = {
                     "{C:red}+#1#{} discard, {C:mult}+#2#{} Mult",
-                    "Gains {C:mult}X#3#{} Mult for each",
+                    "Gains {X:red,C:white}X#3#{} Mult for each",
                     "{C:attention}face{} card or {C:attention}Ace{}",
                     "discarded this round",
-                    "{C:inactive}(Currently {C:mult}X#4#{} {C:inactive}Mult)",
+                    "{C:inactive}(Currently {X:red,C:white}X#4#{} {C:inactive}Mult)",
                 }
             },
             j_nacho_piplup = {
