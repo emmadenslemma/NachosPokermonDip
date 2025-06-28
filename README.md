@@ -36,6 +36,14 @@ This is an add-on mod for Pokermon - an add-on mod for Balatro.
 
 | Joker | Effect |
 | ------ | ------ |
+| Goomy | If played hand contains a Flush, cards in hand with the same suit as scoring Flush gain +1 mult |
+| Sliggoo | If played hand is a Flush, scoring cards and cards in hand with <br/>the same suit as scoring Flush gain +1 mult for each unique scoring rank |
+| Goodra | If played hand is a Flush, scoring cards and cards in hand with <br/>the same suit as scoring Flush gain X0.02 mult for each unique scoring rank |
+| Hisuian Sliggoo | If played hand is a Flush House, creates a Metal Coat <br/>Creates another if the difference in scoring ranks is greater than 6 |
+| Hisuian Goodra | If played hand is a Flush House, creates a Metal Coat <br/>If played hand is a Flush House, Steel cards held in hand give X mult <br/>equal to one third the difference in scoring ranks |
+
+| Joker | Effect |
+| ------ | ------ |
 | Turtonator | If Boss Blind was triggered in the previous hand, scoring cards give X1.5 Mult |
 
 | Joker | Effect |
