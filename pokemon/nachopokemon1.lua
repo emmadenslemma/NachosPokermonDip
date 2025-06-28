@@ -996,8 +996,8 @@ local carbink = {
     end
   end,
   in_pool = function(self, args)
-    for _, joker in ipairs(G.jokers or {}) do
-        if joker.ability.extra.hazard_ratio then return true end
+    for _, joker in ipairs(G.jokers.cards or {}) do
+        if joker.ability.extra.hazard_ratio ~= nil then return true end
     end
     return false
   end,
