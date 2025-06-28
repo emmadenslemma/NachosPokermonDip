@@ -13,13 +13,14 @@ local ralts={
   name = "ralts",
   poke_custom_prefix = "nacho",
   pos = {x = 8, y = 2},
-  config = {extra = {mult_mod = 1, rounds = 4}},
+  config = {extra = {mult = 0, mult_mod = 1, rounds = 4}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
     info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Foxthor, One Punch Idiot"}}
     local mult = 0
     for _, v in pairs(G.GAME.hands) do
       mult = mult + (v.level - 1) * card.ability.extra.mult_mod
+      card.ability.extra.mult = mult
     end
     return {vars = {card.ability.extra.mult_mod, mult, card.ability.extra.rounds}}
   end,
@@ -996,8 +997,8 @@ local carbink = {
     end
   end,
   in_pool = function(self, args)
-    for i = 1, #G.jokers.cards do
-        if G.jokers.cards[i].ability.extra.hazard_ratio ~= nil then return true end
+    for _, joker in ipairs(G.jokers.cards or {}) do
+        if joker.ability.extra.hazard_ratio ~= nil then return true end
     end
     return false
   end,
