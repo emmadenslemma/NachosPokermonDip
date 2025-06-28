@@ -20,13 +20,15 @@ SMODS.Atlas({
     path = "stakes_stickers.png"
 }):register()
 
+pokermon.add_family({"ralts", "kirlia", "gardevoir", "mega_gardevoir", "gallade", "mega_gallade"})
 pokermon.add_family({"turtwig", "grotle", "torterra"})
 pokermon.add_family({"chimchar", "monferno", "infernape"})
 pokermon.add_family({"piplup", "prinplup", "empoleon"})
+pokermon.add_family({"goomy", "sliggoo", "goodra", "hisuian_sliggoo", "hisuian_goodra"})
 pokermon.add_family({"skwovet", "greedent"})
 pokermon.add_family({"galarian_meowth", "perrserker"})
 pokermon.add_family({"hisuian_zorua", "hisuian_zoroark"})
-pokermon.add_family({"ralts", "kirlia", "gardevoir", "mega_gardevoir", "gallade", "mega_gallade"})
+
 
 nacho_config = SMODS.current_mod.config
 SMODS.current_mod.optional_features = { retrigger_joker = true, quantum_enhancements = true }

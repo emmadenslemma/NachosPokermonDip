@@ -154,6 +154,35 @@ return {
                     "considered {C:attention}Gold{} cards",
                 }
             },
+            j_nacho_goomy = {
+                name = "Goomy",
+                text = {
+                    "If played hand contains a Flush,",
+                    "cards {C:attention}held in hand{} with",
+                    "the {C:attention}same suit{} gain {C:red}+#1#{} Mult",
+                    "{C:inactive,s:0.8}(Evolves after triggering {C:attention,s:0.8}#2#{C:inactive,s:0.8} times)",
+                    "{C:inactive,s:0.8}(Evolves after playing a {C:attention,s:0.8}Flush House{C:inactive,s:0.8})",
+                }
+            },
+            j_nacho_sliggoo = {
+                name = "Sliggoo",
+                text = {
+                    "If played hand is a Flush, scoring cards",
+                    "and cards {C:attention}held in hand{} with",
+                    "the {C:attention}same suit{} gain {C:red}+#1#{} Mult for each",
+                    "unique {C:attention}rank{} among scoring cards",
+                    "{C:inactive,s:0.8}(Evolves after playing {C:attention,s:0.8}#2# Flushes{C:inactive,s:0.8})",
+                }
+            },
+            j_nacho_goodra = {
+                name = "Goodra",
+                text = {
+                    "If played hand is a Flush, scoring cards",
+                    "and cards {C:attention}held in hand{} with",
+                    "the {C:attention}same suit{} gain {X:red,C:white}X#1#{} Mult for each",
+                    "unique {C:attention}rank{} among scoring cards",
+                }
+            },
             j_nacho_turtonator = {
                 name = "Turtonator",
                 text = {
@@ -169,8 +198,7 @@ return {
                     "Gains {C:mult}+#2#{} Mult when a",
                     "consumable is used",
                     "during a blind",
-                    "{C:inactive}(Evolves at {C:mult}+#1#{C:inactive} / +12 Mult)",
-
+                    "{C:inactive,s:0.8}(Evolves at {C:mult,s:0.8}+#1#{C:inactive,s:0.8} / +12 Mult)",
                 }
             },
             j_nacho_greedent = {
@@ -222,6 +250,30 @@ return {
                     "of leftmost {C:attention}Joker{}",
                 }
             },
+            j_nacho_hisuian_sliggoo = {
+                name = "{s:0.6}Hisuian{}Sliggoo",
+                text = {
+                    "If played hand is a {C:attention}Flush House{},",
+                    "creates a {C:item}Metal Coat{}",
+                    "{br:2.5}ERROR - CONTACT STEAK",
+                    "Creates another {C:item}Metal Coat{} if",
+                    "the difference in scoring {C:attention}ranks{} is",
+                    "greater than {C:attention}6{}",
+                    "{C:inactive,s:0.8}(Evolves after playing {C:attention,s:0.8}#1# Flush Houses{C:inactive,s:0.8})",
+                }
+            },
+            j_nacho_hisuian_goodra = {
+                name = "{s:0.6}Hisuian{}Goodra",
+                text = {
+                    "If played hand is a {C:attention}Flush House{},",
+                    "creates a {C:item}Metal Coat{}",
+                    "{br:2.5}ERROR - CONTACT STEAK",
+                    "If played hand is a {C:attention}Flush House{},",
+                    "{C:attention}Steel{} cards {C:attention}held in hand{}",
+                    "give {X:mult,C:white}X{} Mult equal to one third of",
+                    "the difference in scoring {C:attention}ranks{}",
+                }
+            },
         },
         Stake={
             stake_nacho_elite_stake = {
@@ -246,6 +298,7 @@ return {
             c_nacho_sinnoh_adv = "Sinnoh Adventure",
             c_nacho_hibernation = "Hibernation",
             c_nacho_gems = "Precious Stones",
+            c_nacho_goomygoomy = "Slime or Steel",
         },
         dictionary = {
             -- From Turtwig, Grotle, Torterra

@@ -50,10 +50,75 @@ local gems = {
     },
 }
 
-
-
+local goomygoomy = {
+    object_type = "Challenge",
+    key = "goomygoomy",
+    jokers = {
+        {id = "j_nacho_goomy", eternal = true},
+    },
+    consumeables = {
+        { id = 'c_poke_metalcoat' },
+        { id = 'c_poke_metalcoat' },
+    },
+    deck = {
+        cards = {
+            { s = 'S', r = 'A' },
+            { s = 'S', r = 'A' },
+            { s = 'H', r = 'A' },
+            { s = 'H', r = 'A' },
+            { s = 'S', r = 'K' },
+            { s = 'S', r = 'K' },
+            { s = 'H', r = 'K' },
+            { s = 'H', r = 'K' },
+            { s = 'S', r = 'Q' },
+            { s = 'S', r = 'Q' },
+            { s = 'H', r = 'Q' },
+            { s = 'H', r = 'Q' },
+            { s = 'S', r = 'J' },
+            { s = 'S', r = 'J' },
+            { s = 'H', r = 'J' },
+            { s = 'H', r = 'J' },
+            { s = 'S', r = 'T' },
+            { s = 'S', r = 'T' },
+            { s = 'H', r = 'T' },
+            { s = 'H', r = 'T' },
+            { s = 'S', r = '9' },
+            { s = 'S', r = '9' },
+            { s = 'H', r = '9' },
+            { s = 'H', r = '9' },
+            { s = 'S', r = '8' },
+            { s = 'S', r = '8' },
+            { s = 'H', r = '8' },
+            { s = 'H', r = '8' },
+            { s = 'S', r = '7' },
+            { s = 'S', r = '7' },
+            { s = 'H', r = '7' },
+            { s = 'H', r = '7' },
+            { s = 'S', r = '6' },
+            { s = 'S', r = '6' },
+            { s = 'H', r = '6' },
+            { s = 'H', r = '6' },
+            { s = 'S', r = '5' },
+            { s = 'S', r = '5' },
+            { s = 'H', r = '5' },
+            { s = 'H', r = '5' },
+            { s = 'S', r = '4' },
+            { s = 'S', r = '4' },
+            { s = 'H', r = '4' },
+            { s = 'H', r = '4' },
+            { s = 'S', r = '3' },
+            { s = 'S', r = '3' },
+            { s = 'H', r = '3' },
+            { s = 'H', r = '3' },
+            { s = 'S', r = '2' },
+            { s = 'S', r = '2' },
+            { s = 'H', r = '2' },
+            { s = 'H', r = '2' },
+        }
+    }
+}
 
 
 return {name = "Challenges",
-    list = {sinnoh_adv, hibernation, gems}
+    list = {sinnoh_adv, hibernation, gems, goomygoomy}
 }

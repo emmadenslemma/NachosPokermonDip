@@ -982,8 +982,8 @@ local carbink = {
     info_queue[#info_queue+1] = G.P_CENTERS.m_gold
     return {vars = {}}
   end,
-  rarity = 2,
-  cost = 8,
+  rarity = 3,
+  cost = 9,
   stage = "Basic",
   ptype = "Fairy",
   atlas = "poke_Pokedex6",
@@ -1000,6 +1000,192 @@ local carbink = {
         if joker.ability.extra.hazard_ratio then return true end
     end
     return false
+  end,
+  prefix_config = {
+    atlas = false,
+  },
+}
+
+-- Goomy 704
+local goomy={
+  name = "goomy", 
+  poke_custom_prefix = "nacho",
+  pos = {x = 12, y = 3},
+  config = {extra = {mult_mod = 1, triggers = 0, flush_houses = 0}, evo_rqmt1 = 18, evo_rqmt2 = 1},
+  loc_vars = function(self, info_queue, card)
+    type_tooltip(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
+    return {vars = {card.ability.extra.mult_mod, math.max(0, self.config.evo_rqmt1 - card.ability.extra.triggers)}}
+  end,
+  rarity = 2,
+  cost = 6,
+  stage = "Basic", 
+  ptype = "Dragon",
+  atlas = "poke_Pokedex6",
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    -- Check if Flush House played
+    if context.before and context.main_eval and context.scoring_name == 'Flush House' then
+      card.ability.extra.flush_houses = card.ability.extra.flush_houses + 1
+      return
+    end
+    -- Main scoring bit
+    if context.individual and context.cardarea == G.hand and not context.end_of_round then
+      if next(context.poker_hands['Flush']) then
+        -- Get cards specifically in Flush
+        local scoring_flush = get_flush(context.scoring_hand)[1]
+        local wildcount = 0
+        local matching_suit = nil
+        -- Count # of wilds and determine Flush suit
+        for i = 1, #scoring_flush do
+          if SMODS.has_enhancement(scoring_flush[i], 'm_wild') then wildcount = wildcount + 1
+          else matching_suit = scoring_flush[i].config.card.suit end
+        end
+        -- Give cards in hand with matching suit permamult
+        if wildcount == #scoring_flush or context.other_card:is_suit(matching_suit) then
+          card.ability.extra.triggers = card.ability.extra.triggers + 1
+          context.other_card.ability.perma_mult = context.other_card.ability.perma_mult or 0
+          context.other_card.ability.perma_mult = context.other_card.ability.perma_mult + card.ability.extra.mult_mod
+          return {
+            extra = {message = localize('k_upgrade_ex'), colour = G.C.MULT},
+            colour = G.C.MULT,
+            card = card
+          }
+        end
+      end
+    end
+    local evolve = scaling_evo(self, card, context, "j_nacho_hisuian_sliggoo", card.ability.extra.flush_houses, self.config.evo_rqmt2)
+    if evolve then
+      return evolve
+    else
+      return scaling_evo(self, card, context, "j_nacho_sliggoo", card.ability.extra.triggers, self.config.evo_rqmt1)
+    end
+  end,
+  prefix_config = {
+    atlas = false,
+  },
+}
+
+-- Sliggoo 705
+local sliggoo={
+  name = "sliggoo", 
+  poke_custom_prefix = "nacho",
+  pos = {x = 13, y = 3},
+  config = {extra = {mult_mod = 1, flushes = 0}, evo_rqmt = 12},
+  loc_vars = function(self, info_queue, card)
+    type_tooltip(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
+    return {vars = {card.ability.extra.mult_mod, math.max(0, self.config.evo_rqmt - card.ability.extra.flushes)}}
+  end,
+  rarity = "poke_safari",
+  cost = 8,
+  stage = "One",
+  ptype = "Dragon",
+  atlas = "poke_Pokedex6",
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    -- Count # of Flushes played
+    if context.before and context.main_eval and context.scoring_name == 'Flush' then
+      card.ability.extra.flushes = card.ability.extra.flushes + 1
+      return
+    end
+    if context.individual and (context.cardarea == G.hand or G.play) and not context.end_of_round then
+      if context.scoring_name == 'Flush' then
+        -- Get the scoring cards that make up the Flush only
+        local scoring_flush = get_flush(context.scoring_hand)[1]
+        local wildcount = 0
+        local matching_suit = nil
+        local unique_ranks = {}
+        -- Count the unique ranks in scoring hand
+        for i = 1, #context.scoring_hand do
+          local contains = false
+          if unique_ranks ~= {} then
+            for j = 1, #unique_ranks do
+              if context.scoring_hand[i]:get_id() == unique_ranks[j] then contains = true end
+            end
+          end
+          if not contains then
+            unique_ranks[#unique_ranks+1] = context.scoring_hand[i]:get_id()
+          end
+        end
+        -- Count the # of wild cards and determine Flush suit
+        for i = 1, #scoring_flush do
+          if SMODS.has_enhancement(scoring_flush[i], 'm_wild') then wildcount = wildcount + 1
+          else matching_suit = scoring_flush[i].config.card.suit end
+        end
+        -- Increment permamult if card matches Flush suit
+        if wildcount == #scoring_flush or context.other_card:is_suit(matching_suit) then
+          context.other_card.ability.perma_mult = context.other_card.ability.perma_mult or 0
+          context.other_card.ability.perma_mult = context.other_card.ability.perma_mult + card.ability.extra.mult_mod * #unique_ranks
+          return {
+            extra = {message = localize('k_upgrade_ex'), colour = G.C.MULT},
+            colour = G.C.MULT,
+            card = card
+          }
+        end
+      end
+    end
+    return scaling_evo(self, card, context, "j_nacho_goodra", card.ability.extra.flushes, self.config.evo_rqmt)
+  end,
+  prefix_config = {
+    atlas = false,
+  },
+}
+
+-- Goodra 706
+local goodra={
+  name = "goodra", 
+  poke_custom_prefix = "nacho",
+  pos = {x = 0, y = 4},
+  config = {extra = {Xmult_multi = 0.02}},
+  loc_vars = function(self, info_queue, card)
+    type_tooltip(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
+    return {vars = {card.ability.extra.Xmult_multi}}
+  end,
+  rarity = "poke_safari",
+  cost = 11,
+  stage = "Two",
+  ptype = "Dragon",
+  atlas = "poke_Pokedex6",
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.individual and (context.cardarea == G.hand or G.play) and not context.end_of_round then
+      if context.scoring_name == 'Flush' then
+        -- Get the scoring cards that make up the Flush only
+        local scoring_flush = get_flush(context.scoring_hand)[1]
+        local wildcount = 0
+        local matching_suit = nil
+        local unique_ranks = {}
+        -- Count the unique ranks in scoring hand
+        for i = 1, #context.scoring_hand do
+          local contains = false
+          if unique_ranks ~= {} then
+            for j = 1, #unique_ranks do
+              if context.scoring_hand[i]:get_id() == unique_ranks[j] then contains = true end
+            end
+          end
+          if not contains then
+            unique_ranks[#unique_ranks+1] = context.scoring_hand[i]:get_id()
+          end
+        end
+        -- Count the # of wild cards and determine Flush suit
+        for i = 1, #scoring_flush do
+          if SMODS.has_enhancement(scoring_flush[i], 'm_wild') then wildcount = wildcount + 1
+          else matching_suit = scoring_flush[i].config.card.suit end
+        end
+        -- Increment permamult if card matches Flush suit
+        if wildcount == #scoring_flush or context.other_card:is_suit(matching_suit) then
+          context.other_card.ability.perma_x_mult = context.other_card.ability.perma_x_mult or 0
+          context.other_card.ability.perma_x_mult = context.other_card.ability.perma_x_mult + card.ability.extra.Xmult_multi * #unique_ranks
+          return {
+            extra = {message = localize('k_upgrade_ex'), colour = G.C.MULT},
+            colour = G.C.MULT,
+            card = card
+          }
+        end
+      end
+    end
   end,
   prefix_config = {
     atlas = false,
@@ -1121,7 +1307,7 @@ local greedent={
     info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
     return {vars = {card.ability.extra.mult, card.ability.extra.mult_mod, card.ability.extra.odds}}
   end,
-  rarity = "poke_safari", 
+  rarity = "poke_safari",
   cost = 10, 
   stage = "One", 
   ptype = "Colorless",
@@ -1572,7 +1758,125 @@ local hisuian_zoroark = {
   },
 }
 
+-- Hisuian Sliggoo 705-1
+local hisuian_sliggoo={
+  name = "hisuian_sliggoo",
+  poke_custom_prefix = "nacho",
+  pos = {x = 0, y = 5},
+  config = {extra = {flush_houses = 0}, evo_rqmt = 6},
+  loc_vars = function(self, info_queue, card)
+    type_tooltip(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
+    return {vars = {math.max(0, self.config.evo_rqmt - card.ability.extra.flush_houses)}}
+  end,
+  rarity = "poke_safari",
+  cost = 8,
+  stage = "One",
+  ptype = "Metal",
+  atlas = "poke_Regionals",
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    -- Count # of Flush Houses played
+    if context.before and context.main_eval and context.scoring_name == 'Flush House' then
+      card.ability.extra.flush_houses = card.ability.extra.flush_houses + 1
+      return
+    end
+    -- Main function
+    if context.joker_main and context.scoring_name == 'Flush House' then
+      -- Create table of scoring ranks
+      local ranks = {}
+      for i = 1, #context.scoring_hand do
+        local contains = false
+        if ranks ~= {} then
+          for j = 1, #ranks do
+            if context.scoring_hand[i].base.nominal == ranks[j] then contains = true end
+          end
+        end
+        if not contains then
+          ranks[#ranks+1] = context.scoring_hand[i].base.nominal
+        end
+      end
+      -- Create metal coat
+      if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+        local _card = create_card('Item', G.consumeables, nil, nil, nil, nil, 'c_poke_metalcoat')
+        _card:add_to_deck()
+        G.consumeables:emplace(_card)
+        card_eval_status_text(_card, 'extra', nil, nil, nil, {message = localize('poke_plus_pokeitem'), colour = G.C.FILTER})
+      end
+      -- Create second metal coat if the difference in scoring ranks is > 6
+      if math.abs(ranks[2] - ranks[1]) > 6 then
+        if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+          local _card = create_card('Item', G.consumeables, nil, nil, nil, nil, 'c_poke_metalcoat')
+          _card:add_to_deck()
+          G.consumeables:emplace(_card)
+          card_eval_status_text(_card, 'extra', nil, nil, nil, {message = localize('poke_plus_pokeitem'), colour = G.C.FILTER})
+        end
+      end
+    end
+    return scaling_evo(self, card, context, "j_nacho_hisuian_goodra", card.ability.extra.flush_houses, self.config.evo_rqmt)
+  end,
+  prefix_config = {
+    atlas = false,
+  },
+}
+
+-- Hisuian Goodra 706-1
+local hisuian_goodra={
+  name = "hisuian_goodra", 
+  poke_custom_prefix = "nacho",
+  pos = {x = 1, y = 5},
+  config = {extra = {Xmult = 0.0}},
+  loc_vars = function(self, info_queue, card)
+    type_tooltip(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
+    return {vars = {card.ability.extra.Xmult_multi}}
+  end,
+  rarity = "poke_safari",
+  cost = 11,
+  stage = "Two",
+  ptype = "Metal",
+  atlas = "poke_Regionals",
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.individual and context.cardarea == G.hand and not context.end_of_round then
+      if context.scoring_name == 'Flush House' then
+        -- Create table of scoring ranks
+        local ranks = {}
+        for i = 1, #context.scoring_hand do
+          local contains = false
+          if ranks ~= {} then
+            for j = 1, #ranks do
+              if context.scoring_hand[i].base.nominal == ranks[j] then contains = true end
+            end
+          end
+          if not contains then
+            ranks[#ranks+1] = context.scoring_hand[i].base.nominal
+          end
+        end
+         -- Create metal coat
+        if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+          local _card = create_card('Item', G.consumeables, nil, nil, nil, nil, 'c_poke_metalcoat')
+          _card:add_to_deck()
+          G.consumeables:emplace(_card)
+          card_eval_status_text(_card, 'extra', nil, nil, nil, {message = localize('poke_plus_pokeitem'), colour = G.C.FILTER})
+        end
+        -- Set Xmult_mod
+        card.ability.extra.Xmult = math.abs(ranks[2] - ranks[1]) / 3.0
+        if SMODS.has_enhancement(context.other_card, 'm_steel') then
+          return{
+            xmult = card.ability.extra.Xmult,
+            card = card,
+          }
+        end
+      end
+    end
+  end,
+  prefix_config = {
+    atlas = false,
+  },
+}
 
 
-list = {ralts, kirlia, gardevoir, mega_gardevoir, turtwig, grotle, torterra, chimchar, monferno, infernape, piplup, prinplup, empoleon, gallade, mega_gallade, carbink, turtonator, skwovet, greedent, galarian_meowth, perrserker, hisuian_zorua, hisuian_zoroark}
+list = {ralts, kirlia, gardevoir, mega_gardevoir, turtwig, grotle, torterra, chimchar, monferno, infernape, piplup, prinplup, empoleon, gallade, mega_gallade,
+       carbink, goomy, sliggoo, goodra, turtonator, skwovet, greedent, galarian_meowth, perrserker, hisuian_zorua, hisuian_zoroark, hisuian_sliggoo, hisuian_goodra}
 return {name = "nachopokemon1", list = list}
