@@ -1,114 +1,10 @@
+--Load all Atlas
 SMODS.Atlas({
     key = "modicon",
     path = "icon.png",
     px = 32,
     py = 32
-}):register()
-
-SMODS.Atlas({
-    key = "backs",
-    px = 71,
-    py = 95,
-    path = "backs.png"
-}):register()
-
-SMODS.Atlas({
-    key = "consumables",
-    path = "consumables.png",
-    px = 71,
-    py = 95
-}):register()
-
-SMODS.Atlas({
-  key = "pokedex_2",
-  path = "pokedex_2.png",
-  px = 71,
-  py = 95
-}):register()
-
-SMODS.Atlas({
-  key = "shiny_pokedex_2",
-  path = "shiny_pokedex_2.png",
-  px = 71,
-  py = 95
-}):register()
-
-SMODS.Atlas({
-  key = "pokedex_3",
-  path = "pokedex_3.png",
-  px = 71,
-  py = 95
-}):register()
-
-SMODS.Atlas({
-  key = "shiny_pokedex_3",
-  path = "shiny_pokedex_3.png",
-  px = 71,
-  py = 95
-}):register()
-
-SMODS.Atlas({
-  key = "pokedex_4",
-  path = "pokedex_4.png",
-  px = 71,
-  py = 95
-}):register()
-
-SMODS.Atlas({
-  key = "shiny_pokedex_4",
-  path = "shiny_pokedex_4.png",
-  px = 71,
-  py = 95
-}):register()
-
-SMODS.Atlas({
-  key = "pokedex_7",
-  path = "pokedex_7.png",
-  px = 71,
-  py = 95
-}):register()
-
-SMODS.Atlas({
-  key = "shiny_pokedex_7",
-  path = "shiny_pokedex_7.png",
-  px = 71,
-  py = 95
-}):register()
-
-SMODS.Atlas({
-  key = "pokedex_8",
-  path = "pokedex_8.png",
-  px = 71,
-  py = 95
-}):register()
-
-SMODS.Atlas({
-  key = "shiny_pokedex_8",
-  path = "shiny_pokedex_8.png",
-  px = 71,
-  py = 95
-}):register()
-
-SMODS.Atlas({
-  key = "pokedex_9",
-  path = "pokedex_9.png",
-  px = 71,
-  py = 95
-}):register()
-
-SMODS.Atlas({
-  key = "shiny_pokedex_9",
-  path = "shiny_pokedex_9.png",
-  px = 71,
-  py = 95
-}):register()
-
-SMODS.Atlas({
-  key = "sleeves",
-  px = 73,
-  py = 95,
-  path = "sleeves.png"
-}):register()
+})
 
 SMODS.Atlas({
     key = "stakes",
@@ -124,54 +20,21 @@ SMODS.Atlas({
     path = "stakes_stickers.png"
 }):register()
 
-SMODS.Atlas({
-    key = "stickers",
-    px = 71,
-    py = 95,
-    path = "stickers.png"
-}):register()
+pokermon.add_family({"ralts", "kirlia", "gardevoir", "mega_gardevoir", "gallade", "mega_gallade"})
+pokermon.add_family({"turtwig", "grotle", "torterra"})
+pokermon.add_family({"chimchar", "monferno", "infernape"})
+pokermon.add_family({"piplup", "prinplup", "empoleon"})
+pokermon.add_family({"goomy", "sliggoo", "goodra", "hisuian_sliggoo", "hisuian_goodra"})
+pokermon.add_family({"skwovet", "greedent"})
+pokermon.add_family({"galarian_meowth", "perrserker"})
+pokermon.add_family({"hisuian_zorua", "hisuian_zoroark"})
 
-pokermon.add_family({"duskull", "dusclops", "dusknoir"})
-pokermon.add_family({"meltan", "melmetal"})
-pokermon.add_family({"nacli", "naclstack", "garganacl"})
 
-sonfive_config = SMODS.current_mod.config
+nacho_config = SMODS.current_mod.config
+SMODS.current_mod.optional_features = { retrigger_joker = true, quantum_enhancements = true }
 mod_dir = ''..SMODS.current_mod.path
 if (SMODS.Mods["Pokermon"] or {}).can_load then
     pokermon_config = SMODS.Mods["Pokermon"].config
-end
-
-SMODS.current_mod.config_tab = function() 
-    return {
-        n = G.UIT.ROOT,
-        config = {
-            align = "cm",
-            padding = 0.05,
-            colour = G.C.CLEAR,
-        },
-        nodes = {
-            create_toggle({
-                label = "Allow Custom Decks?",
-                ref_table = sonfive_config,
-                ref_value = "customDecks",
-            }),
-            create_toggle({
-                label = "Allow Custom Consumables?",
-                ref_table = sonfive_config,
-                ref_value = "customItems",
-            }),
-            create_toggle({
-                label = "Allow Custom Jokers?",
-                ref_table = sonfive_config,
-                ref_value = "customJokers",
-            }),
-            create_toggle({
-                label = "Allow Custom Stakes?",
-                ref_table = sonfive_config,
-                ref_value = "customStakes",
-            }),
-        },
-    }
 end
 
 --Load Joker Display if the mod is enabled
@@ -189,7 +52,7 @@ if (SMODS.Mods["JokerDisplay"] or {}).can_load then
   end
 end
 
-if (SMODS.Mods["Pokermon"] or {}).can_load and SMODS.Mods["Pokermon"] and not pokermon_config.jokers_only and sonfive_config.customDecks then
+if (SMODS.Mods["Pokermon"] or {}).can_load and SMODS.Mods["Pokermon"] and not pokermon_config.jokers_only then
     --Load backs
     local backs = NFS.getDirectoryItems(mod_dir.."backs")
   
@@ -209,7 +72,7 @@ if (SMODS.Mods["Pokermon"] or {}).can_load and SMODS.Mods["Pokermon"] and not po
     end
   end
 
-if (SMODS.Mods["Pokermon"] or {}).can_load and SMODS.Mods["Pokermon"] and not pokermon_config.jokers_only and sonfive_config.customStakes then
+if (SMODS.Mods["Pokermon"] or {}).can_load and SMODS.Mods["Pokermon"] and not pokermon_config.jokers_only then
     --Load stakes
     local stakes = NFS.getDirectoryItems(mod_dir.."stakes")
   
@@ -229,7 +92,7 @@ if (SMODS.Mods["Pokermon"] or {}).can_load and SMODS.Mods["Pokermon"] and not po
     end
   end
 
-if (SMODS.Mods["Pokermon"] or {}).can_load and SMODS.Mods["Pokermon"] and not pokermon_config.jokers_only and sonfive_config.customStakes then
+if (SMODS.Mods["Pokermon"] or {}).can_load and SMODS.Mods["Pokermon"] and not pokermon_config.jokers_only then
     --Load stickers
     local stickers = NFS.getDirectoryItems(mod_dir.."stickers")
   
@@ -251,7 +114,7 @@ if (SMODS.Mods["Pokermon"] or {}).can_load and SMODS.Mods["Pokermon"] and not po
 
 local pconsumables = NFS.getDirectoryItems(mod_dir.."consumables")
 
-if (SMODS.Mods["Pokermon"] or {}).can_load and SMODS.Mods["Pokermon"] and sonfive_config.customItems then
+if (SMODS.Mods["Pokermon"] or {}).can_load and SMODS.Mods["Pokermon"] then
   for _, file in ipairs(pconsumables) do
     sendDebugMessage ("The file is: "..file)
     local consumable, load_error = SMODS.load_file("consumables/"..file)
@@ -282,7 +145,7 @@ print("DEBUG")
 
 --Load pokemon file
 local pfiles = NFS.getDirectoryItems(mod_dir.."pokemon")
-if (SMODS.Mods["Pokermon"] or {}).can_load and SMODS.Mods["Pokermon"] and sonfive_config.customJokers then
+if (SMODS.Mods["Pokermon"] or {}).can_load and SMODS.Mods["Pokermon"] then
   for _, file in ipairs(pfiles) do
     sendDebugMessage ("The file is: "..file)
     local pokemon, load_error = SMODS.load_file("pokemon/"..file)
@@ -314,6 +177,9 @@ if (SMODS.Mods["Pokermon"] or {}).can_load and SMODS.Mods["Pokermon"] and sonfiv
                 item.config.extra = {ptype = item.ptype}
               end
             end
+            if not item.set_badges then
+              item.set_badges = poke_set_type_badge
+            end
             if item.item_req then
               if item.config and item.config.extra then
                 item.config.extra.item_req = item.item_req
@@ -340,6 +206,13 @@ if (SMODS.Mods["Pokermon"] or {}).can_load and SMODS.Mods["Pokermon"] and sonfiv
   end
 end 
 
+--Load Draw Logic file
+local sprite, load_error = SMODS.load_file("functions/nacho_pokedraw.lua")
+if load_error then
+  sendDebugMessage ("The error is: "..load_error)
+else
+  sprite()
+end
 
 
 --Load Debuff logic
@@ -350,11 +223,10 @@ else
   sprite()
 end
 
+--Load Sleeves if able
 if (SMODS.Mods["Pokermon"] or {}).can_load and SMODS.Mods["Pokermon"] and not pokermon_config.jokers_only then
   if (SMODS.Mods["CardSleeves"] or {}).can_load then
-    --Load Sleeves
     local sleeves = NFS.getDirectoryItems(mod_dir.."sleeves")
-
     for _, file in ipairs(sleeves) do
       sendDebugMessage ("the file is: "..file)
       local sleeve, load_error = SMODS.load_file("sleeves/"..file)
@@ -370,4 +242,92 @@ if (SMODS.Mods["Pokermon"] or {}).can_load and SMODS.Mods["Pokermon"] and not po
       end
     end
   end
+end
+
+--Load challenges file
+local pchallenges = NFS.getDirectoryItems(mod_dir.."challenges")
+
+for _, file in ipairs(pchallenges) do
+  local challenge, load_error = SMODS.load_file("challenges/"..file)
+  if load_error then
+    sendDebugMessage ("The error is: "..load_error)
+  else
+    local curr_challenge = challenge()
+    if curr_challenge.init then curr_challenge:init() end
+    
+    for i, item in ipairs(curr_challenge.list) do
+      SMODS.Challenge(item)
+    end
+  end
+end 
+
+
+
+-- Take ownership of ralts line if Maelmc mod found
+if next(SMODS.find_mod("PokermonMaelmc")) then
+  SMODS.Joker:take_ownership('maelmc_ralts', -- object key (class prefix not required)
+    { -- table of properties to change from the existing object
+	  aux_poke = true,
+    no_collection = true,
+    custom_pool_func = true,
+    in_pool = function(self)
+        return false
+    end, 
+		-- more on this later
+
+    },
+    true -- silent | suppresses mod badge
+  )
+  SMODS.Joker:take_ownership('maelmc_kirlia', -- object key (class prefix not required)
+    { -- table of properties to change from the existing object
+	  aux_poke = true,
+    no_collection = true,
+    custom_pool_func = true,
+    in_pool = function(self)
+        return false
+    end, 
+		-- more on this later
+
+    },
+    true -- silent | suppresses mod badge
+  )
+  SMODS.Joker:take_ownership('maelmc_gardevoir', -- object key (class prefix not required)
+    { -- table of properties to change from the existing object
+	  aux_poke = true,
+    no_collection = true,
+    custom_pool_func = true,
+    in_pool = function(self)
+        return false
+    end, 
+		-- more on this later
+
+    },
+    true -- silent | suppresses mod badge
+  )
+  SMODS.Joker:take_ownership('maelmc_mega_gardevoir', -- object key (class prefix not required)
+    { -- table of properties to change from the existing object
+	  aux_poke = true,
+    no_collection = true,
+    custom_pool_func = true,
+    in_pool = function(self)
+        return false
+    end, 
+		-- more on this later
+
+    },
+    true -- silent | suppresses mod badge
+  )
+  SMODS.Challenge:take_ownership('maelmc_ralts', -- object key (class prefix not required)
+    { -- table of properties to change from the existing object
+	  jokers = {
+        {id = "j_poke_sentret"},
+        {id = "j_poke_natu"},
+        {id = "j_nacho_ralts"},
+        {id = "j_poke_elgyem"},
+    },
+		-- more on this later
+
+    },
+    true -- silent | suppresses mod badge
+  )
 end
