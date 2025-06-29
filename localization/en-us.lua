@@ -147,6 +147,14 @@ return {
                     "{C:attention}poker hand{} has been played this run",
                 }
             },
+            j_nacho_dedenne = {
+                name = "Dedenne",
+                text = {
+                    "{C:attention}Gold{} cards {C:attention}held in hand{}",
+                    "have a {C:green}1 in #1#{} chance to",
+                    "create an {C:item}Item{} when triggered",
+                }
+            },
             j_nacho_carbink = {
                 name = "Carbink",
                 text = {

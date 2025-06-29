@@ -141,7 +141,7 @@ local kirlia={
     local evolve = item_evo(self, card, context, "j_nacho_gallade")
     if evolve then
       return evolve
-    else 
+    else
       return level_evo(self, card, context, "j_nacho_gardevoir")
     end
   end,
@@ -882,6 +882,7 @@ local gallade={
           if not context.blueprint then
               card.ability.extra.planets = 0
           end
+          -- Find most played hand
           local _hand, _tally = nil, 0
           for k, v in ipairs(G.handlist) do
               if G.GAME.hands[v].visible and G.GAME.hands[v].played >= _tally then
@@ -889,6 +890,7 @@ local gallade={
                   _tally = G.GAME.hands[v].played
               end
           end
+          -- Level up most played hand by three
           card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_level_up_ex')})
           update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(_hand, 'poker_hands'),chips = G.GAME.hands[_hand].chips, mult = G.GAME.hands[_hand].mult, level=G.GAME.hands[_hand].level})
           level_up_hand(context.blueprint_card or card, _hand, nil, 3)
@@ -964,6 +966,54 @@ local mega_gallade={
           xmult = Xmult,
           card = card
         }
+      end
+    end
+  end,
+  prefix_config = {
+    atlas = false,
+  },
+}
+
+-- Dedenne 702
+local dedenne = {
+  name = "dedenne", 
+  poke_custom_prefix = "nacho",
+  pos = {x = 10, y = 3},
+  config = {extra = {odds = 4}},
+  loc_vars = function(self, info_queue, card)
+    type_tooltip(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
+    info_queue[#info_queue+1] = G.P_CENTERS.m_gold
+    return {vars = {card.ability.extra.odds}}
+  end,
+  rarity = 2,
+  cost = 6,
+  enhancement_gate = "m_gold",
+  stage = "Basic",
+  ptype = "Lightning",
+  atlas = "poke_Pokedex6",
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.repetition and context.cardarea == G.hand then
+      if (next(context.card_effects[1]) or #context.card_effects >= 1) and SMODS.has_enhancement(context.other_card, 'm_gold') and
+      #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+        if pseudorandom('dedenne') < G.GAME.probabilities.normal/card.ability.extra.odds then
+          G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+          G.E_MANAGER:add_event(Event({
+            trigger = 'before',
+            delay = 0.0,
+            func = (function()
+                  local _card = create_card('Item', G.consumeables, nil, nil, nil, nil)
+                  _card:add_to_deck()
+                  G.consumeables:emplace(_card)
+                  G.GAME.consumeable_buffer = 0
+                  return true
+          end)}))
+          return {
+            repetitions = 0,
+            card = card,
+          }
+        end
       end
     end
   end,
@@ -1880,6 +1930,6 @@ local hisuian_goodra={
 }
 
 
-list = {ralts, kirlia, gardevoir, mega_gardevoir, turtwig, grotle, torterra, chimchar, monferno, infernape, piplup, prinplup, empoleon, gallade, mega_gallade,
+list = {ralts, kirlia, gardevoir, mega_gardevoir, turtwig, grotle, torterra, chimchar, monferno, infernape, piplup, prinplup, empoleon, gallade, mega_gallade, dedenne,
        carbink, goomy, sliggoo, goodra, turtonator, skwovet, greedent, galarian_meowth, perrserker, hisuian_zorua, hisuian_zoroark, hisuian_sliggoo, hisuian_goodra}
 return {name = "nachopokemon1", list = list}
