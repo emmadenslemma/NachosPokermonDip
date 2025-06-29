@@ -15,7 +15,7 @@ pattern = '''
 '''
 position = "before"
 payload = '''
-if next(SMODS.find_card('j_nacho_gallade')) and card.config.center.set == 'Planet' then
+if next(SMODS.find_card('j_nacho_gallade')) and card.ability.set == 'Planet' then
     return true
 else
 '''

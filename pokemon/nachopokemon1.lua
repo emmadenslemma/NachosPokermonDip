@@ -82,13 +82,14 @@ local kirlia={
   name = "kirlia",
   poke_custom_prefix = "nacho",
   pos = {x = 9, y = 2},
-  config = {extra = {mult_mod = 2, rounds = 5}},
+  config = {extra = {mult = 0, mult_mod = 2, rounds = 5}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
     info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Foxthor, One Punch Idiot"}}
     local mult = 0
     for _, v in pairs(G.GAME.hands) do
       mult = mult + (v.level - 1) * card.ability.extra.mult_mod
+      card.ability.extra.mult = mult
     end
     return {vars = {card.ability.extra.mult_mod, mult, card.ability.extra.rounds}}
   end,
@@ -154,13 +155,14 @@ local gardevoir={
   name = "gardevoir",
   poke_custom_prefix = "nacho",
   pos = {x = 0, y = 3},
-  config = {extra = {Xmult_mod = 0.1}},
+  config = {extra = {Xmult = 0, Xmult_mod = 0.1}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
     info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Foxthor, One Punch Idiot"}}
     local xmult = 1
     for _, v in pairs(G.GAME.hands) do
       xmult = xmult + (v.level - 1) * card.ability.extra.Xmult_mod
+      card.ability.extra.Xmult = xmult
     end
     return {vars = {card.ability.extra.Xmult_mod, xmult}}
   end,
