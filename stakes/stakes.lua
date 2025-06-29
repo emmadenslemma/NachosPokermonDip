@@ -1,24 +1,23 @@
-local elite = { -- Elite Stake
-    key = 'elite_stake',
-    applied_stakes = {'gold'},
-    above_stake = 'gold',
+local ex = { -- Ex
+    key = 'ex_stake',
+    applied_stakes = {'green'},
+    above_stake = 'green',
     prefix_config = {above_stake = {mod = false}, applied_stakes = {mod = false}},
 
     modifiers = function()
-        G.GAME.win_ante = (G.GAME.win_ante + 2)
-        G.GAME.modifiers.elite4 = true
+        G.GAME.modifiers.enable_ex_in_shop = true
     end,
 
-    pos = {x = 0, y = 0},
-    sticker_pos = {x = 0, y = 0},
+    colour = HEX('2b2b2b'),
+
+    pos = {x = 1, y = 0},
+    sticker_pos = {x = 1, y = 0},
     atlas = 'stakes',
-    sticker_atlas = 'stake_stickers',
-    colour = HEX("786104"),
-    shiny = true
+    sticker_atlas = 'stake_stickers'
 }
 
 
 
 return {name = "Stakes",
-      list = {elite}
+      list = {ex}
 }

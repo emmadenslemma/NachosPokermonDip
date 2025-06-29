@@ -1,341 +1,431 @@
 return {
     descriptions = {
+
+        Back = {
+            b_sonfive_reverencedeck = {
+                name = "Reverence Deck",
+                text = {
+                        "All cards have ",
+                        "a {C:dark_edition}Silver Seal{}"
+                }
+            },
+
+            b_sonfive_virtuousdeck = {
+                name = "Virtuous Deck",
+                text = {
+                        "Start with a {C:item,T:c_sonfive_timerball}Timer Ball{},",
+                        "{C:blue}-1{} hand",
+                        "every round" 
+                }
+            },
+
+            b_sonfive_propheticdeck = {
+                name = "Prophetic Deck",
+                text = {
+                        "{C:purple}+#2# {}Foresight,",
+                        "{C:attention}#1# {}hand size" 
+
+                }
+            },
+
+            b_sonfive_shinydeck = {
+                name = "Shiny Deck",
+                text = {
+                        "{C:dark_edition}Shiny Pokemon{} are",
+                        "more likely to appear" 
+
+                }
+            },
+
+            b_sonfive_megadeck = {
+                name = "Mega Deck",
+                text = {
+                        "Start with a {C:dark_edition,T:c_poke_megastone}Mega Stone{}",
+                        "{X:gray,C:attention}+4{} Ante win requirement"
+
+                }
+            },
+
+            b_sonfive_hazardousdeck = {
+                name = "Hazardous Deck",
+                text = {
+                        "{C:purple,T:m_poke_hazard}+#3# Hazards{}",
+                        "{C:inactive}(1 per #2# cards)"
+
+                }
+            },
+
+            b_sonfive_voiddeck = {
+                name = "Void Deck",
+                text = {
+                        "{C:spectral}Spectral{} cards may",
+                        "appear in the shop,",
+                        "{C:dark_edition}Negative{} {C:pink}Energy{} doesn't",
+                        "count towards {C:pink}Energy{} Limit,",
+                        "start with a {C:spectral,T:c_poke_nightmare}Nightmare{} card"
+                }
+            },
+
+
+        },
+
         Joker = {
-            j_nacho_ralts = {
-                name = "Ralts",
+            j_sonfive_shuckle = {
+                name = "Shuckle",
                 text = {
-                    "{C:red}+#1#{} Mult per {C:attention}hand level",
-                    "above 1 {C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)",
-                    "{C:inactive,s:0.8}(Evolves after {C:attention,s:0.8}#3#{C:inactive,s:0.8} rounds)",
+                        "When blind is selected",
+                        "create a {C:attention}Berry Juice{} card",
+                        "{C:inactive}(Must have room)"
+                },
+            },
+
+            j_sonfive_duskull = {
+                name = "Dark Cave",
+                text = {
+                        "{C:green}#1# in #2#{} chance to create an",
+                        "{C:green}Uncommon{} Pokemon {C:attention}Joker{}",
+                        "at end of round",
+                        "{br:2}text needs to be here to work",
+                        "Guaranteed if you have",
+                        "a {X:lightning, C:black}Lightning{} Joker",
+                },
+            },
+
+            j_sonfive_dusclops = {
+                name = "Dark Cave",
+                text = {
+                        "{C:green}#1# in #2#{} chance to create an",
+                        "{C:green}Uncommon{} Pokemon {C:attention}Joker{}",
+                        "at end of round",
+                        "{br:2}text needs to be here to work",
+                        "Guaranteed if you have",
+                        "a {X:lightning, C:black}Lightning{} Joker",
+                },
+            },
+
+
+            j_sonfive_dusknoir = {
+                name = "Garganacl",
+                text = {
+                        "At the end of shop, remove {C:dark_edition}Negative{}",
+                        "from all Jokers and multiply this",
+                        "Joker's {X:red,C:white}X{} Mult by {X:red,C:white}X2{} for each",
+                        "edition removed",
+                        "{br:4}text needs to be here to work",
+                        "This Joker can't be debuffed",
+                        "{C:inactive}(Currently {}{X:red,C:white}X1{}{C:inactive} Mult){}",
+                },
+            },
+
+            j_sonfive_nacli = {
+                name = 'Nacli',
+                text = {
+                    "When {C:attention}Blind{} is selected, earn {C:money}$#1#{} ",
+                    "for each Joker, earn double from",
+                    "{X:water,C:white}Water{} and {X:metal,C:white}Metal{} Jokers",
+                    "{br:4}text needs to be here to work",
+                    "This Joker can't be debuffed",
+                    "{C:inactive}(Evolves after earning {}{C:money}$24{}{C:inactive}){}"
+                    
                 } 
             },
-            j_nacho_kirlia = {
-                name = "Kirlia",
+
+            j_sonfive_naclstack = {
+                name = 'Naclstack',
                 text = {
-                    "{C:red}+#1#{} Mult per {C:attention}hand level",
-                    "above 1 {C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)",
-                    "{C:inactive,s:0.8}(Evolves with a {C:attention,s:0.8}Dawn Stone{C:inactive,s:0.8})",
-                    "{C:inactive,s:0.8}(Evolves after {C:attention,s:0.8}#3#{C:inactive,s:0.8} rounds)",
+                    "When {C:attention}Blind{} is selected, {C:green}1 in #3#{} chance to",
+                    "destroy leftmost {C:attention}Joker{} and gain {X:red,C:white}X#1#{}",
+                    "{C:inactive}({C:green}1 in #4#{}{C:inactive} if target is {}{X:water,C:white}Water{}{C:inactive} or {}{X:metal,C:white}Metal{}{C:inactive}){}",
+                    "{br:4}text needs to be here to work",
+                    "This Joker can't be debuffed",
+                    "{C:inactive}(Evolves at {X:red,C:white}X#2#{}{C:inactive} / {}{X:red,C:white}X2{}{C:inactive}){}"
+                    
                 } 
             },
-            j_nacho_gardevoir = {
-                name = "Gardevoir",
+
+            j_sonfive_garganacl = {
+                name = 'Garganacl',
                 text = {
-                    "{X:red,C:white}X#1#{} Mult per {C:attention}hand level",
-                    "above 1 {C:inactive}(Currently {X:red,C:white}X#2#{C:inactive} Mult)",
+                    "When {C:attention}Blind{} is selected, {C:green}#3#%{} chance",
+                    "to destroy leftmost {C:attention}Joker{} and",
+                    " mulitply this Joker's {X:red,C:white}X{} Mult by {X:red,C:white}X#1#{}",
+                    "{C:inactive}({C:green}#4#%{}{C:inactive} if target is {}{X:water,C:white}Water{}{C:inactive} or {}{X:metal,C:white}Metal{}{C:inactive}){}",
+                    "{br:4}text needs to be here to work",
+                    "This Joker can't be debuffed",
+                    "{C:inactive}(Currently {}{X:red,C:white}X#2#{}{C:inactive} Mult){}"
+                    
                 } 
             },
-            j_nacho_mega_gardevoir = {
-                name = "Mega Gardevoir",
+            j_sonfive_meltan = {
+                name = 'Meltan',
                 text = {
-                    "{C:attention}Holding{} {C:dark_edition}Negative{} {C:spectral}Black Hole{}",
-                    "{br:2}ERROR - CONTACT STEAK",
-                    "Create an {C:attention}Orbital Tag{}",
-                    "when a {C:planet}Planet{} card is used",
-                    "{br:2}ERROR - CONTACT STEAK",
-                    "Held {C:planet}Planet{} cards without an edition",
-                    "gain {C:spectral}Polychrome{} at end of round",
+                    "When {C:attention}Blind{} is selected,",
+                    "create a {C:dark_edition}Negative{} {C:attention}Metal Energy{} card",
+                    "{C:inactive,s:0.8}(Evolves after Energizing this Joker){}"
+                    
                 } 
             },
-            j_nacho_turtwig = {
-                name = "Turtwig",
+            j_sonfive_melmetal = {
+                name = 'Melmetal',
                 text = {
-                    "{C:attention}+#1#{} hand size",
-                    "Raises the cap on interest", 
-                    "earned each round by {C:money}$1{}",
-                    "{C:inactive,s:0.8}(Evolves after {C:attention,s:0.8}#2#{C:inactive,s:0.8} rounds)",
+                    "{C:attention}Steel{} cards held in hand",
+                    "gain {X:red,C:white}X#3#{} Mult when held",
+                    "{C:inactive,s:0.8}(Increases for each {X:metal,C:white,s:0.8}Metal{}{C:inactive,s:0.8} Energy held)",
+                    "{br:4}wooooooo",
+                    "When sold, create {C:attention}2 Meltans",
+                    "{C:inactive,s:0.8}(Requires #1# {X:metal,C:white,s:0.8}Metal{}{C:inactive,s:0.8} Energy)",
+                    "{C:inactive,s:0.6}(Increases per Meltan/Melmetal you have){}",
                 } 
             },
-            j_nacho_grotle = {
-                name = "Grotle",
+
+
+            
+
+
+        },
+
+        Item = {
+            c_sonfive_timerball = {
+                name = "Timer Ball",
                 text = {
-                    "{C:attention}+#1#{} hand size",
-                    "Raises the cap on interest", 
-                    "earned each round by {C:money}$2{}",
-                    "{C:inactive,s:0.8}(Evolves after {C:attention,s:0.8}#2#{C:inactive,s:0.8} rounds)",
-                } 
+                        "Create a {V:1}#1#{C:attention} Pokemon{}",
+                        "Rarity increases in {C:attention}#2#{} rounds!",
+                        "{C:inactive}(Must have room)"
+                },
             },
-            j_nacho_torterra = {
-                name = "Torterra",
+        
+
+            c_sonfive_timerball_max = {
+                name = "Timer Ball",
                 text = {
-                    "{C:attention}+#1#{} hand size",
-                    "{C:mult}+#2#{} Mult for every {C:money}$5{} you have",
-                    "{br:2}ERROR - CONTACT STEAK",
-                    "Raises the cap on interest", 
-                    "earned each round by {C:money}$3{}",
-                } 
+                        "Creates a {V:1}#1#{C:attention} Pokemon{}",
+                        "{C:inactive}(Must have room)"
+                },
             },
-            j_nacho_chimchar = {
-                name = "Chimchar",
+
+            c_sonfive_timerball_start = {
+                name = "Timer Ball",
                 text = {
-                    "{C:red}+#1#{} discard",
-                    "Adds the rank of {C:attention}highest{} ranked",
-                    "card discarded this round to Mult",
-                    "{C:inactive}(Currently {C:mult}+#2#{} {C:inactive}Mult)",        
-                    "{C:inactive,s:0.8}(Evolves after scoring {C:red,s:0.8}+11{} {C:inactive,s:0.8}Mult{} {C:attention,s:0.8}#3#{C:inactive,s:0.8} Times){}",
+                        "Can create a ",
+                        "{V:1}#1#{C:attention} Pokemon{} in {C:attention}1{} rounds!",
+                        "{C:inactive}(Must have room)"
+                },
+            },
+
+            c_sonfive_timerball_deck = {
+                name = "Timer Ball",
+                text = {
+                        "Can create a ",
+                        "{V:1}#1#{C:attention} Pokemon{} in {C:attention}1{} rounds!",
+                        "{C:inactive}(Must have room)"
+                },
+            },
+
+            c_sonfive_berryjuice = {
+                name = "Berry Juice",
+                text = {
+                        "Remove debuff from a",
+                        "selected {C:attention}Joker{}",
+                        "and reverse the",
+                        "Perishable count by {C:attention}1{}"
+                },
+            },
+        },
+
+        Other = {
+
+            timer = {
+                name = "Timer Ball",
+                text = {
+                        "{C:blue}Common Pokemon{} after {C:attention}1{} rounds",
+                        "{C:green}Uncommon Pokemon{} after {C:attention}3{} rounds",
+                        "{C:red}Rare Pokemon{} after {C:attention}7{} rounds",
+                        "{C:legendary,E:1}Legendary Pokemon{} after {C:attention}15{} rounds"
+                },
+            },
+
+            designed_by = {
+                name = "Designed By",
+                text = {
+                        "{C:dark_edition}#1#{}"
+                },
+            },
+
+
+            sonfive_rocket = {
+                name = "sonfive Rocket",
+                text = {
+                        "{X:mult,C:white}X2{} Mult, {C:red}-1{} Joker slot"
+                    },
+            },
+
+                sonfive_ex = {
+                name = "EX",
+                text = {
+                        "Starts fully {C:pink}Energized{}",
+                        "{br:4}exexexexexe",
+                        "When {C:attention}Blind{} is selected,",
+                        "{C:pink}-1{} Energy",
+                        "{br:4}exexexexexe",
+                        "Debuffs if {C:pink}0{} Energy"
+                    },
+            },
+        },
+
+        Sleeve = {
+
+            sleeve_sonfive_reverencesleeve = {
+                name = "Reverence Sleeve",
+                text = {
+                        "All cards have ",
+                        "a {C:dark_edition}Silver Seal{}"
+                },
+            },
+
+            sleeve_sonfive_reverencesleeve_alt = {
+                name = "Reverence Sleeve",
+                text = {
+                        "{C:attention}+1{} consumable slot"
+                },
+            },
+
+            sleeve_sonfive_virtuoussleeve = {
+                name = "Virtuous Sleeve",
+                text = {
+                        "Start with a {C:item,T:c_sonfive_timerball}Timer Ball{},",
+                        "{C:blue}-1{} hand",
+                        "every round" 
                 }
             },
-            j_nacho_monferno = {
-                name = "Monferno",
+
+            sleeve_sonfive_virtuoussleeve_alt = {
+                name = "Virtuous Sleeve",
                 text = {
-                    "{C:red}+#1#{} discard",
-                    "Gains Mult equal to the rank of",
-                    "{C:attention}highest{} ranked card discarded,",
-                    "resets at end of round",
-                    "{C:inactive}(Currently {C:mult}+#2#{} {C:inactive}Mult)",
-                    "{C:inactive,s:0.8}(Evolves after scoring {C:red,s:0.8}+30{} {C:inactive,s:0.8}Mult{} {C:attention,s:0.8}#3#{C:inactive,s:0.8} Times){}",
+                        "Start run with the",
+                        "{C:tarot,T:v_hieroglyph}Hieroglyph{} voucher"
+                },
+            },
+            sleeve_sonfive_propheticsleeve = {
+                name = "Prophetic Sleeve",
+                text = {
+                        "{C:purple}+#2# {}Foresight,",
+                        "{C:attention}#1# {}hand size" 
+                },
+            },
+
+            sleeve_sonfive_propheticsleeve_alt = {
+                name = "Prophetic Sleeve",
+                text = {
+                        "{C:purple}+3 {}Foresight"
+                },
+            },
+
+            
+
+            sleeve_sonfive_shinysleeve = {
+                name = "Shiny Sleeve",
+                text = {
+                        "{C:dark_edition}Shiny Pokemon{} are",
+                        "more likely to appear" 
+                },
+            },
+
+            
+
+            sleeve_sonfive_shinysleeve_alt = {
+                name = "Shiny Sleeve",
+                text = {
+                        "{C:dark_edition}Shiny Pokemon{} are",
+                        "even more likely to appear" 
+                },
+            },
+            sleeve_sonfive_megasleeve = {
+                name = "Mega Sleeve",
+                text = {
+                        "Start with a {C:dark_edition,T:c_poke_megastone}Mega Stone{}",
+                        "{X:gray,C:attention}+4{} Ante win requirement"
+
                 }
             },
-            j_nacho_infernape = {
-                name = "Infernape",
+            sleeve_sonfive_voidsleeve = {
+                name = "Void Sleeve",
                 text = {
-                    "{C:red}+#1#{} discard, {C:mult}+#2#{} Mult",
-                    "Gains {X:red,C:white}X#3#{} Mult for each",
-                    "{C:attention}face{} card or {C:attention}Ace{}",
-                    "discarded this round",
-                    "{C:inactive}(Currently {X:red,C:white}X#4#{} {C:inactive}Mult)",
+                        "Start with a {C:dark_edition,T:c_poke_megastone}Mega Stone{}",
+                        "{X:gray,C:attention}+4{} Ante win requirement"
+
                 }
             },
-            j_nacho_piplup = {
-                name = "Piplup",
+            sleeve_sonfive_voidsleeve_alt = {
+                name = "Void Sleeve Alt",
                 text = {
-                    "{C:blue}+#1#{} hand, {C:chips}+#2#{} Chips",
-                    "{C:chips}-#3#{} Chips per",
-                    "scoring card in played hand",
-                    "{C:inactive,s:0.8}(Evolves after {C:attention,s:0.8}#4#{C:inactive,s:0.8} rounds)",
-                } 
-            },
-            j_nacho_prinplup = {
-                name = "Prinplup",
-                text = {
-                    "{C:blue}+#1#{} hand, {C:chips}+#2#{} Chips",
-                    "Each card {C:attention}held in hand{}",
-                    "gives Chips equal to its rank",
-                    "{C:inactive,s:0.8}(Evolves after {C:attention,s:0.8}#4#{C:inactive,s:0.8} rounds)",
-                } 
-            },
-            j_nacho_empoleon = {
-                name = "Empoleon",
-                text = {
-                    "{C:blue}+#1#{} hand, {C:chips}+#2#{} Chips",
-                    "Each card {C:attention}held in hand{} gives ",
-                    "Chips equal to {C:attention}double{} its rank",
-                } 
-            },
-            j_nacho_gallade = {
-                name = "Gallade",
-                text = {
-                    "Your most played hand gains three levels",
-                    "every 3 {C:planet}Planet{} cards used {C:inactive}[#1#/3]{}",
-                    "{br:2}ERROR - CONTACT STEAK",
-                    "{C:planet}Planet{} cards do not raise",
-                    "the level of {C:attention}poker hands{}",
-                    "{br:2}ERROR - CONTACT STEAK",
-                    "{C:red}+#2#{} Mult and {X:red,C:white}X#3#{} Mult for each time",
-                    "{C:attention}poker hand{} has been played this run",
-                }
-            },
-            j_nacho_mega_gallade = {
-                name = "Mega Gallade",
-                text = {
-                    "{C:attention}Poker hands{} cannot be debuffed",
-                    -- "{br:2}ERROR - CONTACT STEAK",
-                    -- "Scoring cards cannot be debuffed",
-                    -- "if {C:attention}poker hand{} is your most played hand",
-                    "{br:2}ERROR - CONTACT STEAK",
-                    "{C:red}+#1#{} Mult and {X:red,C:white}X#2#{} Mult for each time",
-                    "{C:attention}poker hand{} has been played this run",
-                }
-            },
-            j_nacho_dedenne = {
-                name = "Dedenne",
-                text = {
-                    "{C:attention}Gold{} cards {C:attention}held in hand{}",
-                    "have a {C:green}1 in #1#{} chance to",
-                    "create an {C:item}Item{} when triggered",
-                }
-            },
-            j_nacho_carbink = {
-                name = "Carbink",
-                text = {
-                    "{C:attention}Hazard{} cards are also",
-                    "considered {C:attention}Gold{} cards",
-                }
-            },
-            j_nacho_goomy = {
-                name = "Goomy",
-                text = {
-                    "If played hand contains a Flush,",
-                    "cards {C:attention}held in hand{} with",
-                    "the {C:attention}same suit{} gain {C:red}+#1#{} Mult",
-                    "{C:inactive,s:0.8}(Evolves after triggering {C:attention,s:0.8}#2#{C:inactive,s:0.8} times)",
-                    "{C:inactive,s:0.8}(Evolves after playing a {C:attention,s:0.8}Flush House{C:inactive,s:0.8})",
-                }
-            },
-            j_nacho_sliggoo = {
-                name = "Sliggoo",
-                text = {
-                    "If played hand is a Flush, scoring cards",
-                    "and cards {C:attention}held in hand{} with",
-                    "the {C:attention}same suit{} gain {C:red}+#1#{} Mult for each",
-                    "unique {C:attention}rank{} among scoring cards",
-                    "{C:inactive,s:0.8}(Evolves after playing {C:attention,s:0.8}#2# Flushes{C:inactive,s:0.8})",
-                }
-            },
-            j_nacho_goodra = {
-                name = "Goodra",
-                text = {
-                    "If played hand is a Flush, scoring cards",
-                    "and cards {C:attention}held in hand{} with",
-                    "the {C:attention}same suit{} gain {X:red,C:white}X#1#{} Mult for each",
-                    "unique {C:attention}rank{} among scoring cards",
-                }
-            },
-            j_nacho_turtonator = {
-                name = "Turtonator",
-                text = {
-                    "If previous hand triggered",
-                    "the {C:attention}Boss Blind{} ability,",
-                    "scoring cards give {X:red,C:white}X#1#{} Mult",
-                    "{C:inactive}(#2#){}",
-                }
-            },
-            j_nacho_skwovet = {
-                name = "Skwovet",
-                text = {
-                    "Gains {C:mult}+#2#{} Mult when a",
-                    "consumable is used",
-                    "during a blind",
-                    "{C:inactive,s:0.8}(Evolves at {C:mult,s:0.8}+#1#{C:inactive,s:0.8} / +12 Mult)",
-                }
-            },
-            j_nacho_greedent = {
-                name = "Greedent",
-                text = {
-                    "Gains {C:mult}+#2#{} Mult and",
-                    "has a {C:green}1 in #3#{} chance to",
-                    "create a {C:dark_edition}Negative{} {C:item}Leftovers{}",
-                    "when a consumable is used",
-                    "during a blind",
-                    "{C:inactive,s:0.8}(Leftovers excluded)",
-                    "{C:inactive}(Currently {C:mult}+#1#{} {C:inactive}Mult)",
-                }
-            },
-            j_nacho_galarian_meowth = {
-                name = "{s:0.6}Galarian{}Meowth",
-                text = {
-                    "Retriggers the first two",
-                    "{C:attention}Steel{} cards {C:attention}held in hand{}",
-                    "{C:inactive,s:0.8}(Evolves when each adjacent joker",
-                    "{C:inactive,s:0.8}has a {C:metal,s:0.8}Metal{C:inactive,s:0.8} sticker)",
-                }
-            },
-            j_nacho_perrserker = {
-                name = "Perrserker",
-                text = {
-                    "Retriggers the first three",
-                    "{C:attention}Steel{} cards {C:attention}held in hand{}",
-                    "{br:2}ERROR - CONTACT STEAK",
-                    "Each {C:metal}Metal {C:attention}Joker{}",
-                    "gives {X:mult,C:white}X#1#{} Mult",
-                    "{br:2}ERROR - CONTACT STEAK",
-                    "Retriggers if all",
-                    "{C:attention}Jokers{} are {C:metal}Metal{}",
-                }
-            },
-            j_nacho_hisuian_zorua = {
-                name = "{s:0.6}Hisuian{}Zorua",
-                text = {
-                    "{V:1}Copies the ability",
-                    "of leftmost {C:attention}Joker{}",
-                    "{br:2.5}ERROR - CONTACT STEAK",
-                    "After scoring played hand while",
-                    "copying, remove copy effect",
-                    "until end of round",
-                    "{C:inactive,s:0.8}(Evolves after {C:attention,s:0.8}#1#{C:inactive,s:0.8} rounds)",
-                }
-            },
-            j_nacho_hisuian_zoroark = {
-                name = "{s:0.6}Hisuian{}Zoroark",
-                text = {
-                    "Copies the ability",
-                    "of leftmost {C:attention}Joker{}",
-                }
-            },
-            j_nacho_hisuian_sliggoo = {
-                name = "{s:0.6}Hisuian{}Sliggoo",
-                text = {
-                    "If played hand is a {C:attention}Flush House{},",
-                    "creates a {C:item}Metal Coat{}",
-                    "{br:2.5}ERROR - CONTACT STEAK",
-                    "Creates another {C:item}Metal Coat{} if",
-                    "the difference in scoring {C:attention}ranks{} is",
-                    "greater than {C:attention}6{}",
-                    "{C:inactive,s:0.8}(Evolves after playing {C:attention,s:0.8}#1# Flush Houses{C:inactive,s:0.8})",
-                }
-            },
-            j_nacho_hisuian_goodra = {
-                name = "{s:0.6}Hisuian{}Goodra",
-                text = {
-                    "If played hand is a {C:attention}Flush House{},",
-                    "creates a {C:item}Metal Coat{}",
-                    "{br:2.5}ERROR - CONTACT STEAK",
-                    "If played hand is a {C:attention}Flush House{},",
-                    "{C:attention}Steel{} cards {C:attention}held in hand{}",
-                    "give {X:mult,C:white}X{} Mult equal to one third of",
-                    "the difference in scoring {C:attention}ranks{}",
+                        "Start with a {C:dark_edition,T:c_poke_megastone}Mega Stone{}",
+                        "{X:gray,C:attention}+4{} Ante win requirement"
+
                 }
             },
         },
+        Spectral = {
+            c_sonfive_bottlecap = {
+                name = "Bottle Cap",
+                text = {
+                  "Permanently increases the",
+                  "{C:mult}Mult{}, {C:chips}Chips{}, {C:money}${} and {X:mult,C:white}X{} Mult",
+                  "values of the leftmost", 
+                  "or selected {C:attention}Joker{}"
+                }
+            },
+
+            
+        
+
+        },
         Stake={
-            stake_nacho_elite_stake = {
-            name = "Elite Stake",
-            text = {"{X:gray,C:attention}+2{} Ante win requirement",
-                    "Last 4 Antes are Showdown Boss Blinds",
+            stake_sonfive_rocket_stake = {
+            name = "Rocket Stake",
+            text = {"Shop can have sonfive Rocket Jokers",
+                    "{C:inactive,s:0.8}({}{X:mult,C:white,s:0.8}X2{} {C:inactive,s:0.8}Mult, {}{C:red,s:0.8}-1{}{C:inactive,s:0.8} Joker slot){}",
                     "{s:0.8}Applies all previous Stakes"
                 },
             },
-        },
-        Other={
-            nacho_elite_stake_sticker = {
-            name = "Elite Sticker",
-            text = {"Used this {C:attention}Joker{} to win on", 
-                    "{C:attention}Elite Stake{} difficulty",
+
+            stake_sonfive_ex_stake = {
+            name = "EX Stake",
+            text = {"Shop can have {C:attention}EX{} Jokers",
+                    "{C:inactive,s:0.8}(Starts fully {C:pink,s:0.8}Energized{}{C:inactive,s:0.8}...){}",
+
+                    "{s:0.8}Applies all previous Stakes"
                 },
             },
-        },
     },
-    misc = {
-        challenge_names = {
-            c_nacho_sinnoh_adv = "Sinnoh Adventure",
-            c_nacho_hibernation = "Hibernation",
-            c_nacho_gems = "Precious Stones",
-            c_nacho_goomygoomy = "Slime or Steel",
-        },
-        dictionary = {
-            -- From Turtwig, Grotle, Torterra
-            poke_leech_seed_ex = "Leech Seed!",
-            -- From Infernape
-            poke_close_combat_ex = "Close Combat!",
-            -- From Empoleon
-            poke_brine_ex = "Brine!",
-            -- From Gallade
-            poke_psycho_cut_ex = "Psycho Cut!",
-            -- From Turtonator
-            poke_shell_trap_ex = "Shell Trap!",
-            -- From Greedent
-            poke_stuff_cheeks_ex = "Stuff Cheeks!",
+            Tag={},
+        Tarot={},
+        Voucher={},
+},
 
-
-            -- Maelmc Badge
-            maelmc = "Pokermon-Maelmc",
-        },
-        v_text = {
-            ch_c_sinnoh_adv={
-                "Sinnoh starter pokemon appear in starting shop",
+        misc = {
+            dictionary = {
+                sonfive_saltcure_ex = "Salt Cure!",
             },
-        },
-    },
-}
 
+            labels={
+                sonfive_rocket = "Team Rocket",
+                sonfive_ex = "EX"
+            },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        }       
+    }
 
