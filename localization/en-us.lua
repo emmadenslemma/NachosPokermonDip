@@ -233,8 +233,12 @@ return {
             j_nacho_perrserker = {
                 name = "Perrserker",
                 text = {
+                    "Retriggers the first three",
+                    "{C:attention}Steel{} cards {C:attention}held in hand{}",
+                    "{br:2}ERROR - CONTACT STEAK",
                     "Each {C:metal}Metal {C:attention}Joker{}",
                     "gives {X:mult,C:white}X#1#{} Mult",
+                    "{br:2}ERROR - CONTACT STEAK",
                     "Retriggers if all",
                     "{C:attention}Jokers{} are {C:metal}Metal{}",
                 }

@@ -995,7 +995,7 @@ local dedenne = {
   blueprint_compat = true,
   calculate = function(self, card, context)
     if context.repetition and context.cardarea == G.hand then
-      if (next(context.card_effects[1]) or #context.card_effects >= 1) and SMODS.has_enhancement(context.other_card, 'm_gold') and
+      if (next(context.card_effects[1]) or #context.card_effects > 1) and SMODS.has_enhancement(context.other_card, 'm_gold') and
       #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
         if pseudorandom('dedenne') < G.GAME.probabilities.normal/card.ability.extra.odds then
           G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
@@ -1432,7 +1432,7 @@ local galarian_meowth={
   blueprint_compat = true,
   eternal_compat = true,
   calculate = function(self, card, context)
-    if context.before and context.cardarea == G.jokers and not context.blueprint then
+    if context.before and context.cardarea == G.jokers and not context.blueprint and not context.retrigger_joker then
       card.ability.extra.counter = 0
       return{}
     end
@@ -1471,10 +1471,11 @@ local perrserker = {
   name = "perrserker",
   poke_custom_prefix = "nacho",
   pos = {x = 0, y = 4},
-  config = { extra = {Ymult = 1.5} },
+  config = { extra = {Ymult = 1.5, retriggers = 1, counter = 0}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
     info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
+    info_queue[#info_queue+1] = G.P_CENTERS.m_steel
     return { vars = {card.ability.extra.Ymult} }
   end,
   rarity = "poke_safari",
@@ -1486,6 +1487,24 @@ local perrserker = {
   blueprint_compat = true,
   eternal_compat = true,
   calculate = function(self, card, context)
+    if context.before and context.cardarea == G.jokers and not context.blueprint and not context.retrigger_joker then
+      card.ability.extra.counter = 0
+      return{}
+    end
+
+    if context.repetition and context.cardarea == G.hand and (next(context.card_effects[1]) or #context.card_effects > 1) 
+    and SMODS.has_enhancement(context.other_card, "m_steel") then
+      if not context.blueprint and not context.retrigger_joker then
+        card.ability.extra.counter = card.ability.extra.counter + 1
+      end
+      if card.ability.extra.counter > 3 then return end
+      return {
+        message = localize('k_again_ex'),
+        repetitions = card.ability.extra.retriggers,
+        card = card
+      }
+    end
+
     if context.other_joker and is_type(context.other_joker, "Metal") then
       G.E_MANAGER:add_event(Event({
         func = function()
@@ -1506,7 +1525,7 @@ local perrserker = {
       for k, v in pairs(G.jokers.cards) do
           if is_type(v, "Metal") then metals = metals + 1 end
       end
-      if metals == #G.jokers.cards and (context.other_card.ability and context.other_card.ability.name == "perrserker") then
+      if metals == #G.jokers.cards and (context.other_card.ability and context.other_card == card) then
         return {
           message = localize("k_again_ex"),
           colour = G.C.BLACK,
