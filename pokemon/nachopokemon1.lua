@@ -986,8 +986,8 @@ local dedenne = {
     info_queue[#info_queue+1] = G.P_CENTERS.m_gold
     return {vars = {card.ability.extra.odds}}
   end,
-  rarity = 2,
-  cost = 6,
+  rarity = 1,
+  cost = 5,
   enhancement_gate = "m_gold",
   stage = "Basic",
   ptype = "Lightning",
