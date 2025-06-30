@@ -28,6 +28,7 @@ pokermon.add_family({"goomy", "sliggoo", "goodra", "hisuian_sliggoo", "hisuian_g
 pokermon.add_family({"skwovet", "greedent"})
 pokermon.add_family({"galarian_meowth", "perrserker"})
 pokermon.add_family({"hisuian_zorua", "hisuian_zoroark"})
+pokermon.add_family({"terapagos", "terapagos_terastal"})
 
 
 nacho_config = SMODS.current_mod.config
@@ -133,7 +134,24 @@ if (SMODS.Mods["Pokermon"] or {}).can_load and SMODS.Mods["Pokermon"] then
   end 
 end
 
+--Load vouchers
+local vouchers = NFS.getDirectoryItems(mod_dir.."vouchers")
 
+for _, file in ipairs(vouchers) do
+  sendDebugMessage ("The file is: "..file)
+  local voucher, load_error = SMODS.load_file("vouchers/"..file)
+  if load_error then
+    sendDebugMessage ("The error is: "..load_error)
+  else
+    local curr_voucher = voucher()
+    if curr_voucher.init then curr_voucher:init() end
+    
+    for i, item in ipairs(curr_voucher.list) do
+      item.discovered = not pokermon_config.pokemon_discovery
+      SMODS.Voucher(item)
+    end
+  end
+end
 
 -- Get mod path and load other files
 mod_dir = ''..SMODS.current_mod.path
@@ -158,47 +176,7 @@ if (SMODS.Mods["Pokermon"] or {}).can_load and SMODS.Mods["Pokermon"] then
       if curr_pokemon.list and #curr_pokemon.list > 0 then
         for i, item in ipairs(curr_pokemon.list) do
           if (pokermon_config.jokers_only and not item.joblacklist) or not pokermon_config.jokers_only  then
-            item.discovered = true
-            if not item.key then
-              item.key = item.name
-            end
-            if not pokermon_config.no_evos and not item.custom_pool_func then
-              item.in_pool = function(self)
-                return pokemon_in_pool(self)
-              end
-            end
-            if not item.config then
-              item.config = {}
-            end
-            if item.ptype then
-              if item.config and item.config.extra then
-                item.config.extra.ptype = item.ptype
-              elseif item.config then
-                item.config.extra = {ptype = item.ptype}
-              end
-            end
-            if not item.set_badges then
-              item.set_badges = poke_set_type_badge
-            end
-            if item.item_req then
-              if item.config and item.config.extra then
-                item.config.extra.item_req = item.item_req
-              elseif item.config then
-                item.config.extra = {item_req = item.item_req}
-              end
-            end
-            if item.evo_list then
-              if item.config and item.config.extra then
-                item.config.extra.evo_list = item.evo_list
-              elseif item.config then
-                item.config.extra = {item_req = item.evo_list}
-              end
-            end
-            if pokermon_config.jokers_only and item.rarity == "poke_safari" then
-              item.rarity = 3
-            end
-            item.discovered = not pokermon_config.pokemon_discovery 
-            SMODS.Joker(item)
+            pokermon.Pokemon(item, 'nacho', nil)
           end
         end
       end
@@ -278,56 +256,53 @@ if next(SMODS.find_mod("PokermonMaelmc")) then
     },
     true -- silent | suppresses mod badge
   )
-  SMODS.Joker:take_ownership('maelmc_kirlia', -- object key (class prefix not required)
-    { -- table of properties to change from the existing object
+  SMODS.Joker:take_ownership('maelmc_kirlia',
+    { 
 	  aux_poke = true,
     no_collection = true,
     custom_pool_func = true,
     in_pool = function(self)
         return false
     end, 
-		-- more on this later
+		
 
     },
-    true -- silent | suppresses mod badge
+    true 
   )
-  SMODS.Joker:take_ownership('maelmc_gardevoir', -- object key (class prefix not required)
-    { -- table of properties to change from the existing object
+  SMODS.Joker:take_ownership('maelmc_gardevoir', 
+    { 
 	  aux_poke = true,
     no_collection = true,
     custom_pool_func = true,
     in_pool = function(self)
         return false
-    end, 
-		-- more on this later
+    end,
 
     },
-    true -- silent | suppresses mod badge
+    true
   )
-  SMODS.Joker:take_ownership('maelmc_mega_gardevoir', -- object key (class prefix not required)
-    { -- table of properties to change from the existing object
+  SMODS.Joker:take_ownership('maelmc_mega_gardevoir',
+    {
 	  aux_poke = true,
     no_collection = true,
     custom_pool_func = true,
     in_pool = function(self)
         return false
-    end, 
-		-- more on this later
+    end,
 
     },
-    true -- silent | suppresses mod badge
+    true
   )
-  SMODS.Challenge:take_ownership('maelmc_ralts', -- object key (class prefix not required)
-    { -- table of properties to change from the existing object
+  SMODS.Challenge:take_ownership('maelmc_ralts',
+    {
 	  jokers = {
         {id = "j_poke_sentret"},
         {id = "j_poke_natu"},
         {id = "j_nacho_ralts"},
         {id = "j_poke_elgyem"},
     },
-		-- more on this later
 
     },
-    true -- silent | suppresses mod badge
+    true
   )
 end

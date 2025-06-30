@@ -287,6 +287,21 @@ return {
                     "the difference in scoring {C:attention}ranks{}",
                 }
             },
+            j_nacho_terapagos = {
+                name = "Terapagos",
+                text = {
+                    "{C:attention}Holding{} {C:dark_edition}Negative{} {C:item}Tera Orb{}",
+                    "Creates a {C:dark_edition}Negative{} {C:item}Tera Orb{}",
+                    "at end of round",
+                    "{C:inactive,s:0.8}(Evolves after using a {C:item,s:0.8}Tera Orb{C:inactive,s:0.8} on Terapagos)",
+                }
+            },
+            j_nacho_terapagos_terastal = {
+                name = "Terapagos",
+                text = {
+                    "test",
+                }
+            },
         },
         Stake={
             stake_nacho_elite_stake = {

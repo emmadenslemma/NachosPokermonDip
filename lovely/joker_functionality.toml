@@ -37,6 +37,8 @@ end
 '''
 match_indent = true
 
+
+
 # Mega Gallade Hand Debuff Logic
 [[patches]]
 [patches.pattern]
@@ -51,4 +53,5 @@ payload = '''
 if next(SMODS.find_card('j_nacho_mega_gallade')) then return end
 '''
 match_indent = true
+
 
