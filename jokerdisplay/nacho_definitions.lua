@@ -5,7 +5,7 @@ local jd_def = JokerDisplay.Definitions
 
 
 
-jd_def["j_nacho_ralts"] = {
+jd_def["j_nacho_ralts"] = { 
     text = {
         { text = "+" },
         { ref_table = "card.ability.extra", ref_value = "mult", retrigger_type = "mult" }
