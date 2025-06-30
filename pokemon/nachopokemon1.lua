@@ -1041,6 +1041,7 @@ local carbink = {
   ptype = "Fairy",
   atlas = "poke_Pokedex6",
   blueprint_compat = true,
+  custom_pool_func = true, 
   calculate = function(self, card, context)
     if context.check_enhancement and not context.blueprint then
       if context.other_card.config.center.key == "m_poke_hazard" then

@@ -140,7 +140,7 @@ return {
                 text = {
                     "{C:attention}Poker hands{} cannot be debuffed",
                     "This Joker cannot be debuffed",
-                    -- "{br:2}ERROR - CONTACT STEAK", 
+                    -- "{br:2}ERROR - CONTACT STEAK",
                     -- "Scoring cards cannot be debuffed",
                     -- "if {C:attention}poker hand{} is your most played hand",
                     "{br:2}ERROR - CONTACT STEAK",
