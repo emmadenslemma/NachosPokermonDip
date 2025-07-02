@@ -65,3 +65,14 @@ jd_def["j_nacho_infernape"] = {
         },
     },
 }
+
+jd_def["j_nacho_terapagos_terastal"] = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "Xmult", retrigger_type = "exp" },
+            },
+        },
+    },
+}

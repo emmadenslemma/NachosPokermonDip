@@ -20,6 +20,13 @@ SMODS.Atlas({
     path = "stakes_stickers.png"
 }):register()
 
+SMODS.Atlas({
+    key = "stickers",
+    px = 71,
+    py = 95,
+    path = "stickers.png"
+}):register()
+
 pokermon.add_family({"ralts", "kirlia", "gardevoir", "mega_gardevoir", "gallade", "mega_gallade"})
 pokermon.add_family({"turtwig", "grotle", "torterra"})
 pokermon.add_family({"chimchar", "monferno", "infernape"})
@@ -28,7 +35,7 @@ pokermon.add_family({"goomy", "sliggoo", "goodra", "hisuian_sliggoo", "hisuian_g
 pokermon.add_family({"skwovet", "greedent"})
 pokermon.add_family({"galarian_meowth", "perrserker"})
 pokermon.add_family({"hisuian_zorua", "hisuian_zoroark"})
-pokermon.add_family({"terapagos", "terapagos_terastal"})
+pokermon.add_family({"terapagos", "terapagos_terastal", "terapagos_stellar"})
 
 
 nacho_config = SMODS.current_mod.config
@@ -107,6 +114,7 @@ if (SMODS.Mods["Pokermon"] or {}).can_load and SMODS.Mods["Pokermon"] and not po
         if curr_sticker.init then curr_sticker:init() end
         
         for i, item in ipairs(curr_sticker.list) do
+          item.hide_badge = true
           SMODS.Sticker(item)
         end
       end
@@ -175,8 +183,12 @@ if (SMODS.Mods["Pokermon"] or {}).can_load and SMODS.Mods["Pokermon"] then
       
       if curr_pokemon.list and #curr_pokemon.list > 0 then
         for i, item in ipairs(curr_pokemon.list) do
-          if (pokermon_config.jokers_only and not item.joblacklist) or not pokermon_config.jokers_only  then
-            pokermon.Pokemon(item, 'nacho', nil)
+          if (pokermon_config.jokers_only and not item.joblacklist) or not pokermon_config.jokers_only then
+            if item.name ~= "terapagos_stellar" then
+              pokermon.Pokemon(item, 'nacho', nil)
+            else
+              pokermon.load_pokemon(item)
+            end
           end
         end
       end
@@ -186,6 +198,14 @@ end
 
 --Load Draw Logic file
 local sprite, load_error = SMODS.load_file("functions/nacho_pokedraw.lua")
+if load_error then
+  sendDebugMessage ("The error is: "..load_error)
+else
+  sprite()
+end
+
+--Load Animation file
+local sprite, load_error = SMODS.load_file("functions/nacho_pokeanimations.lua")
 if load_error then
   sendDebugMessage ("The error is: "..load_error)
 else

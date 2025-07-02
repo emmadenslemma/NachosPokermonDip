@@ -80,7 +80,7 @@ local carbink = {
   end,
   in_pool = function(self, args)
     for i = 1, #G.jokers.cards do
-        if G.jokers.cards[i].ability.extra.hazard_ratio ~= nil then return true end
+      if G.jokers.cards[i].ability.extra.hazard_ratio ~= nil then return true end
     end
     return false
   end,
