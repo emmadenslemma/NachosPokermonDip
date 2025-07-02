@@ -312,7 +312,7 @@ local hisuian_zorua = {
   end,
   set_ability = function(self, card, initial, delay_sprites)
     if not type_sticker_applied(card) then
-      apply_type_sticker(card, "Colorless")
+      apply_type_sticker(card, "Dark")
     end
     if card.area ~= G.jokers and not poke_is_in_collection(card) and not G.SETTINGS.paused then
       card.ability.extra.hidden_key = card.ability.extra.hidden_key or get_random_poke_key('zorua', nil, 1)
@@ -372,7 +372,7 @@ local hisuian_zorua = {
     if G.STAGE == G.STAGES.RUN and card.area == G.jokers  then
       local other_joker = G.jokers.cards[1]
       card.ability.blueprint_compat = ( other_joker and other_joker ~= card and not other_joker.debuff and other_joker.config.center.blueprint_compat and 'compatible') or 'incompatible'
-      if card.ability.blueprint_compat == 'compatible' and not card.debuff and card.ability.extra.active then
+      if card.ability.blueprint_compat == 'compatible' and not card.debuff and card.ability.extra.active and other_joker.children.center.atlas.px == 71 then
         card.children.center.atlas = other_joker.children.center.atlas
         card.children.center:set_sprite_pos(other_joker.children.center.sprite_pos)
         if other_joker.children.floating_sprite then
@@ -383,9 +383,9 @@ local hisuian_zorua = {
           card.children.floating_sprite:set_sprite_pos(self.soul_pos)
         end
       else
-        card.children.center.atlas = G.ASSET_ATLAS[card.edition and card.edition.poke_shiny and "poke_ShinyRegionals" or "Regionals"]
+        card.children.center.atlas = G.ASSET_ATLAS[card.edition and card.edition.poke_shiny and "poke_ShinyRegionals" or "poke_Regionals"]
         card.children.center:set_sprite_pos(self.pos)
-        card.children.floating_sprite.atlas = G.ASSET_ATLAS[card.edition and card.edition.poke_shiny and "poke_ShinyRegionals" or "Regionals"]
+        card.children.floating_sprite.atlas = G.ASSET_ATLAS[card.edition and card.edition.poke_shiny and "poke_ShinyRegionals" or "poke_Regionals"]
         card.children.floating_sprite:set_sprite_pos(self.soul_pos)
       end
     elseif poke_is_in_collection(card) and card.children.center.sprite_pos ~= self.pos and card.children.center.atlas.name ~= self.atlas then
