@@ -227,7 +227,7 @@ return {
                 text = {
                     "Retriggers the first two",
                     "{C:attention}Steel{} cards {C:attention}held in hand{}",
-                    "{C:inactive,s:0.8}(Evolves when each adjacent joker",
+                    "{C:inactive,s:0.8}(Evolves when each adjacent Joker",
                     "{C:inactive,s:0.8}has a {C:metal,s:0.8}Metal{C:inactive,s:0.8} sticker)",
                 }
             },
@@ -291,22 +291,44 @@ return {
                 name = "Terapagos",
                 text = {
                     "{C:attention}Holding{} {C:dark_edition}Negative{} {C:item}Tera Orb{}",
-                    "Creates a {C:dark_edition}Negative{} {C:item}Tera Orb{}",
-                    "at end of round",
-                    "{C:inactive,s:0.8}(Evolves after using a {C:item,s:0.8}Tera Orb{C:inactive,s:0.8} on Terapagos)",
+                    "Creates a {C:dark_edition}Negative{} {C:item}Tera Orb{} at end of round",
+                    "{C:pink}Energizes{} all Jokers upon transforming",
+                    "{C:inactive,s:0.8}(Transforms after using a {C:item,s:0.8}Tera Orb{C:inactive,s:0.8} on Terapagos)",
                 }
             },
             j_nacho_terapagos_terastal = {
-                name = "Terapagos",
+                name = "Terapagos-Terastal",
                 text = {
-                    "test",
+                    "{C:pink}+3{} Energy Limit",
+                    "Using a {C:item}Tera Orb{} on Terapagos",
+                    "applies a {C:item}Tera Orb{} to each Joker",
+                    "{br:2.5}ERROR - CONTACT STEAK",
+                    "{X:mult,C:white}X#1#{} Mult for each Energy applied",
+                    "on all Jokers {C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)",
+                    "{br:2.5}ERROR - CONTACT STEAK",
+                    "{C:inactive,s:0.8}(Transforms after using a {C:item,s:0.8}Tera Orb{C:inactive,s:0.8} on Terapagos",
+                    "{C:inactive,s:0.8}if it has 6 Energy or more)",
+                }
+            },
+            j_nacho_terapagos_stellar = {
+                name = "Terapagos-Stellar",
+                text = {
+                    "{C:pink}+5{} Energy Limit",
+                    "Each Joker with a Type Sticker", 
+                    "becomes {C:nacho_sg1}S{C:nacho_sg2}t{C:nacho_sg3}e{C:nacho_sg4}l{C:nacho_sg5}l{C:nacho_sg6}a{C:nacho_sg7}r{} Type",
+                    "Using a {C:item}Tera Orb{} on Terapagos",
+                    "applies a {C:item}Tera Orb{} to each Joker",
+                    "{br:2.5}ERROR - CONTACT STEAK",
+                    "Each {C:nacho_sg1}S{C:nacho_sg2}t{C:nacho_sg3}e{C:nacho_sg4}l{C:nacho_sg5}l{C:nacho_sg6}a{C:nacho_sg7}r{} Joker gives {X:mult,C:white}X#1#{} Mult for each",
+                    "Energy applied to it",
                 }
             },
         },
         Stake={
             stake_nacho_elite_stake = {
-            name = "Elite Stake",
-            text = {"{X:gray,C:attention}+2{} Ante win requirement",
+                name = "Elite Stake",
+                text = {
+                    "{X:gray,C:attention}+2{} Ante win requirement",
                     "Last 4 Antes are Showdown Boss Blinds",
                     "{s:0.8}Applies all previous Stakes"
                 },
@@ -314,9 +336,16 @@ return {
         },
         Other={
             nacho_elite_stake_sticker = {
-            name = "Elite Sticker",
-            text = {"Used this {C:attention}Joker{} to win on", 
+                name = "Elite Sticker",
+                text = {
+                    "Used this {C:attention}Joker{} to win on",
                     "{C:attention}Elite Stake{} difficulty",
+                },
+            },
+            stellar_type = {
+                name = "Stellar Type",
+                text = {
+                    "{C:nacho_sg1}S{C:nacho_sg2}t{C:nacho_sg3}e{C:nacho_sg4}l{C:nacho_sg5}l{C:nacho_sg6}a{C:nacho_sg7}r{} Jokers are every type",
                 },
             },
         },

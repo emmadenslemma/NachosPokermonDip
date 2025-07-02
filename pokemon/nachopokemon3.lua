@@ -16,12 +16,7 @@ local ralts={
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
     info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Foxthor, One Punch Idiot"}}
-    local mult = 0
-    for _, v in pairs(G.GAME.hands) do
-      mult = mult + (v.level - 1) * card.ability.extra.mult_mod
-      card.ability.extra.mult = mult
-    end
-    return {vars = {card.ability.extra.mult_mod, mult, card.ability.extra.rounds}}
+    return {vars = {card.ability.extra.mult_mod, card.ability.extra.mult, card.ability.extra.rounds}}
   end,
   rarity = 3,
   cost = 8,
@@ -52,24 +47,26 @@ local ralts={
               }}
  	end,
   calculate = function(self, card, context)
-
     if context.cardarea == G.jokers and context.scoring_hand then
       if context.joker_main then
-        local mult = 0
-        for _, v in pairs(G.GAME.hands) do
-          mult = mult + (v.level - 1) * card.ability.extra.mult_mod
-        end
-        if mult > 0 then
-          return {
-            colour = G.C.MULT,
-            mult = mult,
-            card = card
-          }
-        end
+        return {
+          colour = G.C.MULT,
+          mult = mult,
+          card = card
+        }
       end
     end
-
     return level_evo(self, card, context, "j_nacho_kirlia")
+  end,
+   update = function(self, card, dt)
+    if G.STAGE == G.STAGES.RUN and card.area == G.jokers then
+      local mult = 0
+      for _, v in pairs(G.GAME.hands) do
+        mult = mult + (v.level - 1) * card.ability.extra.mult_mod
+      end
+      card.ability.extra.mult = mult
+      return {}
+    end
   end,
 }
 
@@ -81,12 +78,7 @@ local kirlia={
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
     info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Foxthor, One Punch Idiot"}}
-    local mult = 0
-    for _, v in pairs(G.GAME.hands) do
-      mult = mult + (v.level - 1) * card.ability.extra.mult_mod
-      card.ability.extra.mult = mult
-    end
-    return {vars = {card.ability.extra.mult_mod, mult, card.ability.extra.rounds}}
+    return {vars = {card.ability.extra.mult_mod, card.ability.extra.mult, card.ability.extra.rounds}}
   end,
   rarity = "poke_safari",
   cost = 9,
@@ -120,17 +112,11 @@ local kirlia={
   calculate = function(self, card, context)
     if context.cardarea == G.jokers and context.scoring_hand then
       if context.joker_main then
-        local mult = 0
-        for _, v in pairs(G.GAME.hands) do
-          mult = mult + (v.level - 1) * card.ability.extra.mult_mod
-        end
-        if mult > 0 then
           return {
             colour = G.C.MULT,
             mult = mult,
             card = card
           }
-        end
       end
     end
     local evolve = item_evo(self, card, context, "j_nacho_gallade")
@@ -140,22 +126,27 @@ local kirlia={
       return level_evo(self, card, context, "j_nacho_gardevoir")
     end
   end,
+  update = function(self, card, dt)
+    if G.STAGE == G.STAGES.RUN and card.area == G.jokers then
+      local mult = 0
+      for _, v in pairs(G.GAME.hands) do
+        mult = mult + (v.level - 1) * card.ability.extra.mult_mod
+      end
+      card.ability.extra.mult = mult
+      return {}
+    end
+  end,
 }
 
 -- Gardevoir 282
 local gardevoir={
   name = "gardevoir",
   pos = {x = 0, y = 3},
-  config = {extra = {Xmult = 0, Xmult_mod = 0.1}},
+  config = {extra = {Xmult_mod = 0.1, Xmult = 1.0}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
     info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Foxthor, One Punch Idiot"}}
-    local xmult = 1
-    for _, v in pairs(G.GAME.hands) do
-      xmult = xmult + (v.level - 1) * card.ability.extra.Xmult_mod
-      card.ability.extra.Xmult = xmult
-    end
-    return {vars = {card.ability.extra.Xmult_mod, xmult}}
+    return {vars = {card.ability.extra.Xmult_mod, card.ability.extra.Xmult}}
   end,
   rarity = "poke_safari",
   cost = 10,
@@ -202,6 +193,16 @@ local gardevoir={
       end
     end
   end,
+  update = function(self, card, dt)
+    if G.STAGE == G.STAGES.RUN and card.area == G.jokers then
+      local xmult = 1
+      for _, v in pairs(G.GAME.hands) do
+        xmult = xmult + (v.level - 1) * card.ability.extra.Xmult_mod
+      end
+      card.ability.extra.Xmult = xmult
+      return {}
+    end
+  end,
   megas = {"mega_gardevoir"},
 }
 
@@ -246,6 +247,7 @@ local mega_gardevoir={
               }}
  	end,
   calculate = function(self, card, context)
+    -- Create Orbital Tag on Planet Use
     if context.using_consumeable and context.consumeable and context.consumeable.ability then
       if context.consumeable.ability.set == 'Planet' then
         local tag = Tag('tag_orbital')
@@ -266,7 +268,7 @@ local mega_gardevoir={
         }))
       end
     end
-
+    -- Set Planet Cards in Hand to Polychrome at end of round
     if context.end_of_round and not context.blueprint then
       for k, v in ipairs(G.consumeables.cards) do
         if v.ability.set == 'Planet' and not v.edition then
@@ -275,8 +277,8 @@ local mega_gardevoir={
         end
       end
     end
-
   end,
+  -- Negative Black Hole generation on entry
   add_to_deck = function(self, card, from_debuff)
     if not from_debuff then
       local _card = create_card("Spectral", G.consumeables, nil, nil, nil, nil, "c_black_hole")
