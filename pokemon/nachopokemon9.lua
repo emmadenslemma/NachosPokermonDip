@@ -199,7 +199,7 @@ local terapagos_stellar={
     end
   end,
   add_to_deck = function(self, card, from_debuff)
-    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
+    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.0, func = function()
               card.children.center:reset()
               if card.children.floating_sprite then
                 card.children.floating_sprite.atlas = G.ASSET_ATLAS[card.children.center.atlas.name .. "_soul"]
