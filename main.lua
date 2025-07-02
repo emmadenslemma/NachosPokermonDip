@@ -11,21 +11,21 @@ SMODS.Atlas({
     px = 29,
     py = 29,
     path = "stakes.png"
-}):register()
+})
 
 SMODS.Atlas({
     key = "stake_stickers",
     px = 71,
     py = 95,
     path = "stakes_stickers.png"
-}):register()
+})
 
 SMODS.Atlas({
     key = "stickers",
     px = 71,
     py = 95,
     path = "stickers.png"
-}):register()
+})
 
 pokermon.add_family({"ralts", "kirlia", "gardevoir", "mega_gardevoir", "gallade", "mega_gallade"})
 pokermon.add_family({"turtwig", "grotle", "torterra"})
