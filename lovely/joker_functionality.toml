@@ -118,23 +118,7 @@ if card.ability and ((card.ability.extra and type(card.ability.extra) == "table"
 '''
 position = "before"
 payload = '''
-if card.ability.extra.ptype == "Stellar" then
-    return true
-end
-'''
-match_indent = true
-
-# energy_matches returns true if the original type matches
-[[patches]]
-[patches.pattern]
-target = '=[SMODS Pokermon "functions/pokefunctions.lua"]'
-pattern = '''
-if (card.ability.extra.ptype and etype and card.ability.extra.ptype == etype and not type_sticker_applied(card)) or (card.ability[string.lower(etype).."_sticker"]) then
-      return true
-'''
-position = "after"
-payload = '''
-elseif (card.ability.extra.ptype and etype and card.ability.extra.ptype == "Stellar" and card.config.center.ptype == etype) then
+if card.ability and card.ability.stellar_sticker then
     return true
 end
 '''
@@ -149,7 +133,7 @@ if (card.ability.extra.ptype and etype and card.ability.extra.ptype == etype and
 '''
 position = "before"
 payload = '''
-if (card.ability["stellar_sticker"]) then return true end
+if (card.ability.stellar_sticker) then return true end
 '''
 match_indent = true
 
@@ -163,7 +147,7 @@ if v.ability and ((v.ability.extra and type(v.ability.extra) == "table" and targ
 '''
 position = "at"
 payload = '''
-if v.ability and ((v.ability.extra and type(v.ability.extra) == "table" and ((target_type == v.ability.extra.ptype) or (v.ability.extra.ptype == "Stellar"))) or v.ability[string.lower(target_type).."_sticker"]) then
+if v.ability and ((v.ability.extra and type(v.ability.extra) == "table" and target_type == v.ability.extra.ptype) or v.ability.stellar_sticker or v.ability[string.lower(target_type).."_sticker"]) then
         table.insert(found, v)
 '''
 match_indent = true
@@ -173,13 +157,38 @@ match_indent = true
 [patches.pattern]
 target = '=[SMODS Pokermon "functions/pokefunctions.lua"]'
 pattern = '''
-card.ability[type_req.."_sticker"]
+if can_evolve(self, card, context, forced_key) and card.ability[type_req.."_sticker"] then
 '''
 position = "at"
 payload = '''
-(card.ability[type_req.."_sticker"] or card.ability["stellar_sticker"])
+if can_evolve(self, card, context, forced_key) and (card.ability.stellar_sticker or card.ability[type_req.."_sticker"]) then
 '''
 match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS Pokermon "functions/pokefunctions.lua"]'
+pattern = '''
+elseif can_evolve(self, card, context, forced_key, true) and card.ability[type_req.."_sticker"] then
+'''
+position = "at"
+payload = '''
+elseif can_evolve(self, card, context, forced_key, true) and (card.ability.stellar_sticker or card.ability[type_req.."_sticker"]) then
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS Pokermon "functions/pokefunctions.lua"]'
+pattern = '''
+local eval = function(card) return card.ability[type_req.."_sticker"] and not card.REMOVED and not G.RESET_JIGGLES end
+'''
+position = "at"
+payload = '''
+local eval = function(card) return (card.ability.stellar_sticker or card.ability[type_req.."_sticker"]) and not card.REMOVED and not G.RESET_JIGGLES end
+'''
+match_indent = true
+
 
 
 
