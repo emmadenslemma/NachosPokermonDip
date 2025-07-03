@@ -6,8 +6,8 @@ This is an add-on mod for Pokermon - an add-on mod for Balatro.
 | Joker | Effect |
 | ------ | ------ |
 | Turtwig  | +1 hand size, <br/>Raises the cap on interest earned each round by $1|
-| Grotle | +1 hand size, <br/>Raises the cap on interest earned each round by $2|
-| Torterra | +1 hand size, +2 Mult for every $5 you have, <br/>Raises the cap on interest earned each round by $3|
+| Grotle | +1 hand size for every $15 you have (Max of 2), <br/>Raises the cap on interest earned each round by $2|
+| Torterra | +1 hand size for every $15 you have (Max of 4), <br/>Raises the cap on interest earned each round by $3|
 
 | Joker | Effect |
 | ------ | ------ |
@@ -60,6 +60,13 @@ This is an add-on mod for Pokermon - an add-on mod for Balatro.
 | ------ | ------ |
 | Hisuian Zorua | Copies the leftmost joker <br/>After scoring played hand while copying,<br/> remove copy effect |
 | Hisuian Zoroark | Copies the leftmost joker |
+
+| Joker | Effect |
+| ------ | ------ |
+| Terapagos | Holding a Negative Tera Orb <br/>Creates a Negative Tera Orb at end of round |
+| Terapagos-Terastal | +3 Energy Limit <br/>Applying a Tera Orb to this Joker applies a Tera Orb to each other Joker <br/> X0.1 Mult for each Energy applied on all Jokers |
+| Terapagos-Stellar | +5 Energy Limit <br/>All Jokers with a Type Sticker become Stellar Type <br/>Applying a Tera Orb to this Joker applies a Tera Orb to each other Joker <br/>Each Stellar Joker gives X0.2 Mult for each Energy applied to it |
+
 
 ## Stakes
 
