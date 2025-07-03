@@ -41,7 +41,8 @@ return {
                 name = "Turtwig",
                 text = {
                     "{C:attention}+#1#{} hand size",
-                    "Raises the cap on interest", 
+                    "{br:2}ERROR - CONTACT STEAK",
+                    "Raises the cap on interest",
                     "earned each round by {C:money}$1{}",
                     "{C:inactive,s:0.8}(Evolves after {C:attention,s:0.8}#2#{C:inactive,s:0.8} rounds)",
                 } 
@@ -49,8 +50,10 @@ return {
             j_nacho_grotle = {
                 name = "Grotle",
                 text = {
-                    "{C:attention}+#1#{} hand size",
-                    "Raises the cap on interest", 
+                    "{C:attention}+1{} hand size for every",
+                    "{C:money}$15{} you have {C:inactive}(Max of 2)",
+                    "{br:2}ERROR - CONTACT STEAK",
+                    "Raises the cap on interest",
                     "earned each round by {C:money}$2{}",
                     "{C:inactive,s:0.8}(Evolves after {C:attention,s:0.8}#2#{C:inactive,s:0.8} rounds)",
                 } 
@@ -58,10 +61,10 @@ return {
             j_nacho_torterra = {
                 name = "Torterra",
                 text = {
-                    "{C:attention}+#1#{} hand size",
-                    "{C:mult}+#2#{} Mult for every {C:money}$5{} you have",
+                    "{C:attention}+1{} hand size for every",
+                    "{C:money}$15{} you have {C:inactive}(Max of 4)",
                     "{br:2}ERROR - CONTACT STEAK",
-                    "Raises the cap on interest", 
+                    "Raises the cap on interest",
                     "earned each round by {C:money}$3{}",
                 } 
             },
