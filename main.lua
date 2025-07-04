@@ -212,7 +212,6 @@ else
   sprite()
 end
 
-
 --Load Debuff logic
 local sprite, load_error = SMODS.load_file("functions/functions.lua")
 if load_error then

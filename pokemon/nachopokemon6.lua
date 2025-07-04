@@ -208,11 +208,11 @@ local sliggoo={
 local goodra={
   name = "goodra",
   pos = {x = 0, y = 4},
-  config = {extra = {Xmult_multi = 0.02}},
+  config = {extra = {Xmult_mod = 0.02}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
     info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
-    return {vars = {card.ability.extra.Xmult_multi}}
+    return {vars = {card.ability.extra.Xmult_mod}}
   end,
   rarity = "poke_safari",
   cost = 11,
@@ -248,7 +248,7 @@ local goodra={
         -- Increment permamult if card matches Flush suit
         if wildcount == #scoring_flush or context.other_card:is_suit(matching_suit) then
           context.other_card.ability.perma_x_mult = context.other_card.ability.perma_x_mult or 0
-          context.other_card.ability.perma_x_mult = context.other_card.ability.perma_x_mult + card.ability.extra.Xmult_multi * #unique_ranks
+          context.other_card.ability.perma_x_mult = context.other_card.ability.perma_x_mult + card.ability.extra.Xmult_mod * #unique_ranks
           return {
             extra = {message = localize('k_upgrade_ex'), colour = G.C.MULT},
             colour = G.C.MULT,

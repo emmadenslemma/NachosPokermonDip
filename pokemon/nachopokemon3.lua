@@ -12,11 +12,15 @@ end
 local ralts={
   name = "ralts",
   pos = {x = 8, y = 2},
-  config = {extra = {mult = 0, mult_mod = 1, rounds = 4}},
+  config = {extra = {mult_mod = 1, rounds = 4}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
     info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Foxthor, One Punch Idiot"}}
-    return {vars = {card.ability.extra.mult_mod, card.ability.extra.mult, card.ability.extra.rounds}}
+    local mult = 0
+    for _, v in pairs(G.GAME.hands) do
+      mult = mult + (v.level - 1) * card.ability.extra.mult_mod
+    end
+    return {vars = {card.ability.extra.mult_mod, mult, card.ability.extra.rounds}}
   end,
   rarity = 3,
   cost = 8,
@@ -49,8 +53,15 @@ local ralts={
   calculate = function(self, card, context)
     if context.cardarea == G.jokers and context.scoring_hand then
       if context.joker_main then
+        local mult = 0
+        for _, v in pairs(G.GAME.hands) do
+          if (SMODS.Mods["Talisman"] or {}).can_load then
+            mult = mult + (to_number(v.level) - 1) * card.ability.extra.mult_mod
+          else
+            mult = mult + (v.level - 1) * card.ability.extra.mult_mod
+          end
+        end
         return {
-          colour = G.C.MULT,
           mult = mult,
           card = card
         }
@@ -58,27 +69,21 @@ local ralts={
     end
     return level_evo(self, card, context, "j_nacho_kirlia")
   end,
-   update = function(self, card, dt)
-    if G.STAGE == G.STAGES.RUN and card.area == G.jokers then
-      local mult = 0
-      for _, v in pairs(G.GAME.hands) do
-        mult = mult + (v.level - 1) * card.ability.extra.mult_mod
-      end
-      card.ability.extra.mult = mult
-      return {}
-    end
-  end,
 }
 
 -- Kirlia 281
 local kirlia={
   name = "kirlia",
   pos = {x = 9, y = 2},
-  config = {extra = {mult = 0, mult_mod = 2, rounds = 5}},
+  config = {extra = {mult_mod = 2, rounds = 5}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
     info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Foxthor, One Punch Idiot"}}
-    return {vars = {card.ability.extra.mult_mod, card.ability.extra.mult, card.ability.extra.rounds}}
+    local mult = 0
+    for _, v in pairs(G.GAME.hands) do
+      mult = mult + (v.level - 1) * card.ability.extra.mult_mod
+    end
+    return {vars = {card.ability.extra.mult_mod, mult, card.ability.extra.rounds}}
   end,
   rarity = "poke_safari",
   cost = 9,
@@ -112,11 +117,18 @@ local kirlia={
   calculate = function(self, card, context)
     if context.cardarea == G.jokers and context.scoring_hand then
       if context.joker_main then
-          return {
-            colour = G.C.MULT,
-            mult = mult,
-            card = card
-          }
+        local mult = 0
+        for _, v in pairs(G.GAME.hands) do
+          if (SMODS.Mods["Talisman"] or {}).can_load then
+            mult = mult + (to_number(v.level) - 1) * card.ability.extra.mult_mod
+          else
+            mult = mult + (v.level - 1) * card.ability.extra.mult_mod
+          end
+        end
+        return {
+          mult = mult,
+          card = card
+        }
       end
     end
     local evolve = item_evo(self, card, context, "j_nacho_gallade")
@@ -124,16 +136,6 @@ local kirlia={
       return evolve
     else
       return level_evo(self, card, context, "j_nacho_gardevoir")
-    end
-  end,
-  update = function(self, card, dt)
-    if G.STAGE == G.STAGES.RUN and card.area == G.jokers then
-      local mult = 0
-      for _, v in pairs(G.GAME.hands) do
-        mult = mult + (v.level - 1) * card.ability.extra.mult_mod
-      end
-      card.ability.extra.mult = mult
-      return {}
     end
   end,
 }
@@ -146,7 +148,11 @@ local gardevoir={
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
     info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Foxthor, One Punch Idiot"}}
-    return {vars = {card.ability.extra.Xmult_mod, card.ability.extra.Xmult}}
+    local xmult = 1
+    for _, v in pairs(G.GAME.hands) do
+      xmult = xmult + (v.level - 1) * card.ability.extra.Xmult_mod
+    end
+    return {vars = {card.ability.extra.Xmult_mod, xmult}}
   end,
   rarity = "poke_safari",
   cost = 10,
@@ -181,26 +187,19 @@ local gardevoir={
       if context.joker_main then
         local xmult = 1
         for _, v in pairs(G.GAME.hands) do
-          xmult = xmult + (v.level - 1) * card.ability.extra.Xmult_mod
+          if (SMODS.Mods["Talisman"] or {}).can_load then
+            xmult = xmult + (to_number(v.level) - 1) * card.ability.extra.Xmult_mod
+          else
+            xmult = xmult + (v.level - 1) * card.ability.extra.Xmult_mod
+          end
         end
         if xmult > 1 then
           return {
-            colour = G.C.MULT,
             xmult = xmult,
             card = card
           }
         end
       end
-    end
-  end,
-  update = function(self, card, dt)
-    if G.STAGE == G.STAGES.RUN and card.area == G.jokers then
-      local xmult = 1
-      for _, v in pairs(G.GAME.hands) do
-        xmult = xmult + (v.level - 1) * card.ability.extra.Xmult_mod
-      end
-      card.ability.extra.Xmult = xmult
-      return {}
     end
   end,
   megas = {"mega_gardevoir"},

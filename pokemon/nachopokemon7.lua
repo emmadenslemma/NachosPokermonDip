@@ -39,8 +39,8 @@ local turtonator={
     if context.individual and context.cardarea == G.play and context.scoring_hand then 
       if card.ability.extra.trapped then
         return{
-        xmult = card.ability.extra.Xmult_mod,
-        colour = G.C.XMULT,
+          xmult = card.ability.extra.Xmult_mod,
+          colour = G.C.XMULT,
         }
       end
     end

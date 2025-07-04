@@ -545,18 +545,16 @@ local hisuian_sliggoo={
     end
     -- Main function
     if context.joker_main and context.scoring_name == 'Flush House' then
-      -- Create table of scoring ranks
-      local ranks = {}
-      for i = 1, #context.scoring_hand do
-        local contains = false
-        if ranks ~= {} then
-          for j = 1, #ranks do
-            if context.scoring_hand[i].base.nominal == ranks[j] then contains = true end
+      -- Get first rank id + rank, compare id to second rank id, get second rank
+      local first_rank = {}
+      local second_rank = nil
+      for _, scoring_card in pairs(context.scoring_hand) do
+          if not first_rank and scoring_card:get_id() > 0 then
+            first_rank.id = scoring_card:get_id()
+            first_rank.rank = scoring_card.base.nominal
+          elseif not second_rank and scoring_card:get_id() > 0 and scoring_card:get_id() ~= first_rank.id then
+              second_rank = scoring_card.base.nominal
           end
-        end
-        if not contains then
-          ranks[#ranks+1] = context.scoring_hand[i].base.nominal
-        end
       end
       -- Create metal coat
       if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
@@ -566,7 +564,7 @@ local hisuian_sliggoo={
         card_eval_status_text(_card, 'extra', nil, nil, nil, {message = localize('poke_plus_pokeitem'), colour = G.C.FILTER})
       end
       -- Create second metal coat if the difference in scoring ranks is > 6
-      if math.abs(ranks[2] - ranks[1]) > 6 then
+      if math.abs(second_rank - first_rank.rank) > 6 then
         if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
           local _card = create_card('Item', G.consumeables, nil, nil, nil, nil, 'c_poke_metalcoat')
           _card:add_to_deck()
@@ -583,11 +581,11 @@ local hisuian_sliggoo={
 local hisuian_goodra={
   name = "hisuian_goodra",
   pos = {x = 1, y = 5},
-  config = {extra = {Xmult = 0.0}},
+  config = {extra = {Xmult = 1}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
     info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
-    return {vars = {card.ability.extra.Xmult_multi}}
+    return {vars = {}}
   end,
   rarity = "poke_safari",
   cost = 11,
@@ -596,31 +594,35 @@ local hisuian_goodra={
   atlas = "Regionals",
   blueprint_compat = true,
   calculate = function(self, card, context)
+    -- Create a Metal Coat if Flush House played
+    if context.before and context.main_eval and context.scoring_name == 'Flush House' then
+      -- Create metal coat
+      if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+        local _card = create_card('Item', G.consumeables, nil, nil, nil, nil, 'c_poke_metalcoat')
+        _card:add_to_deck()
+        G.consumeables:emplace(_card)
+        card_eval_status_text(_card, 'extra', nil, nil, nil, {message = localize('poke_plus_pokeitem'), colour = G.C.FILTER})
+      end
+    end
     if context.individual and context.cardarea == G.hand and not context.end_of_round then
       if context.scoring_name == 'Flush House' then
-        -- Create table of scoring ranks
-        local ranks = {}
-        for i = 1, #context.scoring_hand do
-          local contains = false
-          if ranks ~= {} then
-            for j = 1, #ranks do
-              if context.scoring_hand[i].base.nominal == ranks[j] then contains = true end
+        -- Get first and second ranks of flush house
+        local first_rank = nil
+        local second_rank = nil
+        for _, scoring_card in pairs(context.scoring_hand) do
+            if not first_rank and scoring_card:get_id() > 0 then
+              first_rank = scoring_card.base.nominal
+            elseif not second_rank and scoring_card:get_id() > 0 and scoring_card.base.nominal ~= first_rank then
+                second_rank = scoring_card.base.nominal
             end
-          end
-          if not contains then
-            ranks[#ranks+1] = context.scoring_hand[i].base.nominal
-          end
-        end
-         -- Create metal coat
-        if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-          local _card = create_card('Item', G.consumeables, nil, nil, nil, nil, 'c_poke_metalcoat')
-          _card:add_to_deck()
-          G.consumeables:emplace(_card)
-          card_eval_status_text(_card, 'extra', nil, nil, nil, {message = localize('poke_plus_pokeitem'), colour = G.C.FILTER})
         end
         -- Set Xmult_mod
-        card.ability.extra.Xmult = math.abs(ranks[2] - ranks[1]) / 3.0
-        if SMODS.has_enhancement(context.other_card, 'm_steel') then
+        if first_rank and second_rank and first_rank ~= second_rank then
+          card.ability.extra.Xmult = math.abs(second_rank - first_rank) / 3
+        else
+          card.ability.extra.Xmult = 1
+        end
+        if SMODS.has_enhancement(context.other_card, 'm_steel') and card.ability.extra.Xmult > 1 then
           return{
             xmult = card.ability.extra.Xmult,
             card = card,

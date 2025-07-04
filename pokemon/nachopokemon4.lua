@@ -57,7 +57,7 @@ local grotle={
   config = {extra = {h_size = 1, interest = 5, counter = 0, money = 0, money_mod = 0, rounds = 5}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
-    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
+    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho, ESN64"}}
     return {vars = {card.ability.extra.h_size, card.ability.extra.rounds}}
   end,
   rarity = "poke_safari",
@@ -119,7 +119,7 @@ local torterra={
   config = {extra = {h_size = 0, interest = 5, counter = 0, money = 0, money_mod = 0}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
-    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
+    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho, ESN64"}}
     return {vars = {card.ability.extra.h_size, card.ability.extra.mult}}
   end,
   rarity = "poke_safari",
@@ -406,8 +406,6 @@ local piplup={
         local chip_total = card.ability.extra.chips - card.ability.extra.chip_loss * (#context.scoring_hand)
         if chip_total < 0 then chip_total = 0 end
         return {
-          message = localize{type = 'variable', key = 'a_chips', vars = {chip_total}}, 
-          colour = G.C.CHIPS,
           chips = chip_total,
         }
       end
@@ -449,7 +447,9 @@ local prinplup={
   eternal_compat = true,
   calculate = function(self, card, context)    
     if context.individual and not context.end_of_round and context.cardarea == G.hand then
-      card.ability.extra.chip_mod = context.other_card.base.nominal
+      if not SMODS.has_no_rank(context.other_card) then
+        card.ability.extra.chip_mod = context.other_card.base.nominal
+      end
       return {
         h_chips = card.ability.extra.chip_mod,
         card = card,
@@ -459,8 +459,6 @@ local prinplup={
     if context.cardarea == G.jokers and context.scoring_hand then
       if context.joker_main then
         return {
-          message = localize{type = 'variable', key = 'a_chips', vars = {card.ability.extra.chips}}, 
-          colour = G.C.CHIPS,
           chips = card.ability.extra.chips,
         }
       end
@@ -502,7 +500,9 @@ local empoleon={
   eternal_compat = true,
   calculate = function(self, card, context)    
      if context.individual and not context.end_of_round and context.cardarea == G.hand then
-      card.ability.extra.chip_mod = context.other_card.base.nominal * 2
+      if not SMODS.has_no_rank(context.other_card) then
+        card.ability.extra.chip_mod = context.other_card.base.nominal * 2
+      end
       return {
         h_chips = card.ability.extra.chip_mod,
         card = card,
@@ -512,8 +512,6 @@ local empoleon={
     if context.cardarea == G.jokers and context.scoring_hand then
       if context.joker_main then
         return {
-          message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.chips}}, 
-          colour = G.C.CHIPS,
           chips = card.ability.extra.chips,
         }
       end
@@ -538,7 +536,7 @@ local empoleon={
 local gallade={
   name = "gallade",
   pos = {x = 4, y = 6},
-  config = {extra = {planets = 0, mult_mod = 1, Xmult_mod = 0.1}},
+  config = {extra = {planets = 0, mult_mod = 2, Xmult_mod = 0.1}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
     info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
@@ -583,7 +581,7 @@ local gallade={
     -- Main Scoring
     if context.cardarea == G.jokers and context.scoring_hand then
       if context.joker_main then
-        local mult = 2 * G.GAME.hands[context.scoring_name].played
+        local mult = card.ability.extra.mult_mod * G.GAME.hands[context.scoring_name].played
         local Xmult = 1 + card.ability.extra.Xmult_mod * G.GAME.hands[context.scoring_name].played
         return {
           mult = mult,
@@ -601,7 +599,7 @@ local mega_gallade={
   name = "mega_gallade",
   pos = {x = 2, y = 6},
   soul_pos = { x = 3, y = 6 },
-  config = {extra = {mult_mod = 2, Xmult_mod = 0.2}},
+  config = {extra = {mult_mod = 4, Xmult_mod = 0.2}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
     info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
