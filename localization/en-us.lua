@@ -37,6 +37,39 @@ return {
                     "gain {C:spectral}Polychrome{} at end of round",
                 } 
             },
+            j_nacho_bagon = {
+                name = "Bagon",
+                text = {
+                    "{X:mult,C:white}X#1#{} Mult if",
+                    "played hand is a {C:attention}Two Pair{}",
+                    "{C:inactive,s:0.8}(Evolves after playing {C:attention,s:0.8}#2#{C:inactive,s:0.8} Two Pairs)",
+                } 
+            },
+            j_nacho_shelgon = {
+                name = "Shelgon",
+                text = {
+                    "If played hand is a {C:attention}Two Pair{},",
+                    "gives {X:mult,C:white}X#1#{} Mult and raises the {C:attention}rank{}",
+                    "of unscored cards by {C:attention}1{}",
+                    "{C:inactive,s:0.8}(Evolves after playing {C:attention,s:0.8}#2#{C:inactive,s:0.8} Two Pairs)",
+                } 
+            },
+            j_nacho_salamence = {
+                name = "Salamence",
+                text = {
+                    "If played hand is a {C:attention}Two Pair{},",
+                    "gives {X:mult,C:white}X#1#{} Mult and raises the {C:attention}rank{}",
+                    "of unscored cards by {C:attention}2{}",
+                } 
+            },
+            j_nacho_mega_salamence = {
+                name = "Mega Salamence",
+                text = {
+                    "Each scoring card gives {X:mult,C:white}X#1#{} Mult if",
+                    "played hand is a {C:attention}Two Pair{}",
+                    "Retrigger each scoring {C:attention}rank{} higher than {C:attention}9{}",
+                } 
+            },
             j_nacho_turtwig = {
                 name = "Turtwig",
                 text = {

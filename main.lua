@@ -28,6 +28,7 @@ SMODS.Atlas({
 })
 
 pokermon.add_family({"ralts", "kirlia", "gardevoir", "mega_gardevoir", "gallade", "mega_gallade"})
+pokermon.add_family({"bagon", "shelgon", "salamence", "mega_salamence"})
 pokermon.add_family({"turtwig", "grotle", "torterra"})
 pokermon.add_family({"chimchar", "monferno", "infernape"})
 pokermon.add_family({"piplup", "prinplup", "empoleon"})

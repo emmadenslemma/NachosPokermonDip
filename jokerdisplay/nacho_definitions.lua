@@ -50,6 +50,116 @@ jd_def["j_nacho_gardevoir"] = {
     end
 }
 
+jd_def["j_nacho_bagon"] = {
+  text = {
+    {
+      border_nodes = {
+        { text = "X" },
+        { ref_table = "card.joker_display_values", ref_value = "Xmult", retrigger_type = "exp" },
+      },
+    },
+  },
+  reminder_text = {
+    { text = "(" },
+    { ref_table = "card.joker_display_values", ref_value = "localized_text", colour = G.C.ORANGE },
+    { text = ")" },
+  },
+  calc_function = function(card)
+    local text, _, _ = JokerDisplay.evaluate_hand()
+    if text == "Two Pair" then
+      card.joker_display_values.Xmult = card.ability.extra.Xmult
+    else
+      card.joker_display_values.Xmult = 1
+    end
+    card.joker_display_values.localized_text = localize('Two Pair', 'poker_hands')
+  end
+}
+
+jd_def["j_nacho_shelgon"] = {
+  text = {
+    {
+      border_nodes = {
+        { text = "X" },
+        { ref_table = "card.joker_display_values", ref_value = "Xmult", retrigger_type = "exp" },
+      },
+    },
+  },
+  reminder_text = {
+    { text = "(" },
+    { ref_table = "card.joker_display_values", ref_value = "localized_text", colour = G.C.ORANGE },
+    { text = ")" },
+  },
+  calc_function = function(card)
+    local text, _, _ = JokerDisplay.evaluate_hand()
+    if text == "Two Pair" then
+      card.joker_display_values.Xmult = card.ability.extra.Xmult
+    else
+      card.joker_display_values.Xmult = 1
+    end
+    card.joker_display_values.localized_text = localize('Two Pair', 'poker_hands')
+  end
+}
+
+jd_def["j_nacho_salamence"] = {
+  text = {
+    {
+      border_nodes = {
+        { text = "X" },
+        { ref_table = "card.joker_display_values", ref_value = "Xmult", retrigger_type = "exp" },
+      },
+    },
+  },
+  reminder_text = {
+    { text = "(" },
+    { ref_table = "card.joker_display_values", ref_value = "localized_text", colour = G.C.ORANGE },
+    { text = ")" },
+  },
+  calc_function = function(card)
+    local text, _, _ = JokerDisplay.evaluate_hand()
+    if text == "Two Pair" then
+      card.joker_display_values.Xmult = card.ability.extra.Xmult
+    else
+      card.joker_display_values.Xmult = 1
+    end
+    card.joker_display_values.localized_text = localize('Two Pair', 'poker_hands')
+  end
+}
+
+jd_def["j_nacho_mega_salamence"] = {
+  text = {
+    {
+      border_nodes = {
+        { text = "X" },
+        { ref_table = "card.joker_display_values", ref_value = "x_mult", retrigger_type = "exp" },
+      },
+    },
+  },
+  reminder_text = {
+    { text = "(" },
+    { ref_table = "card.joker_display_values", ref_value = "localized_text", colour = G.C.ORANGE },
+    { text = ")" },
+  },
+  calc_function = function(card)
+    local x_mult = 1
+    local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+    if text == 'Two Pair' then
+      for _, scoring_card in pairs(scoring_hand) do
+        local retriggers = JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
+        x_mult = x_mult * (card.ability.extra.Xmult ^ (retriggers))
+      end
+    end
+    card.joker_display_values.localized_text = localize('Two Pair', 'poker_hands')
+    card.joker_display_values.x_mult = x_mult
+  end,
+  retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
+    if held_in_hand then
+        return 0
+    elseif playing_card:get_id() > 9 then
+        return (joker_card.ability.extra.retriggers * JokerDisplay.calculate_joker_triggers(joker_card)) or 0
+    else return 0 end
+end,
+}
+
 jd_def["j_nacho_chimchar"] = {
     text = {
         { text = "+" },
