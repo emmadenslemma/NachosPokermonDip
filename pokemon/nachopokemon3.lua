@@ -294,7 +294,7 @@ local mega_gardevoir={
 local bagon={
   name = "bagon",
   pos = {x = 2, y = 12},
-  config = {extra = {Xmult = 1.5, hand_played = 0}, evo_rqmt = 12},
+  config = {extra = {Xmult = 1.5, hand_played = 0}, evo_rqmt = 6},
   loc_vars = function(self, info_queue, center)
     type_tooltip(self, info_queue, center)
     info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
@@ -329,7 +329,7 @@ local bagon={
 local shelgon={
   name = "shelgon",
   pos = {x = 3, y = 12},
-  config = {extra = {Xmult = 1.8, hand_played = 0, raised = false}, evo_rqmt = 16},
+  config = {extra = {Xmult = 1.8, hand_played = 0, raised = false}, evo_rqmt = 10},
   loc_vars = function(self, info_queue, center)
     type_tooltip(self, info_queue, center)
     info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
