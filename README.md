@@ -32,13 +32,6 @@ This is an add-on mod for Pokermon - an add-on mod for Balatro.
 
 | Joker | Effect |
 | ------ | ------ |
-| Bagon | X1.5 Mult if played hand is a Two Pair |
-| Shelgon | If played hand is a Two Pair, gives X1.8 Mult and raises the rank of unscored cards by 1 |
-| Salamence | If played hand is a Two Pair, gives X2.5 Mult and raises the rank of unscored cards by 2 |
-| Mega Salamence | If played hand is a Two Pair, scoring cards give X1.5 Mult <br/>Retrigger each scoring rank higher than 9|
-
-| Joker | Effect |
-| ------ | ------ |
 | Carbink | Hazard cards are also considered Gold cards |
 
 | Joker | Effect |

@@ -51,6 +51,9 @@ return {
                     "If played hand is a {C:attention}Two Pair{},",
                     "gives {X:mult,C:white}X#1#{} Mult and raises the {C:attention}rank{}",
                     "of unscored cards by {C:attention}1{}",
+                    "{br:2}ERROR - CONTACT STEAK",
+                    "Scoring {C:attention}ranks{} above {C:attention}9{} give Mult",
+                    "equal to {C:attention}half{} of their {C:attention}rank{}",
                     "{C:inactive,s:0.8}(Evolves after playing {C:attention,s:0.8}#2#{C:inactive,s:0.8} Two Pairs)",
                 } 
             },
@@ -60,6 +63,9 @@ return {
                     "If played hand is a {C:attention}Two Pair{},",
                     "gives {X:mult,C:white}X#1#{} Mult and raises the {C:attention}rank{}",
                     "of unscored cards by {C:attention}2{}",
+                    "{br:2}ERROR - CONTACT STEAK",
+                    "Scoring {C:attention}ranks{} above {C:attention}9{} give Mult",
+                    "equal to their {C:attention}rank{}",
                 } 
             },
             j_nacho_mega_salamence = {

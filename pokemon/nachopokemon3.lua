@@ -329,7 +329,7 @@ local bagon={
 local shelgon={
   name = "shelgon",
   pos = {x = 3, y = 12},
-  config = {extra = {Xmult = 1.8, hand_played = 0, raised = false}, evo_rqmt = 10},
+  config = {extra = {Xmult = 2, hand_played = 0, raised = false}, evo_rqmt = 10},
   loc_vars = function(self, info_queue, center)
     type_tooltip(self, info_queue, center)
     info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
@@ -344,54 +344,62 @@ local shelgon={
   blueprint_compat = true,
   eternal_compat = true,
   calculate = function(self, card, context)
-    if context.individual and context.cardarea == G.play and context.scoring_name == "Two Pair" then
-      for k, v in pairs(context.full_hand) do
-        if not SMODS.in_scoring(v, context.scoring_hand) and not card.ability.extra.raised then
-          -- This whole set of events is just the Strength Tarot from VanillaRemade
-          G.E_MANAGER:add_event(Event({
-          trigger = 'after',
-          delay = 0.4,
-          func = function()
-              play_sound('tarot1')
-              card:juice_up(0.3, 0.5)
-              return true
+    if context.individual and context.cardarea == G.play then
+      if context.scoring_name == "Two Pair" then
+        for k, v in pairs(context.full_hand) do
+          if not SMODS.in_scoring(v, context.scoring_hand) and not card.ability.extra.raised then
+            -- This whole set of events is just the Strength Tarot from VanillaRemade
+            G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+                play_sound('tarot1')
+                card:juice_up(0.3, 0.5)
+                return true
+            end
+            }))
+            local percent = 1.15 - ((v:get_id() / 7) - 0.999) / ((v:get_id() / 7) - 0.998) * 0.3
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.15,
+                func = function()
+                    v:flip()
+                    play_sound('card1', percent)
+                    v:juice_up(0.3, 0.3)
+                    return true
+                end
+            }))
+            delay(0.2)
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.1,
+                func = function()
+                    -- SMODS.modify_rank will increment/decrement a given card's rank by a given amount
+                    assert(SMODS.modify_rank(v, 1))
+                    return true
+                end
+            }))
+            local percent = 0.85 + ((v:get_id() / 7) - 0.999) / (#G.hand.highlighted - 0.998) * 0.3
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.15,
+                func = function()
+                    v:flip()
+                    play_sound('tarot2', percent, 0.6)
+                    v:juice_up(0.3, 0.3)
+                    return true
+                end
+            }))
+            delay(0.5)
+            card.ability.extra.raised = true
           end
-          }))
-          local percent = 1.15 - ((v:get_id() / 7) - 0.999) / ((v:get_id() / 7) - 0.998) * 0.3
-          G.E_MANAGER:add_event(Event({
-              trigger = 'after',
-              delay = 0.15,
-              func = function()
-                  v:flip()
-                  play_sound('card1', percent)
-                  v:juice_up(0.3, 0.3)
-                  return true
-              end
-          }))
-          delay(0.2)
-          G.E_MANAGER:add_event(Event({
-              trigger = 'after',
-              delay = 0.1,
-              func = function()
-                  -- SMODS.modify_rank will increment/decrement a given card's rank by a given amount
-                  assert(SMODS.modify_rank(v, 1))
-                  return true
-              end
-          }))
-          local percent = 0.85 + ((v:get_id() / 7) - 0.999) / (#G.hand.highlighted - 0.998) * 0.3
-          G.E_MANAGER:add_event(Event({
-              trigger = 'after',
-              delay = 0.15,
-              func = function()
-                  v:flip()
-                  play_sound('tarot2', percent, 0.6)
-                  v:juice_up(0.3, 0.3)
-                  return true
-              end
-          }))
-          delay(0.5)
-          card.ability.extra.raised = true
         end
+      end
+      if context.other_card:get_id() > 9 then
+        return{
+          mult = context.other_card.base.nominal / 2,
+          card = context.other_card or card
+        }
       end
     end
     if context.cardarea == G.jokers and context.scoring_hand and context.scoring_name == "Two Pair" then
@@ -415,7 +423,7 @@ local shelgon={
 local salamence={
   name = "salamence",
   pos = {x = 4, y = 12},
-  config = {extra = {Xmult = 2.5, raised = false}},
+  config = {extra = {Xmult = 3, raised = false}},
   loc_vars = function(self, info_queue, center)
     type_tooltip(self, info_queue, center)
     info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
@@ -430,54 +438,62 @@ local salamence={
   blueprint_compat = true,
   eternal_compat = true,
   calculate = function(self, card, context)
-    if context.individual and context.cardarea == G.play and context.scoring_name == "Two Pair" then
-      for k, v in pairs(context.full_hand) do
-        if not SMODS.in_scoring(v, context.scoring_hand) and not card.ability.extra.raised then
-          -- This whole set of events is just the Strength Tarot from VanillaRemade
-          G.E_MANAGER:add_event(Event({
-          trigger = 'after',
-          delay = 0.4,
-          func = function()
-              play_sound('tarot1')
-              card:juice_up(0.3, 0.5)
-              return true
+    if context.individual and context.cardarea == G.play then
+      if context.scoring_name == "Two Pair" then
+        for k, v in pairs(context.full_hand) do
+          if not SMODS.in_scoring(v, context.scoring_hand) and not card.ability.extra.raised then
+            -- This whole set of events is just the Strength Tarot from VanillaRemade
+            G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+                play_sound('tarot1')
+                card:juice_up(0.3, 0.5)
+                return true
+            end
+            }))
+            local percent = 1.15 - ((v:get_id() / 7) - 0.999) / ((v:get_id() / 7) - 0.998) * 0.3
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.15,
+                func = function()
+                    v:flip()
+                    play_sound('card1', percent)
+                    v:juice_up(0.3, 0.3)
+                    return true
+                end
+            }))
+            delay(0.2)
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.1,
+                func = function()
+                    -- SMODS.modify_rank will increment/decrement a given card's rank by a given amount
+                    assert(SMODS.modify_rank(v, 2))
+                    return true
+                end
+            }))
+            local percent = 0.85 + ((v:get_id() / 7) - 0.999) / (#G.hand.highlighted - 0.998) * 0.3
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.15,
+                func = function()
+                    v:flip()
+                    play_sound('tarot2', percent, 0.6)
+                    v:juice_up(0.3, 0.3)
+                    return true
+                end
+            }))
+            delay(0.5)
+            card.ability.extra.raised = true
           end
-          }))
-          local percent = 1.15 - ((v:get_id() / 7) - 0.999) / ((v:get_id() / 7) - 0.998) * 0.3
-          G.E_MANAGER:add_event(Event({
-              trigger = 'after',
-              delay = 0.15,
-              func = function()
-                  v:flip()
-                  play_sound('card1', percent)
-                  v:juice_up(0.3, 0.3)
-                  return true
-              end
-          }))
-          delay(0.2)
-          G.E_MANAGER:add_event(Event({
-              trigger = 'after',
-              delay = 0.1,
-              func = function()
-                  -- SMODS.modify_rank will increment/decrement a given card's rank by a given amount
-                  assert(SMODS.modify_rank(v, 2))
-                  return true
-              end
-          }))
-          local percent = 0.85 + ((v:get_id() / 7) - 0.999) / (#G.hand.highlighted - 0.998) * 0.3
-          G.E_MANAGER:add_event(Event({
-              trigger = 'after',
-              delay = 0.15,
-              func = function()
-                  v:flip()
-                  play_sound('tarot2', percent, 0.6)
-                  v:juice_up(0.3, 0.3)
-                  return true
-              end
-          }))
-          delay(0.5)
-          card.ability.extra.raised = true
         end
+      end
+      if context.other_card:get_id() > 9 then
+        return{
+          mult = context.other_card.base.nominal,
+          card = context.other_card or card
+        }
       end
     end
     if context.cardarea == G.jokers and context.scoring_hand and context.scoring_name == "Two Pair" then
