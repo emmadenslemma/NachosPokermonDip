@@ -546,14 +546,13 @@ local hisuian_sliggoo={
     -- Main function
     if context.joker_main and context.scoring_name == 'Flush House' then
       -- Get first rank id + rank, compare id to second rank id, get second rank
-      local first_rank = {}
+      local first_rank = nil
       local second_rank = nil
       for _, scoring_card in pairs(context.scoring_hand) do
           if not first_rank and scoring_card:get_id() > 0 then
-            first_rank.id = scoring_card:get_id()
-            first_rank.rank = scoring_card.base.nominal
-          elseif not second_rank and scoring_card:get_id() > 0 and scoring_card:get_id() ~= first_rank.id then
-              second_rank = scoring_card.base.nominal
+            first_rank = scoring_card.base.nominal
+          elseif not second_rank and scoring_card:get_id() > 0 and scoring_card:get_id() ~= first_rank then
+            second_rank = scoring_card.base.nominal
           end
       end
       -- Create metal coat
@@ -564,7 +563,7 @@ local hisuian_sliggoo={
         card_eval_status_text(_card, 'extra', nil, nil, nil, {message = localize('poke_plus_pokeitem'), colour = G.C.FILTER})
       end
       -- Create second metal coat if the difference in scoring ranks is > 6
-      if math.abs(second_rank - first_rank.rank) > 6 then
+      if first_rank and second_rank and math.abs(second_rank - first_rank) > 6 then
         if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
           local _card = create_card('Item', G.consumeables, nil, nil, nil, nil, 'c_poke_metalcoat')
           _card:add_to_deck()
