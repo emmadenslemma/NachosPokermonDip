@@ -17,22 +17,6 @@ position = "before"
 payload = '''
 if next(SMODS.find_card('j_nacho_gallade')) and card.ability.set == 'Planet' then
     return true
-else
-'''
-match_indent = true
-
-
-[[patches]]
-[patches.pattern]
-target = "functions/common_events.lua"
-pattern = '''
-    G.E_MANAGER:add_event(Event({
-            trigger = 'immediate',
-            func = (function() check_for_unlock{type = 'upgrade_hand', hand = hand, level = G.GAME.hands[hand].level} return true end)
-        }))
-'''
-position = "after"
-payload = '''
 end
 '''
 match_indent = true
