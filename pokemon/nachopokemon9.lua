@@ -81,6 +81,7 @@ local terapagos_terastal={
   atlas = "Pokedex9",
   blueprint_compat = true,
   custom_pool_func = true,
+  aux_poke = true,
   in_pool = function(self)
     return false
   end,
@@ -168,6 +169,7 @@ local terapagos_stellar={
   atlas = "j_nacho_terapagos_stellar",
   blueprint_compat = true,
   custom_pool_func = true,
+  aux_poke = true,
   in_pool = function(self)
     return false
   end,
