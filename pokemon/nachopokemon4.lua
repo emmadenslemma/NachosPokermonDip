@@ -173,7 +173,7 @@ local torterra={
 local chimchar={
   name = "chimchar",
   pos = {x = 3, y = 0},
-  config = {extra = {d_size = 1, mult = 0, mult_mod = 0, max_scored = 0}, evo_rqmt = 4},
+  config = {extra = {d_size = 1, mult = 0, max_scored = 0}, evo_rqmt = 4},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
     info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
@@ -192,14 +192,11 @@ local chimchar={
     if context.discard and not context.blueprint and not context.other_card.debuff then
       local prev_mult = card.ability.extra.mult
 
-      if card.ability.extra.mult_mod < context.other_card:get_id() then
-        card.ability.extra.mult_mod = context.other_card:get_id()
+      if card.ability.extra.mult < context.other_card.base.nominal then
+        card.ability.extra.mult = context.other_card.base.nominal
       end
 
       if context.other_card == context.full_hand[#context.full_hand] then
-        if card.ability.extra.mult_mod >= 11 and card.ability.extra.mult_mod <= 13 then card.ability.extra.mult = 10
-        elseif card.ability.extra.mult_mod == 14 then card.ability.extra.mult = 11
-        else card.ability.extra.mult = card.ability.extra.mult_mod end
         if card.ability.extra.mult > prev_mult then
           return {
               message = localize('k_upgrade_ex'),
@@ -212,19 +209,16 @@ local chimchar={
     if context.cardarea == G.jokers and context.scoring_hand then
       if context.joker_main then
         return {
-          message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult}}, 
-          colour = G.C.MULT,
           mult = card.ability.extra.mult
         }
       end
     end
 
     if context.end_of_round and context.game_over == false and not context.blueprint and not context.repetition and not context.individual then
-      if card.ability.extra.mult == 11 then
+      if card.ability.extra.mult >= 11 then
           card.ability.extra.max_scored = card.ability.extra.max_scored + 1
       end
       card.ability.extra.mult = 0
-      card.ability.extra.mult_mod = 0
       local evolved = scaling_evo(self, card, context, "j_nacho_monferno", card.ability.extra.max_scored, self.config.evo_rqmt)
       if evolved then
         return evolved
@@ -250,7 +244,7 @@ local chimchar={
 local monferno={
   name = "monferno",
   pos = {x = 4, y = 0},
-  config = {extra = {d_size = 1, mult = 0, mult_mod = 0, max_scored = 0}, evo_rqmt = 4},
+  config = {extra = {d_size = 1, mult = 0, highest_rank = 0, max_scored = 0}, evo_rqmt = 4},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
     info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
@@ -269,15 +263,13 @@ local monferno={
     
     if context.discard and not context.blueprint and not context.other_card.debuff then
 
-      if card.ability.extra.mult_mod < context.other_card:get_id() then
-        card.ability.extra.mult_mod = context.other_card:get_id()
+      if card.ability.extra.highest_rank < context.other_card.base.nominal then
+        card.ability.extra.highest_rank = context.other_card.base.nominal
       end
 
       if context.other_card == context.full_hand[#context.full_hand] then
-        if card.ability.extra.mult_mod >= 11 and card.ability.extra.mult_mod <= 13 then card.ability.extra.mult = card.ability.extra.mult + 10
-        elseif card.ability.extra.mult_mod == 14 then card.ability.extra.mult = card.ability.extra.mult + 11
-        else card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod end
-        card.ability.extra.mult_mod = 0
+        card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.highest_rank
+        card.ability.extra.highest_rank = 0
         return {
             message = localize('k_upgrade_ex'),
             colour = G.C.RED
@@ -288,8 +280,6 @@ local monferno={
     if context.cardarea == G.jokers and context.scoring_hand then
       if context.joker_main then
         return {
-          message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult}}, 
-          colour = G.C.MULT,
           mult = card.ability.extra.mult
         }
       end
@@ -300,7 +290,6 @@ local monferno={
         card.ability.extra.max_scored = card.ability.extra.max_scored + 1
       end
       card.ability.extra.mult = 0
-      card.ability.extra.mult_mod = 0
       local evolved = scaling_evo(self, card, context, "j_nacho_infernape", card.ability.extra.max_scored, self.config.evo_rqmt)
       if evolved then
         return evolved

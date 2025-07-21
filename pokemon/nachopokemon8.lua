@@ -312,7 +312,7 @@ local hisuian_zorua = {
   end,
   set_ability = function(self, card, initial, delay_sprites)
     if not type_sticker_applied(card) then
-      apply_type_sticker(card, "Dark")
+      apply_type_sticker(card, "Colorless")
     end
     if card.area ~= G.jokers and not poke_is_in_collection(card) and not G.SETTINGS.paused then
       card.ability.extra.hidden_key = card.ability.extra.hidden_key or get_random_poke_key('zorua', nil, 1)
@@ -546,13 +546,15 @@ local hisuian_sliggoo={
     -- Main function
     if context.joker_main and context.scoring_name == 'Flush House' then
       -- Get first rank id + rank, compare id to second rank id, get second rank
+      local first_rank_id = nil
       local first_rank = nil
       local second_rank = nil
       for _, scoring_card in pairs(context.scoring_hand) do
           if not first_rank and scoring_card:get_id() > 0 then
+            first_rank_id = scoring_card:get_id()
             first_rank = scoring_card.base.nominal
-          elseif not second_rank and scoring_card:get_id() > 0 and scoring_card:get_id() ~= first_rank then
-            second_rank = scoring_card.base.nominal
+          elseif not second_rank and scoring_card:get_id() > 0 and scoring_card:get_id() ~= first_rank_id then
+              second_rank = scoring_card.base.nominal
           end
       end
       -- Create metal coat
@@ -563,7 +565,7 @@ local hisuian_sliggoo={
         card_eval_status_text(_card, 'extra', nil, nil, nil, {message = localize('poke_plus_pokeitem'), colour = G.C.FILTER})
       end
       -- Create second metal coat if the difference in scoring ranks is > 6
-      if first_rank and second_rank and math.abs(second_rank - first_rank) > 6 then
+      if math.abs(second_rank - first_rank) > 6 then
         if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
           local _card = create_card('Item', G.consumeables, nil, nil, nil, nil, 'c_poke_metalcoat')
           _card:add_to_deck()
@@ -606,21 +608,20 @@ local hisuian_goodra={
     if context.individual and context.cardarea == G.hand and not context.end_of_round then
       if context.scoring_name == 'Flush House' then
         -- Get first and second ranks of flush house
+        local first_rank_id = nil
         local first_rank = nil
         local second_rank = nil
         for _, scoring_card in pairs(context.scoring_hand) do
             if not first_rank and scoring_card:get_id() > 0 then
+              first_rank_id = scoring_card:get_id()
               first_rank = scoring_card.base.nominal
-            elseif not second_rank and scoring_card:get_id() > 0 and scoring_card.base.nominal ~= first_rank then
+            elseif not second_rank and scoring_card:get_id() > 0 and scoring_card:get_id() ~= first_rank_id then
                 second_rank = scoring_card.base.nominal
             end
         end
         -- Set Xmult_mod
-        if first_rank and second_rank and first_rank ~= second_rank then
-          card.ability.extra.Xmult = math.abs(second_rank - first_rank) / 3
-        else
-          card.ability.extra.Xmult = 1
-        end
+        card.ability.extra.Xmult = math.abs(second_rank - first_rank) / 3
+        -- Score Steel cards in hand
         if SMODS.has_enhancement(context.other_card, 'm_steel') and card.ability.extra.Xmult > 1 then
           return{
             xmult = card.ability.extra.Xmult,

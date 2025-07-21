@@ -165,7 +165,7 @@ local terapagos_stellar={
   rarity = 4,
   cost = 20,
   stage = "Legendary",
-  ptype = "Stellar Tera",
+  ptype = "Stellar",
   atlas = "j_nacho_terapagos_stellar",
   blueprint_compat = true,
   custom_pool_func = true,
@@ -209,12 +209,12 @@ local terapagos_stellar={
                 card.children.floating_sprite:reset()
               end
               return true end }))
+    if not G.GAME.energy_plus then
+      G.GAME.energy_plus = 5
+    else
+      G.GAME.energy_plus = G.GAME.energy_plus + 5
+    end
     if not from_debuff then
-      if not G.GAME.energy_plus then
-        G.GAME.energy_plus = 5
-      else
-        G.GAME.energy_plus = G.GAME.energy_plus + 5
-      end
       for i = 1, #G.jokers.cards do
         apply_type_sticker(G.jokers.cards[i], G.jokers.cards[i].config.center.ptype)
         apply_type_sticker(G.jokers.cards[i], "Stellar")
@@ -241,6 +241,9 @@ local terapagos_stellar={
     card.children.center.VT.x = 0.35 + card.T.x - (G.CARD_H - G.CARD_W) / 2
     card.children.floating_sprite.VT.x = card.children.center.VT.x
     card.children.center.VT.w = card.T.w
+    if poke_is_in_collection(card) then
+      apply_type_sticker(card, "Stellar")
+    end
   end,
 }
 

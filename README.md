@@ -49,7 +49,7 @@ This is an add-on mod for Pokermon - an add-on mod for Balatro.
 | Joker | Effect |
 | ------ | ------ |
 | Skwovet | Gains +1 Mult when a consumable is used during a blind |
-| Greedent | Gains +2 Mult when a consumable is used during a blind <br/>1 in 4 chance to create a Negative Leftovers card <br/>when a consumable is used during a blind|
+| Greedent | Gains +1 Mult when a consumable is used during a blind <br/>1 in 4 chance to create a Negative Leftovers card <br/>when a consumable is used during a blind|
 
 | Joker | Effect |
 | ------ | ------ |

@@ -57,6 +57,18 @@ elseif card.ability.stellar_sticker then
 '''
 match_indent = true
 
+[[patches]]
+[patches.pattern]
+target = '=[SMODS Pokermon "localization/en-us.lua"]'
+pattern = '''
+poke_bird_badge = "Bird",
+'''
+position = "after"
+payload = '''
+poke_stellar_badge = "Stellar",
+'''
+match_indent = true
+
 # Creating the Stellar Type Badge
 [[patches]]
 [patches.pattern]
@@ -66,7 +78,7 @@ badges[#badges+1] = create_badge(ptype, G.ARGS.LOC_COLOURS[lower_ptype], text_co
 '''
 position = "at"
 payload = '''
-if ptype == "Stellar Tera" then
+if ptype == "Stellar "..localize("poke_tera") then
     local stellar_gradient = SMODS.Gradients.nacho_sgbadge
     badges[#badges+1] = create_badge(ptype, stellar_gradient, text_colour, 1.2);
 else

@@ -221,7 +221,7 @@ local goodra={
   atlas = "Pokedex6",
   blueprint_compat = true,
   calculate = function(self, card, context)
-    if context.individual and (context.cardarea == G.hand or context.cardarea == G.play) and not context.end_of_round then
+    if context.individual and (context.cardarea == G.hand or G.play) and not context.end_of_round then
       if context.scoring_name == 'Flush' then
         -- Get the scoring cards that make up the Flush only
         local scoring_flush = get_flush(context.scoring_hand)[1]
