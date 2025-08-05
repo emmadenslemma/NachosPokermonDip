@@ -91,8 +91,8 @@ local terapagos_terastal={
         if (G.jokers.highlighted[1] == card and #G.jokers.highlighted == 1) or (G.jokers.cards[1] == card and #G.jokers.highlighted == 0) then
           for i = 1, #G.jokers.cards do
             if G.jokers.cards[i] ~= card then
-              energy_increase(G.jokers.cards[i], G.jokers.cards[i].ability.extra.ptype)
               apply_type_sticker(G.jokers.cards[i])
+              energy_increase(G.jokers.cards[i], G.jokers.cards[i].ability.extra.ptype)
             end
           end
           apply_type_sticker(card, "Colorless")
@@ -248,4 +248,5 @@ local terapagos_stellar={
 }
 
 list = {terapagos, terapagos_terastal, terapagos_stellar}
+
 return {name = "nachopokemon9", list = list}
