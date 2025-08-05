@@ -92,7 +92,7 @@ local terapagos_terastal={
           for i = 1, #G.jokers.cards do
             if G.jokers.cards[i] ~= card then
               apply_type_sticker(G.jokers.cards[i])
-              energy_increase(G.jokers.cards[i], G.jokers.cards[i].ability.extra.ptype)
+              energy_increase(G.jokers.cards[i], type_sticker_applied(G.jokers.cards[i]))
             end
           end
           apply_type_sticker(card, "Colorless")
@@ -250,3 +250,4 @@ local terapagos_stellar={
 list = {terapagos, terapagos_terastal, terapagos_stellar}
 
 return {name = "nachopokemon9", list = list}
+
