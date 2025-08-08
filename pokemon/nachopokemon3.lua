@@ -375,7 +375,7 @@ local shelgon={
                 delay = 0.1,
                 func = function()
                     -- SMODS.modify_rank will increment/decrement a given card's rank by a given amount
-                    assert(SMODS.modify_rank(v, math.max(14 - v:get_id(), 1)))
+                    assert(SMODS.modify_rank(v, math.min(14 - v:get_id(), 1)))
                     return true
                 end
             }))
@@ -469,7 +469,7 @@ local salamence={
                 delay = 0.1,
                 func = function()
                     -- SMODS.modify_rank will increment/decrement a given card's rank by a given amount
-                    assert(SMODS.modify_rank(v, math.max(14 - v:get_id(), 2)))
+                    assert(SMODS.modify_rank(v, math.min(14 - v:get_id(), 2)))
                     return true
                 end
             }))
