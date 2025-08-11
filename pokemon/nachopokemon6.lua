@@ -80,7 +80,8 @@ local carbink = {
   end,
   in_pool = function(self, args)
     for i = 1, #G.jokers.cards do
-      if G.jokers.cards[i].ability and G.jokers.cards[i].ability.extra and G.jokers.cards[i].ability.extra.hazard_ratio ~= nil then return true end
+      if G.jokers.cards[i].ability and G.jokers.cards[i].ability.extra and type(G.jokers.cards[i].ability.extra) == "table" and 
+        G.jokers.cards[i].ability.extra.hazard_ratio ~= nil then return true end
     end
     return false
   end,
@@ -263,3 +264,4 @@ local goodra={
 
 list = {dedenne, carbink, goomy, sliggoo, goodra}
 return {name = "nachopokemon6", list = list}
+
