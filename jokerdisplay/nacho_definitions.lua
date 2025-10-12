@@ -52,24 +52,25 @@ jd_def["j_nacho_gardevoir"] = {
 
 jd_def["j_nacho_bagon"] = {
   text = {
-    {
-      border_nodes = {
-        { text = "X" },
-        { ref_table = "card.joker_display_values", ref_value = "Xmult", retrigger_type = "exp" },
-      },
+        { text = "+" },
+        { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult" }
     },
-  },
   reminder_text = {
     { text = "(" },
     { ref_table = "card.joker_display_values", ref_value = "localized_text", colour = G.C.ORANGE },
     { text = ")" },
   },
   calc_function = function(card)
+    local mult = 0
     local text, _, _ = JokerDisplay.evaluate_hand()
     if text == "Two Pair" then
-      card.joker_display_values.Xmult = card.ability.extra.Xmult
+        for _, scoring_card in pairs(scoring_hand) do
+            local retriggers = JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
+            mult = mult + (scoring_card.base.nominal / 3) * retriggers
+        end
+        card.joker_display_values.mult = mult
     else
-      card.joker_display_values.Xmult = 1
+        card.joker_display_values.mult = 0
     end
     card.joker_display_values.localized_text = localize('Two Pair', 'poker_hands')
   end
@@ -77,24 +78,25 @@ jd_def["j_nacho_bagon"] = {
 
 jd_def["j_nacho_shelgon"] = {
   text = {
-    {
-      border_nodes = {
-        { text = "X" },
-        { ref_table = "card.joker_display_values", ref_value = "Xmult", retrigger_type = "exp" },
-      },
+        { text = "+" },
+        { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult" }
     },
-  },
   reminder_text = {
     { text = "(" },
     { ref_table = "card.joker_display_values", ref_value = "localized_text", colour = G.C.ORANGE },
     { text = ")" },
   },
   calc_function = function(card)
+    local mult = 0
     local text, _, _ = JokerDisplay.evaluate_hand()
     if text == "Two Pair" then
-      card.joker_display_values.Xmult = card.ability.extra.Xmult
+        for _, scoring_card in pairs(scoring_hand) do
+            local retriggers = JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
+            mult = mult + (scoring_card.base.nominal / 2) * retriggers
+        end
+        card.joker_display_values.mult = mult
     else
-      card.joker_display_values.Xmult = 1
+        card.joker_display_values.mult = 0
     end
     card.joker_display_values.localized_text = localize('Two Pair', 'poker_hands')
   end
@@ -105,7 +107,7 @@ jd_def["j_nacho_salamence"] = {
     {
       border_nodes = {
         { text = "X" },
-        { ref_table = "card.joker_display_values", ref_value = "Xmult", retrigger_type = "exp" },
+        { ref_table = "card.joker_display_values", ref_value = "x_mult", retrigger_type = "exp" },
       },
     },
   },
@@ -115,14 +117,24 @@ jd_def["j_nacho_salamence"] = {
     { text = ")" },
   },
   calc_function = function(card)
-    local text, _, _ = JokerDisplay.evaluate_hand()
-    if text == "Two Pair" then
-      card.joker_display_values.Xmult = card.ability.extra.Xmult
-    else
-      card.joker_display_values.Xmult = 1
+    local x_mult = 1
+    local avg_rank = 0
+    local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+    if G.playing_cards then
+        for k, v in pairs(G.playing_cards) do
+            avg_rank = v.base.nominal + avg_rank
+        end
+        avg_rank = avg_rank / #G.playing_cards
+    end
+    if text == 'Two Pair' then
+      for _, scoring_card in pairs(scoring_hand) do
+        local retriggers = JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
+        x_mult = x_mult * (1 + card.ability.extra.Xmult * avg_rank) ^ (retriggers)
+      end
     end
     card.joker_display_values.localized_text = localize('Two Pair', 'poker_hands')
-  end
+    card.joker_display_values.x_mult = x_mult
+  end,
 }
 
 jd_def["j_nacho_mega_salamence"] = {
@@ -245,11 +257,6 @@ jd_def["j_nacho_empoleon"] = {
 
 jd_def["j_nacho_gallade"] = {
     text = {
-        { text = "+" ,
-        colour = G.C.MULT},
-        { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult", 
-        colour = G.C.MULT},
-        {text = " "},
         {
             border_nodes = {
                 { text = "X" },
@@ -259,18 +266,12 @@ jd_def["j_nacho_gallade"] = {
     },
     calc_function = function(card)
         local text, _, _ = JokerDisplay.evaluate_hand()
-        card.joker_display_values.mult = card.ability.extra.mult_mod * ((text ~= 'Unknown' and G.GAME and G.GAME.hands[text] and G.GAME.hands[text].played + (next(G.play.cards) and 0 or 1)) or 0)
-        card.joker_display_values.Xmult = 1 + card.ability.extra.Xmult_mod * ((text ~= 'Unknown' and G.GAME and G.GAME.hands[text] and G.GAME.hands[text].played + (next(G.play.cards) and 0 or 1)) or 0)
+        card.joker_display_values.Xmult = 1 + card.ability.extra.Xmult_multi * ((text ~= 'Unknown' and G.GAME and G.GAME.hands[text] and G.GAME.hands[text].played + (next(G.play.cards) and 0 or 1)) or 0)
     end
 }
 
 jd_def["j_nacho_mega_gallade"] = {
     text = {
-        { text = "+" ,
-        colour = G.C.MULT},
-        { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult", 
-        colour = G.C.MULT},
-        {text = " "},
         {
             border_nodes = {
                 { text = "X" },
@@ -280,8 +281,7 @@ jd_def["j_nacho_mega_gallade"] = {
     },
     calc_function = function(card)
         local text, _, _ = JokerDisplay.evaluate_hand()
-        card.joker_display_values.mult = card.ability.extra.mult_mod * ((text ~= 'Unknown' and G.GAME and G.GAME.hands[text] and G.GAME.hands[text].played + (next(G.play.cards) and 0 or 1)) or 0)
-        card.joker_display_values.Xmult = 1 + card.ability.extra.Xmult_mod * ((text ~= 'Unknown' and G.GAME and G.GAME.hands[text] and G.GAME.hands[text].played + (next(G.play.cards) and 0 or 1)) or 0)
+        card.joker_display_values.Xmult = 1 + card.ability.extra.Xmult_multi * ((text ~= 'Unknown' and G.GAME and G.GAME.hands[text] and G.GAME.hands[text].played + (next(G.play.cards) and 0 or 1)) or 0)
     end
 }
 
@@ -404,10 +404,23 @@ jd_def["j_nacho_terapagos_terastal"] = {
         {
             border_nodes = {
                 { text = "X" },
-                { ref_table = "card.ability.extra", ref_value = "Xmult", retrigger_type = "exp" },
+                { ref_table = "card.joker_display_values", ref_value = "Xmult", retrigger_type = "exp" },
             },
         },
     },
+    calc_function = function(card)
+        local count = 0
+        if G.jokers then
+            for _, joker_card in ipairs(G.jokers.cards) do
+                if joker_card.config.center.rarity and is_type(joker_card, card.ability.extra.ptype) and joker_card ~= card then
+                    count = count + 1
+                end
+            end
+        end
+        card.joker_display_values.count = count
+        card.joker_display_values.Xmult = 1 + count * card.ability.extra.Xmult_mod
+        card.joker_display_values.localized_text = card.ability.extra.ptype
+    end,
 }
 
 jd_def["j_nacho_terapagos_stellar"] = {

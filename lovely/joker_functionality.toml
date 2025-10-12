@@ -1,29 +1,26 @@
 [manifest]
 version = "1.0.0"
 dump_lua = true
-priority = 0
+priority = 22
 
-# Gallade Planet Hack-Job
+# Gallade Planet Insert
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
 pattern = '''
-    amount = amount or 1
-        G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)
-        G.GAME.hands[hand].mult = math.max(G.GAME.hands[hand].s_mult + G.GAME.hands[hand].l_mult*(G.GAME.hands[hand].level - 1), 1)
-        G.GAME.hands[hand].chips = math.max(G.GAME.hands[hand].s_chips + G.GAME.hands[hand].l_chips*(G.GAME.hands[hand].level - 1), 0)
+function level_up_hand(card, hand, instant, amount)
 '''
-position = "before"
+position = "after"
 payload = '''
-if next(SMODS.find_card('j_nacho_gallade')) and card.ability.set == 'Planet' then
-    return true
-end
+    if next(SMODS.find_card('j_nacho_gallade')) and card.ability and card.ability.set == 'Planet' then
+        return true
+    end
 '''
 match_indent = true
 
 
-
 # Mega Gallade Hand Debuff Logic
+
 [[patches]]
 [patches.pattern]
 target = "blind.lua"
@@ -34,58 +31,10 @@ if self.disabled then return end
 '''
 position = "before"
 payload = '''
-if next(SMODS.find_card('j_nacho_mega_gallade')) then return end
+    if next(SMODS.find_card('j_nacho_mega_gallade')) then return end
 '''
 match_indent = true
 
-
-
-# # # Terapagos Tera Logic Suite
-
-# Adding Stellar type to the list of Stickers
-[[patches]]
-[patches.pattern]
-target = '=[SMODS Pokermon "functions/pokefunctions.lua"]'
-pattern = '''
-elseif card.ability.earth_sticker then
-    return "Earth"
-'''
-position = "after"
-payload = '''
-elseif card.ability.stellar_sticker then
-    return "Stellar"
-'''
-match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = '=[SMODS Pokermon "localization/en-us.lua"]'
-pattern = '''
-poke_bird_badge = "Bird",
-'''
-position = "after"
-payload = '''
-poke_stellar_badge = "Stellar",
-'''
-match_indent = true
-
-# Creating the Stellar Type Badge
-[[patches]]
-[patches.pattern]
-target = '=[SMODS Pokermon "functions/pokefunctions.lua"]'
-pattern = '''
-badges[#badges+1] = create_badge(ptype, G.ARGS.LOC_COLOURS[lower_ptype], text_colour, 1.2 )
-'''
-position = "at"
-payload = '''
-if ptype == "Stellar "..localize("poke_tera") then
-    local stellar_gradient = SMODS.Gradients.nacho_sgbadge
-    badges[#badges+1] = create_badge(ptype, stellar_gradient, text_colour, 1.2);
-else
-    badges[#badges+1] = create_badge(ptype, G.ARGS.LOC_COLOURS[lower_ptype], text_colour, 1.2 )
-end
-'''
-match_indent = true
 
 # Ensuring that Terapagos-Stellar makes Pokemon always Tera Stellar
 [[patches]]
@@ -100,88 +49,6 @@ payload = '''
 if next(SMODS.find_card('j_nacho_terapagos_stellar')) then
     sticker_type = "Stellar"
 end
-'''
-match_indent = true
-
-# # Tera Stellar counts for Every Type
-
-# is_type always returns true
-[[patches]]
-[patches.pattern]
-target = '=[SMODS Pokermon "functions/pokefunctions.lua"]'
-pattern = '''
-if card.ability and ((card.ability.extra and type(card.ability.extra) == "table" and target_type == card.ability.extra.ptype) or card.ability[string.lower(target_type).."_sticker"]) then
-'''
-position = "before"
-payload = '''
-if card.ability and card.ability.stellar_sticker then
-    return true
-end
-'''
-match_indent = true
-
-# energy_matches always returns true
-[[patches]]
-[patches.pattern]
-target = '=[SMODS Pokermon "functions/energyfunctions.lua"]'
-pattern = '''
-if (card.ability.extra.ptype and etype and card.ability.extra.ptype == etype and not type_sticker_applied(card)) or (card.ability[string.lower(etype).."_sticker"]) then
-'''
-position = "before"
-payload = '''
-if (card.ability.stellar_sticker) then return true end
-'''
-match_indent = true
-
-# find_pokemon_type always sees Stellar type
-[[patches]]
-[patches.pattern]
-target = '=[SMODS Pokermon "functions/pokefunctions.lua"]'
-pattern = '''
-if v.ability and ((v.ability.extra and type(v.ability.extra) == "table" and target_type == v.ability.extra.ptype) or v.ability[string.lower(target_type).."_sticker"]) then
-        table.insert(found, v)
-'''
-position = "at"
-payload = '''
-if v.ability and ((v.ability.extra and type(v.ability.extra) == "table" and target_type == v.ability.extra.ptype) or v.ability.stellar_sticker or v.ability[string.lower(target_type).."_sticker"]) then
-        table.insert(found, v)
-'''
-match_indent = true
-
-# Stellar type guarantees type_evo
-[[patches]]
-[patches.pattern]
-target = '=[SMODS Pokermon "functions/pokefunctions.lua"]'
-pattern = '''
-if can_evolve(self, card, context, forced_key) and card.ability[type_req.."_sticker"] then
-'''
-position = "at"
-payload = '''
-if can_evolve(self, card, context, forced_key) and (card.ability.stellar_sticker or card.ability[type_req.."_sticker"]) then
-'''
-match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = '=[SMODS Pokermon "functions/pokefunctions.lua"]'
-pattern = '''
-elseif can_evolve(self, card, context, forced_key, true) and card.ability[type_req.."_sticker"] then
-'''
-position = "at"
-payload = '''
-elseif can_evolve(self, card, context, forced_key, true) and (card.ability.stellar_sticker or card.ability[type_req.."_sticker"]) then
-'''
-match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = '=[SMODS Pokermon "functions/pokefunctions.lua"]'
-pattern = '''
-local eval = function(card) return card.ability[type_req.."_sticker"] and not card.REMOVED and not G.RESET_JIGGLES end
-'''
-position = "at"
-payload = '''
-local eval = function(card) return (card.ability.stellar_sticker or card.ability[type_req.."_sticker"]) and not card.REMOVED and not G.RESET_JIGGLES end
 '''
 match_indent = true
 

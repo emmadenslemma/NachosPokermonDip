@@ -1,1 +1,18 @@
-return {["pokeballs"]=true,["pokemon_title"]=true,["gen_nine"]=true,["gen_one"]=false,["jokers_only"]=false,["no_evos"]=false,["hazards_on"]=true,["poke_enable_animations"]=true,["gen_seven"]=true,["shiny_playing_cards"]=false,["precise_energy"]=true,["pokemon_discovery"]=true,["unlimited_energy"]=false,["pokemon_altart"]=true,["gen_eight"]=true,["gen_five"]=true,["gen_two"]=true,["gen_six"]=true,["pokemon_only"]=true,["pokemon_splash"]=true,["gen_four"]=true,["pokemon_legacy"]=false,["gen_three"]=true,["pokemon_num"]=true,["pokemon_aprilfools"]=false,}
+return {
+    Ralts = true,
+    Bagon = true,
+    Turtwig = true,
+    Chimchar = true,
+    Piplup = true,
+	Dedenne = true,
+    Carbink = true,
+    Goomy = true,
+    Turtonator = true,
+    Skwovet = true,
+    Galarian_Meowth = true,
+    Hisuian_Zorua = true,
+    Terapagos = true,
+    customJokers = true,
+    customStakes = true,
+    -- customItems = true,
+}
