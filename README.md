@@ -27,14 +27,14 @@ This is an add-on mod for Pokermon - an add-on mod for Balatro.
 | Kirlia | +2 Mult for every hand level above 1 |
 | Gardevoir | X0.1 Mult for every hand level above 1 |
 | Mega Gardevoir | Holds Negative Black Hole<br/>Create an Orbital Tag when a Planet card is used<br/>Held Planet cards gain Polychrome at end of round |
-| Gallade | +1 and X0.1 Mult for each time poker hand has been played this run<br/>Your most played hand gains three levels every 3 Planet cards used<br/>Planet cards do not raise the level of poker hands |
-| Mega Gallade | +2 and X0.2 Mult for each time poker hand has been played this run<br/>Poker hands cannot be debuffed |
+| Gallade | Planet cards only raise the level of your most played poker hand<br/>X0.15 Mult for each time poker hand has been played this run<br/>|
+| Mega Gallade | Poker hands cannot be debuffed, This Joker can't be debuffed <br/>Scoring cards can't be debuffed if scoring hand is your most played hand<br/>X0.3 Mult for each time poker hand has been played this run<br/>|
 
 | Joker | Effect |
 | ------ | ------ |
-| Bagon | X1.5 Mult if played hand is a Two Pair |
-| Shelgon | If played hand is a Two Pair, gives X2 Mult and raises the rank of unscored cards by 1 <br/>Scoring ranks above 9 give mult equal to half their rank |
-| Salamence | If played hand is a Two Pair, gives X3 Mult and raises the rank of unscored cards by 2 <br/>Scoring ranks above 9 give mult equal to their rank |
+| Bagon | If played hand is a Two Pair, scoring cards give mult equal to one third of their rank and <br/>unscoring cards increase in rank by 1 |
+| Shelgon | If played hand is a Two Pair, scoring cards give mult equal to one third of their rank and <br/>unscoring cards increase in rank by 1 |
+| Salamence | If played hand is a Two Pair, scoring cards give X mult equal to <br/>one tenth the average rank of cards in your full deck |
 | Mega Salamence | If played hand is a Two Pair, scoring cards give X1.5 Mult <br/>Retrigger each scoring rank above 9 |
 
 | Joker | Effect |
@@ -75,8 +75,8 @@ This is an add-on mod for Pokermon - an add-on mod for Balatro.
 | Joker | Effect |
 | ------ | ------ |
 | Terapagos | Holding Negative Tera Orb <br/>Creates a Negative Tera Orb at end of round |
-| Terapagos-Terastal | +3 Energy limit <br/>Using a Tera Orb on this joker applies a Tera Orb to each other joker <br/>X1.1 Mult for each energy applied on all jokers |
-| Terapagos-Stellar | +5 Energy limit <br/>Each Joker with a Type Sticker becomes Stellar type <br/>Using a Tera Orb on this joker applies a Tera Orb to each other joker <br/> Each joker gives X1.2 Mult for each Energy applied to it |
+| Terapagos-Terastal | +3 Energy limit <br/>Using a Tera Orb on this joker applies a Tera Orb to each other joker <br/>X0.4 Mult for each joker that shares a type with Terapagos |
+| Terapagos-Stellar | +5 Energy limit <br/>Each Joker with a Type Sticker becomes Stellar type <br/>Using a Tera Orb on this joker applies a Tera Orb to each other joker <br/> Each Stellar joker gives X1.1 Mult for each Energy applied to it |
 
 ## Stakes
 

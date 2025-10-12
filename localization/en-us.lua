@@ -40,33 +40,33 @@ return {
             j_nacho_bagon = {
                 name = "Bagon",
                 text = {
-                    "{X:mult,C:white}X#1#{} Mult if",
-                    "played hand is a {C:attention}Two Pair{}",
-                    "{C:inactive,s:0.8}(Evolves after playing {C:attention,s:0.8}#2#{C:inactive,s:0.8} Two Pairs)",
+                    "If played hand is a {C:attention}Two Pair{},",
+                    "Scored cards give Mult",
+                    "equal to {C:attention}1/3{} of their {C:attention}rank{}",
+                    "and raises the {C:attention}rank{}",
+                    "of unscored cards by {C:attention}1{}",
+                    "{C:inactive,s:0.8}(Evolves when {C:attention,s:0.8}#1#{C:inactive,s:0.8} cards have rank >9)",
                 } 
             },
             j_nacho_shelgon = {
                 name = "Shelgon",
                 text = {
                     "If played hand is a {C:attention}Two Pair{},",
-                    "gives {X:mult,C:white}X#1#{} Mult and raises the {C:attention}rank{}",
-                    "of unscored cards by {C:attention}1{}",
-                    "{br:2}ERROR - CONTACT STEAK",
-                    "Scoring {C:attention}ranks{} above {C:attention}9{} give Mult",
-                    "equal to {C:attention}half{} of their {C:attention}rank{}",
-                    "{C:inactive,s:0.8}(Evolves after playing {C:attention,s:0.8}#2#{C:inactive,s:0.8} Two Pairs)",
-                } 
+                    "Scored cards give Mult",
+                    "equal to {C:attention}1/2{} of their {C:attention}rank{}",
+                    "and raises the {C:attention}rank{}",
+                    "of unscored cards by {C:attention}2{}",
+                    "{C:inactive,s:0.8}(Evolves when {C:attention,s:0.8}#1#{C:inactive,s:0.8} cards have rank >9)",
+                }
             },
             j_nacho_salamence = {
                 name = "Salamence",
                 text = {
                     "If played hand is a {C:attention}Two Pair{},",
-                    "gives {X:mult,C:white}X#1#{} Mult and raises the {C:attention}rank{}",
-                    "of unscored cards by {C:attention}2{}",
-                    "{br:2}ERROR - CONTACT STEAK",
-                    "Scoring {C:attention}ranks{} above {C:attention}9{} give Mult",
-                    "equal to their {C:attention}rank{}",
-                } 
+                    "Scored cards give {X:red,C:white}X#1#{} Mult",
+                    "{C:attention}multiplied{} by the average {C:attention}rank{}",
+                    "of cards in your full deck",
+                }
             },
             j_nacho_mega_salamence = {
                 name = "Mega Salamence",
@@ -83,6 +83,7 @@ return {
                     "{br:2}ERROR - CONTACT STEAK",
                     "Raises the cap on interest",
                     "earned each round by {C:money}$1{}",
+                    "{C:inactive}(Currently {C:money}$#3#{C:inactive})",
                     "{C:inactive,s:0.8}(Evolves after {C:attention,s:0.8}#2#{C:inactive,s:0.8} rounds)",
                 } 
             },
@@ -94,6 +95,7 @@ return {
                     "{br:2}ERROR - CONTACT STEAK",
                     "Raises the cap on interest",
                     "earned each round by {C:money}$2{}",
+                    "{C:inactive}(Currently {C:money}$#3#{C:inactive})",
                     "{C:inactive,s:0.8}(Evolves after {C:attention,s:0.8}#2#{C:inactive,s:0.8} rounds)",
                 } 
             },
@@ -105,6 +107,7 @@ return {
                     "{br:2}ERROR - CONTACT STEAK",
                     "Raises the cap on interest",
                     "earned each round by {C:money}$3{}",
+                    "{C:inactive}(Currently {C:money}$#3#{}{C:inactive})",
                 } 
             },
             j_nacho_chimchar = {
@@ -113,7 +116,7 @@ return {
                     "{C:red}+#1#{} discard",
                     "Adds the rank of {C:attention}highest{} ranked",
                     "card discarded this round to Mult",
-                    "{C:inactive}(Currently {C:mult}+#2#{} {C:inactive}Mult)",        
+                    "{C:inactive}(Currently {C:mult}+#2#{} {C:inactive}Mult)",
                     "{C:inactive,s:0.8}(Evolves after scoring {C:red,s:0.8}+11{} {C:inactive,s:0.8}Mult{} {C:attention,s:0.8}#3#{C:inactive,s:0.8} Times){}",
                 }
             },
@@ -167,27 +170,25 @@ return {
             j_nacho_gallade = {
                 name = "Gallade",
                 text = {
-                    "Your most played hand gains three levels",
-                    "every 3 {C:planet}Planet{} cards used {C:inactive}[#1#/3]{}",
+                    "{C:planet}Planet{} cards only raise the level",
+                    "of your most played {C:attention}poker hand{}",
                     "{br:2}ERROR - CONTACT STEAK",
-                    "{C:planet}Planet{} cards do not raise",
-                    "the level of {C:attention}poker hands{}",
-                    "{br:2}ERROR - CONTACT STEAK",
-                    "{C:red}+#2#{} Mult and {X:red,C:white}X#3#{} Mult for each time",
+                    "{X:red,C:white}X#1#{} Mult for each time",
                     "{C:attention}poker hand{} has been played this run",
                 }
             },
             j_nacho_mega_gallade = {
                 name = "Mega Gallade",
                 text = {
-                    "{C:attention}Poker hands{} cannot be debuffed",
-                    "This Joker cannot be debuffed",
-                    -- "{br:2}ERROR - CONTACT STEAK",
-                    -- "Scoring cards cannot be debuffed",
-                    -- "if {C:attention}poker hand{} is your most played hand",
+                    "Played cards will always",
+                    "score if {C:attention}poker hand{}",
+                    "is your most played hand",
                     "{br:2}ERROR - CONTACT STEAK",
-                    "{C:red}+#1#{} Mult and {X:red,C:white}X#2#{} Mult for each time",
-                    "{C:attention}poker hand{} has been played this run",
+                    "{X:red,C:white}X#1#{} Mult for each time",
+                    "{C:attention}poker hand{} has been",
+                    "played this run",
+                    "{br:2}ERROR - CONTACT STEAK",
+                    "This Joker can't be debuffed",
                 }
             },
             j_nacho_dedenne = {
@@ -208,10 +209,10 @@ return {
             j_nacho_goomy = {
                 name = "Goomy",
                 text = {
-                    "If played hand contains a Flush,",
-                    "cards {C:attention}held in hand{} with",
-                    "the {C:attention}same suit{} gain {C:red}+#1#{} Mult",
-                    "{C:inactive,s:0.8}(Evolves after triggering {C:attention,s:0.8}#2#{C:inactive,s:0.8} times)",
+                    "If scoring hand contains a Flush,",
+                    "scoring cards and cards {C:attention}held in hand{}",
+                    "with the {C:attention}same suit{} gain {C:red}+#1#{} Mult",
+                    "{C:inactive,s:0.8}(Evolves after playing {C:attention,s:0.8}#2# Flushes{C:inactive,s:0.8})",
                     "{C:inactive,s:0.8}(Evolves after playing a {C:attention,s:0.8}Flush House{C:inactive,s:0.8})",
                 }
             },
@@ -333,9 +334,12 @@ return {
                 name = "Terapagos",
                 text = {
                     "{C:attention}Holding{} {C:dark_edition}Negative{} {C:item}Tera Orb{}",
-                    "Creates a {C:dark_edition}Negative{} {C:item}Tera Orb{} at end of round",
-                    "{C:pink}Energizes{} all Jokers upon transforming",
-                    "{C:inactive,s:0.8}(Transforms after using a {C:item,s:0.8}Tera Orb{C:inactive,s:0.8} on Terapagos)",
+                    "Creates a {C:dark_edition}Negative{} {C:item}Tera Orb{}",
+                    "at end of round",
+                    "{C:pink}Energizes{} all Jokers upon",
+                    "transforming",
+                    "{C:inactive,s:0.8}(Transforms after using a",
+                    "{C:item,s:0.8}Tera Orb{C:inactive,s:0.8} on Terapagos)",
                 }
             },
             j_nacho_terapagos_terastal = {
@@ -345,11 +349,12 @@ return {
                     "Using a {C:item}Tera Orb{} on Terapagos",
                     "applies a {C:item}Tera Orb{} to each Joker",
                     "{br:2.5}ERROR - CONTACT STEAK",
-                    "{X:mult,C:white}X#1#{} Mult for each Energy applied",
-                    "on all Jokers {C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)",
+                    "{X:mult,C:white}X#1#{} Mult for each Joker",
+                    "with the same type",
+                    "as Terapagos {C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)",
                     "{br:2.5}ERROR - CONTACT STEAK",
-                    "{C:inactive,s:0.8}(Transforms after using a {C:item,s:0.8}Tera Orb{C:inactive,s:0.8} on Terapagos",
-                    "{C:inactive,s:0.8}if it has 6 Energy or more)",
+                    "{C:inactive,s:0.8}(Transforms after using a {C:item,s:0.8}Tera Orb{}",
+                    "{C:inactive,s:0.8}on Terapagos {C:inactive,s:0.8}if it has 6 Energy or more)",
                 }
             },
             j_nacho_terapagos_stellar = {
@@ -361,8 +366,8 @@ return {
                     "Using a {C:item}Tera Orb{} on Terapagos",
                     "applies a {C:item}Tera Orb{} to each Joker",
                     "{br:2.5}ERROR - CONTACT STEAK",
-                    "Each {C:nacho_sg1}S{C:nacho_sg2}t{C:nacho_sg3}e{C:nacho_sg4}l{C:nacho_sg5}l{C:nacho_sg6}a{C:nacho_sg7}r{} Joker gives {X:mult,C:white}X#1#{} Mult for each",
-                    "Energy applied to it",
+                    "Each {C:nacho_sg1}S{C:nacho_sg2}t{C:nacho_sg3}e{C:nacho_sg4}l{C:nacho_sg5}l{C:nacho_sg6}a{C:nacho_sg7}r{} Joker gives {X:mult,C:white}X#1#{} Mult",
+                    "for each Energy applied to it",
                 }
             },
         },
@@ -414,8 +419,21 @@ return {
             poke_stuff_cheeks_ex = "Stuff Cheeks!",
 
 
-            -- Maelmc Badge
-            maelmc = "Pokermon-Maelmc",
+            -- Config Descriptions
+            custom_jokers = "Allow Custom Jokers?",
+            ralts_line = "Ralts line?",
+            bagon_line = "Bagon line?",
+            turtwig_line = "Turtwig line?",
+            chimchar_line = "Chimchar line?",
+            piplup_line = "Piplup line?",
+            dedenne = "Dedenne?",
+            carbink = "Carbink?",
+            goomy_line = "Goomy line?",
+            turtonator = "Turtonator?",
+            skwovet_line = "Skwovet line?",
+            galarian_meowth_line = "Galarian Meowth line?",
+            hisuian_zorua_line = "Hisuian Zorua line?",
+            terapagos_line = "Terapagos line?",
         },
         v_text = {
             ch_c_sinnoh_adv={

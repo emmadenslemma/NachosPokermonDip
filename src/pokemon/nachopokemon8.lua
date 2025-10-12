@@ -10,18 +10,16 @@ end
 -- Skwovet 819
 local skwovet={
   name = "skwovet",
-  pos = {x = 9, y = 0}, 
   config = {extra = {mult = 0, mult_mod = 1, rounds = 5, in_blind = false}, evo_rqmt = 12},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
-    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
     return {vars = {card.ability.extra.mult, card.ability.extra.mult_mod}}
   end,
-  rarity = 1, 
-  cost = 5, 
-  stage = "Basic", 
+  designer = "Eternalnacho",
+  rarity = 1,
+  cost = 5,
+  stage = "Basic",
   ptype = "Colorless",
-  atlas = "Pokedex8",
   perishable_compat = true,
   blueprint_compat = true,
   eternal_compat = true,
@@ -63,18 +61,16 @@ local skwovet={
 -- Greedent 820
 local greedent={
   name = "greedent",
-  pos = {x = 10, y = 0}, 
   config = {extra = {mult = 0, mult_mod = 2, odds = 4, in_blind = false}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
-    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
     return {vars = {card.ability.extra.mult, card.ability.extra.mult_mod, card.ability.extra.odds}}
   end,
+  designer = "Eternalnacho",
   rarity = "poke_safari",
-  cost = 10, 
-  stage = "One", 
+  cost = 10,
+  stage = "One",
   ptype = "Colorless",
-  atlas = "Pokedex8",
   perishable_compat = true,
   blueprint_compat = true,
   eternal_compat = true,
@@ -126,19 +122,19 @@ local greedent={
 -- Meowth 52-2
 local galarian_meowth={
   name = "galarian_meowth",
-  pos = {x = 0, y = 2},
   config = {extra = {metals = 0, retriggers = 1, counter = 0}, evo_rqmt = 2},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
-    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
     info_queue[#info_queue+1] = G.P_CENTERS.m_steel
 		return {vars = {card.ability.extra.retriggers}}
   end,
+  designer = "Eternalnacho",
   rarity = 2,
   cost = 6,
+  enhancement_gate = 'm_steel',
   stage = "Basic",
   ptype = "Metal",
-  atlas = "Regionals",
+  gen = 1,
   perishable_compat = true,
   blueprint_compat = true,
   eternal_compat = true,
@@ -177,18 +173,16 @@ local galarian_meowth={
 -- Perrserker 863
 local perrserker = {
   name = "perrserker",
-  pos = {x = 0, y = 4},
   config = { extra = {Ymult = 1.5, retriggers = 1, counter = 0}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
-    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
     info_queue[#info_queue+1] = G.P_CENTERS.m_steel
     return { vars = {card.ability.extra.Ymult} }
   end,
+  designer = "Eternalnacho",
   rarity = "poke_safari",
   cost = 10,
   stage = "One",
-  atlas = "Pokedex8",
   ptype = "Metal",
   perishable_compat = true,
   blueprint_compat = true,
@@ -247,19 +241,14 @@ local perrserker = {
 -- Hisuian Zorua 570-1
 local hisuian_zorua = {
   name = "hisuian_zorua",
-  pos = { x = 9, y = 4 },
-  soul_pos = { x = 9, y = 5 },
+  pos = { x = 0, y = 9 },
+  soul_pos = { x = 99, y = 99 },
   config = {extra = {hidden_key = nil, rounds = 5, active = true}},
-  loc_vars = function(self, info_queue, card)
-    type_tooltip(self, info_queue, card)
-    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"ESN64"}}
-    return { vars = {} }
-  end,
   rarity = 3,
   cost = 8,
   stage = "Basic",
   ptype = "Colorless",
-  atlas = "Regionals",
+  gen = 5,
   blueprint_compat = true,
   rental_compat = false,
   calculate = function(self, card, context)
@@ -311,7 +300,7 @@ local hisuian_zorua = {
     end
   end,
   set_ability = function(self, card, initial, delay_sprites)
-    if not type_sticker_applied(card) then
+    if not type_sticker_applied(card) and not poke_is_in_collection(card) and not G.SETTINGS.paused then
       apply_type_sticker(card, "Colorless")
     end
     if card.area ~= G.jokers and not poke_is_in_collection(card) and not G.SETTINGS.paused then
@@ -383,9 +372,9 @@ local hisuian_zorua = {
           card.children.floating_sprite:set_sprite_pos(self.soul_pos)
         end
       else
-        card.children.center.atlas = G.ASSET_ATLAS[card.edition and card.edition.poke_shiny and "poke_ShinyRegionals" or "poke_Regionals"]
+        card.children.center.atlas = G.ASSET_ATLAS[card.edition and card.edition.poke_shiny and "poke_AtlasJokersBasicGen05Shiny" or "poke_AtlasJokersBasicGen05"]
         card.children.center:set_sprite_pos(self.pos)
-        card.children.floating_sprite.atlas = G.ASSET_ATLAS[card.edition and card.edition.poke_shiny and "poke_ShinyRegionals" or "poke_Regionals"]
+        card.children.floating_sprite.atlas = G.ASSET_ATLAS[card.edition and card.edition.poke_shiny and "poke_AtlasJokersBasicGen05Shiny" or "poke_AtlasJokersBasicGen05"]
         card.children.floating_sprite:set_sprite_pos(self.soul_pos)
       end
     elseif poke_is_in_collection(card) and card.children.center.sprite_pos ~= self.pos and card.children.center.atlas.name ~= self.atlas then
@@ -397,14 +386,14 @@ local hisuian_zorua = {
 -- Hisuian Zoroark 571-1
 local hisuian_zoroark = {
   name = "hisuian_zoroark",
-  pos = { x = 10, y = 4 },
-  soul_pos = { x = 10, y = 5 },
+  pos = { x = 2, y = 9 },
+  soul_pos = { x = 99, y = 99 },
   config = {extra = {hidden_key = nil}},
   rarity = "poke_safari",
   cost = 12,
   stage = "One",
   ptype = "Colorless",
-  atlas = "Regionals",
+  gen = 5,
   blueprint_compat = true,
   calculate = function(self, card, context)
     local other_joker = G.jokers.cards[1]
@@ -441,11 +430,11 @@ local hisuian_zoroark = {
     end
   end,
   set_ability = function(self, card, initial, delay_sprites)
-    if not type_sticker_applied(card) then
+    if not type_sticker_applied(card) and not poke_is_in_collection(card) and not G.SETTINGS.paused then
       apply_type_sticker(card, "Colorless")
     end
     if card.area ~= G.jokers and not poke_is_in_collection(card) and not G.SETTINGS.paused then
-      card.ability.extra.hidden_key = card.ability.extra.hidden_key or get_random_poke_key('zoroark', nil, 'poke_safari', nil, nil, {j_nacho_hisuian_zoroark = true})
+      card.ability.extra.hidden_key = card.ability.extra.hidden_key or get_random_poke_key('zoroark', nil, 'poke_safari', nil, nil, {j_poke_zoroark = true})
       local _o = G.P_CENTERS[card.ability.extra.hidden_key]
       card.children.center.atlas = G.ASSET_ATLAS[_o.atlas]
       card.children.center:set_sprite_pos(_o.pos)
@@ -456,7 +445,7 @@ local hisuian_zoroark = {
   end,
   generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
     local _c = card and card.config.center or card
-    card.ability.extra.hidden_key = card.ability.extra.hidden_key or get_random_poke_key('zoroark', nil, 'poke_safari', nil, nil, {j_nacho_hisuian_zoroark = true})
+    card.ability.extra.hidden_key = card.ability.extra.hidden_key or get_random_poke_key('zoroark', nil, 'poke_safari', nil, nil, {j_poke_zoroark = true})
     local _o = G.P_CENTERS[card.ability.extra.hidden_key]
     if card.area ~= G.jokers and not poke_is_in_collection(card) then
       local temp_ability = card.ability
@@ -510,9 +499,9 @@ local hisuian_zoroark = {
           card.children.floating_sprite:set_sprite_pos(self.soul_pos)
         end
       else
-        card.children.center.atlas = G.ASSET_ATLAS[card.edition and card.edition.poke_shiny and "poke_ShinyRegionals" or "poke_Regionals"]
+        card.children.center.atlas = G.ASSET_ATLAS[card.edition and card.edition.poke_shiny and "poke_AtlasJokersBasicGen05Shiny" or "poke_AtlasJokersBasicGen05"]
         card.children.center:set_sprite_pos(self.pos)
-        card.children.floating_sprite.atlas = G.ASSET_ATLAS[card.edition and card.edition.poke_shiny and "poke_ShinyRegionals" or "poke_Regionals"]
+        card.children.floating_sprite.atlas = G.ASSET_ATLAS[card.edition and card.edition.poke_shiny and "poke_AtlasJokersBasicGen05Shiny" or "poke_AtlasJokersBasicGen05"]
         card.children.floating_sprite:set_sprite_pos(self.soul_pos)
       end
     elseif poke_is_in_collection(card) and card.children.center.sprite_pos ~= self.pos and card.children.center.atlas.name ~= self.atlas then
@@ -524,18 +513,17 @@ local hisuian_zoroark = {
 -- Hisuian Sliggoo 705-1
 local hisuian_sliggoo={
   name = "hisuian_sliggoo",
-  pos = {x = 0, y = 5},
   config = {extra = {flush_houses = 0}, evo_rqmt = 6},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
-    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
     return {vars = {math.max(0, self.config.evo_rqmt - card.ability.extra.flush_houses)}}
   end,
+  designer = "Eternalnacho",
   rarity = "poke_safari",
   cost = 8,
   stage = "One",
   ptype = "Metal",
-  atlas = "Regionals",
+  gen = 6,
   blueprint_compat = true,
   calculate = function(self, card, context)
     -- Count # of Flush Houses played
@@ -581,18 +569,17 @@ local hisuian_sliggoo={
 -- Hisuian Goodra 706-1
 local hisuian_goodra={
   name = "hisuian_goodra",
-  pos = {x = 1, y = 5},
   config = {extra = {Xmult = 1}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
-    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
     return {vars = {}}
   end,
+  designer = "Eternalnacho",
   rarity = "poke_safari",
   cost = 11,
   stage = "Two",
   ptype = "Metal",
-  atlas = "Regionals",
+  gen = 6,
   blueprint_compat = true,
   calculate = function(self, card, context)
     -- Create a Metal Coat if Flush House played
@@ -634,5 +621,17 @@ local hisuian_goodra={
 }
 
 
-list = {skwovet, greedent, galarian_meowth, perrserker, hisuian_zorua, hisuian_zoroark, hisuian_sliggoo, hisuian_goodra}
+list = {}
+if nacho_config.Skwovet then list[#list+1] = skwovet end
+if nacho_config.Skwovet then list[#list+1] = greedent end
+
+if nacho_config.Galarian_Meowth then list[#list+1] = galarian_meowth end
+if nacho_config.Galarian_Meowth then list[#list+1] = perrserker end
+
+if nacho_config.Hisuian_Zorua then list[#list+1] = hisuian_zorua end
+if nacho_config.Hisuian_Zorua then list[#list+1] = hisuian_zoroark end
+
+if nacho_config.Goomy then list[#list+1] = hisuian_sliggoo end
+if nacho_config.Goomy then list[#list+1] = hisuian_goodra end
+
 return {name = "nachopokemon8", list = list}

@@ -10,21 +10,19 @@ end
 -- Turtonator 776
 local turtonator={
   name = "turtonator",
-  pos = {x = 0, y = 5},
   config = {extra = {Xmult_mod = 1.5, trapped = false}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
-    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
     local active = nil
     if card.ability.extra.trapped then active = "Active!"
     else active = "Inactive" end
     return {vars = {card.ability.extra.Xmult_mod, active}}
   end,
+  designer = "Eternalnacho",
   rarity = 2,
   cost = 8,
   stage = "Basic",
   ptype = "Dragon",
-  atlas = "Pokedex7",
   perishable_compat = true,
   blueprint_compat = true,
   eternal_compat = true,
@@ -54,5 +52,7 @@ local turtonator={
   end,
 }
 
-list = {turtonator}
+list = {}
+if nacho_config.Turtonator then list[#list+1] = turtonator end
+
 return {name = "nachopokemon7", list = list}

@@ -11,25 +11,22 @@ end
 -- Terapagos 1024
 local terapagos={
   name = "terapagos",
-  pos = {x = 11, y = 10},
-  soul_pos = {x = 12, y = 10},
   config = {extra = {}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
-    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
     info_queue[#info_queue+1] = {set = 'Other', key = 'energize'}
     return {vars = {}}
   end,
+  designer = "Eternalnacho",
   rarity = 4,
   cost = 20,
   stage = "Legendary",
   ptype = "Colorless",
-  atlas = "Pokedex9",
+  gen = 9,
   blueprint_compat = true,
   calculate = function(self, card, context)
     if context.using_consumeable and context.consumeable and context.consumeable.ability then
       if context.consumeable.ability.name == 'teraorb' then
-        apply_type_sticker(card, "Colorless")
         if G.jokers.highlighted[1] == card and #G.jokers.highlighted == 1 then
           poke_evolve(card, 'j_nacho_terapagos_terastal')
         elseif G.jokers.cards[1] == card and #G.jokers.highlighted == 0 then
@@ -64,21 +61,19 @@ local terapagos={
 -- Terapagos-Terastal 1024-1
 local terapagos_terastal={
   name = "terapagos_terastal",
-  pos = {x = 11, y = 10},
-  soul_pos = {x = 13, y = 10},
-  config = {extra = {Xmult_multi = 0.1, Xmult = 1, energy_total = 0}},
+  config = {extra = {Xmult_mod = 0.4, changedtype = "Colorless"}},
   loc_vars = function(self, info_queue, card)
+    local count = #find_pokemon_type(card.ability.extra.ptype) - 1
     type_tooltip(self, info_queue, card)
-    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
     info_queue[#info_queue+1] = {set = 'Other', key = 'energize'}
-    info_queue[#info_queue+1] = {set = 'Other', key = 'typechangerother', vars = {"Random Type", colours = {G.ARGS.LOC_COLOURS.pink}}}
-    return {vars = {card.ability.extra.Xmult_multi, card.ability.extra.Xmult}}
+    return {vars = {card.ability.extra.Xmult_mod, math.max(1, 1 + card.ability.extra.Xmult_mod * count)}}
   end,
+  designer = "Eternalnacho",
   rarity = 4,
   cost = 20,
   stage = "Legendary",
   ptype = "Colorless",
-  atlas = "Pokedex9",
+  gen = 9,
   blueprint_compat = true,
   custom_pool_func = true,
   aux_poke = true,
@@ -89,13 +84,15 @@ local terapagos_terastal={
     if context.using_consumeable and context.consumeable and context.consumeable.ability then
       if context.consumeable.ability.name == 'teraorb' then
         if (G.jokers.highlighted[1] == card and #G.jokers.highlighted == 1) or (G.jokers.cards[1] == card and #G.jokers.highlighted == 0) then
+          if not (context.consumeable.ability.extra.change_to_type == card.ability.extra.changedtype) then
+            energy_increase(card, type_sticker_applied(card))
+            card.ability.extra.changedtype = card.ability.extra.ptype
+          end
           for i = 1, #G.jokers.cards do
             if G.jokers.cards[i] ~= card then
-              apply_type_sticker(G.jokers.cards[i])
-              energy_increase(G.jokers.cards[i], type_sticker_applied(G.jokers.cards[i]))
+              apply_type_sticker(G.jokers.cards[i], card.ability.extra.ptype)
             end
           end
-          apply_type_sticker(card, "Colorless")
           if get_total_energy(card) >= 6 then
             poke_evolve(card, 'j_nacho_terapagos_stellar')
           end
@@ -103,8 +100,9 @@ local terapagos_terastal={
       end
     end
     if context.joker_main then
+      local count = #find_pokemon_type(card.ability.extra.ptype) - 1
       return{
-        xmult = 1 + card.ability.extra.Xmult_multi * card.ability.extra.energy_total
+        xmult = 1 + card.ability.extra.Xmult_mod * count
       }
     end
   end,
@@ -116,8 +114,7 @@ local terapagos_terastal={
         G.GAME.energy_plus = G.GAME.energy_plus + 3
       end
       for i = 1, #G.jokers.cards do
-        apply_type_sticker(G.jokers.cards[i])
-        energy_increase(G.jokers.cards[i], type_sticker_applied(G.jokers.cards[i]))
+        apply_type_sticker(G.jokers.cards[i], type_sticker_applied(card))
       end
     end
   end,
@@ -126,17 +123,6 @@ local terapagos_terastal={
       G.GAME.energy_plus = 0
     else
       G.GAME.energy_plus = G.GAME.energy_plus - 3
-    end
-  end,
-  update = function(self, card, dt)
-    if G.STAGE == G.STAGES.RUN and card.area == G.jokers then
-      local energy_total = 0
-      for i = 1, #G.jokers.cards do
-        energy_total = energy_total + get_total_energy(G.jokers.cards[i])
-      end
-      card.ability.extra.energy_total = energy_total
-      card.ability.extra.Xmult = 1 + card.ability.extra.Xmult_multi * card.ability.extra.energy_total
-      return {}
     end
   end,
 }
@@ -155,14 +141,14 @@ local terapagos_stellar={
       card.children.floating_sprite:draw_shader('dissolve', nil, nil, nil, card.children.center, scale_mod, rotate_mod)
       card.children.center.VT.w = card.T.w
     end},
-  config = {extra = {Xmult_mod = 0.2, Xmult = 1, energy_total = 0}},
+  config = {extra = {Xmult_mod = 0.1, Xmult = 1, energy_total = 0}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
-    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
     info_queue[#info_queue+1] = {set = 'Other', key = 'energize'}
     info_queue[#info_queue+1] = {set = 'Other', key = 'stellar_type'}
     return {vars = {card.ability.extra.Xmult_mod, card.ability.extra.Xmult}}
   end,
+  designer = "Eternalnacho",
   rarity = 4,
   cost = 20,
   stage = "Legendary",
@@ -179,10 +165,8 @@ local terapagos_stellar={
       if context.consumeable.ability.name == 'teraorb' then
         if (G.jokers.highlighted[1] == card and #G.jokers.highlighted == 1) or (G.jokers.cards[1] == card and #G.jokers.highlighted == 0) then
           for i = 1, #G.jokers.cards do
-            if G.jokers.cards[i] ~= card then
-              apply_type_sticker(G.jokers.cards[i], "Stellar")
-              energy_increase(G.jokers.cards[i], type_sticker_applied(G.jokers.cards[i]))
-            end
+            energy_increase(G.jokers.cards[i], G.jokers.cards[i].ability.extra.ptype)
+	          apply_type_sticker(G.jokers.cards[i], "Stellar")
           end
         end
       end
@@ -247,5 +231,9 @@ local terapagos_stellar={
   end,
 }
 
-list = {terapagos, terapagos_terastal, terapagos_stellar}
+list = {}
+if nacho_config.Terapagos then list[#list+1] = terapagos end
+if nacho_config.Terapagos then list[#list+1] = terapagos_terastal end
+if nacho_config.Terapagos then list[#list+1] = terapagos_stellar end
+
 return {name = "nachopokemon9", list = list}

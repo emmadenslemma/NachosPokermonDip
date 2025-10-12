@@ -18,7 +18,6 @@ local elite = { -- Elite Stake
 }
 
 
-
-return {name = "Stakes",
-      list = {elite}
-}
+list = {}
+if nacho_config.customStakes then list[#list+1] = elite end
+return {name = "Stakes", list = list}

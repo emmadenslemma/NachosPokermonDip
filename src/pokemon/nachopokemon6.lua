@@ -10,20 +10,18 @@ end
 -- Dedenne 702
 local dedenne = {
   name = "dedenne",
-  pos = {x = 10, y = 3},
   config = {extra = {odds = 4}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
-    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
     info_queue[#info_queue+1] = G.P_CENTERS.m_gold
     return {vars = {card.ability.extra.odds}}
   end,
+  designer = "Eternalnacho",
   rarity = 1,
   cost = 5,
   enhancement_gate = "m_gold",
   stage = "Basic",
   ptype = "Lightning",
-  atlas = "Pokedex6",
   blueprint_compat = true,
   calculate = function(self, card, context)
     if context.repetition and context.cardarea == G.hand then
@@ -55,20 +53,18 @@ local dedenne = {
 -- Carbink 703
 local carbink = {
   name = "carbink",
-  pos = {x = 11, y = 3},
   config = {extra = {}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
-    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
     info_queue[#info_queue+1] = G.P_CENTERS.m_poke_hazard
     info_queue[#info_queue+1] = G.P_CENTERS.m_gold
     return {vars = {}}
   end,
-  rarity = 3,
+  designer = "Eternalnacho",
+  rarity = 1,
   cost = 9,
   stage = "Basic",
   ptype = "Fairy",
-  atlas = "Pokedex6",
   blueprint_compat = true,
   custom_pool_func = true, 
   calculate = function(self, card, context)
@@ -80,8 +76,8 @@ local carbink = {
   end,
   in_pool = function(self, args)
     for i = 1, #G.jokers.cards do
-      if G.jokers.cards[i].ability and G.jokers.cards[i].ability.extra and type(G.jokers.cards[i].ability.extra) == "table" and 
-        G.jokers.cards[i].ability.extra.hazard_ratio ~= nil then return true end
+      if G.jokers.cards[i].ability and G.jokers.cards[i].ability.extra and type(G.jokers.cards[i].ability.extra) == "table" and
+        G.jokers.cards[i].ability.extra.hazards ~= nil then return true end
     end
     return false
   end,
@@ -90,47 +86,51 @@ local carbink = {
 -- Goomy 704
 local goomy={
   name = "goomy",
-  pos = {x = 12, y = 3},
-  config = {extra = {mult_mod = 1, triggers = 0, flush_houses = 0}, evo_rqmt1 = 18, evo_rqmt2 = 1},
+  config = {extra = {mult_mod = 1, flushes = 0, flush_houses = 0}, evo_rqmt1 = 6, evo_rqmt2 = 1},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
-    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
-    return {vars = {card.ability.extra.mult_mod, math.max(0, self.config.evo_rqmt1 - card.ability.extra.triggers)}}
+    return {vars = {card.ability.extra.mult_mod, math.max(0, self.config.evo_rqmt1 - card.ability.extra.flushes)}}
   end,
+  designer = "Eternalnacho",
   rarity = 2,
   cost = 6,
   stage = "Basic",
   ptype = "Dragon",
-  atlas = "Pokedex6",
   blueprint_compat = true,
   calculate = function(self, card, context)
     -- Check if Flush House played
-    if context.before and context.main_eval and context.scoring_name == 'Flush House' then
-      card.ability.extra.flush_houses = card.ability.extra.flush_houses + 1
-      return
+    if context.before and context.main_eval then
+      if context.scoring_name == 'Flush' then
+        card.ability.extra.flushes = card.ability.extra.flushes + 1
+        return
+      elseif context.scoring_name == 'Flush House' then
+        card.ability.extra.flush_houses = card.ability.extra.flush_houses + 1
+        return
+      end
     end
     -- Main scoring bit
-    if context.individual and context.cardarea == G.hand and not context.end_of_round then
+    if context.individual and (context.cardarea == G.hand or context.cardarea == G.play) and not context.end_of_round then
       if next(context.poker_hands['Flush']) then
         -- Get cards specifically in Flush
         local scoring_flush = get_flush(context.scoring_hand)[1]
         local wildcount = 0
         local matching_suit = nil
         -- Count # of wilds and determine Flush suit
-        for i = 1, #scoring_flush do
-          if SMODS.has_enhancement(scoring_flush[i], 'm_wild') then wildcount = wildcount + 1
-          else matching_suit = scoring_flush[i].config.card.suit end
-        end
-        -- Give cards in hand with matching suit permamult
-        if wildcount == #scoring_flush or context.other_card:is_suit(matching_suit) then
-          card.ability.extra.triggers = card.ability.extra.triggers + 1
-          context.other_card.ability.perma_mult = context.other_card.ability.perma_mult or 0
-          context.other_card.ability.perma_mult = context.other_card.ability.perma_mult + card.ability.extra.mult_mod
-          return {
-            extra = {message = localize('k_upgrade_ex'), colour = G.C.MULT},
-            colour = G.C.MULT,
-            card = card
-          }
+        if scoring_flush then
+          for i = 1, #scoring_flush do
+            if SMODS.has_enhancement(scoring_flush[i], 'm_wild') then wildcount = wildcount + 1
+            else matching_suit = scoring_flush[i].config.card.suit end
+          end
+          -- Give cards in hand with matching suit permamult
+          if wildcount == #scoring_flush or context.other_card:is_suit(matching_suit) then
+            context.other_card.ability.perma_mult = context.other_card.ability.perma_mult or 0
+            context.other_card.ability.perma_mult = context.other_card.ability.perma_mult + card.ability.extra.mult_mod
+            return {
+              extra = {message = localize('k_upgrade_ex'), colour = G.C.MULT},
+              colour = G.C.MULT,
+              card = card
+            }
+          end
         end
       end
     end
@@ -138,26 +138,24 @@ local goomy={
     if evolve then
       return evolve
     else
-      return scaling_evo(self, card, context, "j_nacho_sliggoo", card.ability.extra.triggers, self.config.evo_rqmt1)
+      return scaling_evo(self, card, context, "j_nacho_sliggoo", card.ability.extra.flushes, self.config.evo_rqmt1)
     end
-  end,
+  end
 }
 
 -- Sliggoo 705
 local sliggoo={
   name = "sliggoo",
-  pos = {x = 13, y = 3},
-  config = {extra = {mult_mod = 1, flushes = 0}, evo_rqmt = 12},
+  config = {extra = {mult_mod = 1, flushes = 0}, evo_rqmt = 8},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
-    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
     return {vars = {card.ability.extra.mult_mod, math.max(0, self.config.evo_rqmt - card.ability.extra.flushes)}}
   end,
+  designer = "Eternalnacho",
   rarity = "poke_safari",
   cost = 8,
   stage = "One",
   ptype = "Dragon",
-  atlas = "Pokedex6",
   blueprint_compat = true,
   calculate = function(self, card, context)
     -- Count # of Flushes played
@@ -208,18 +206,16 @@ local sliggoo={
 -- Goodra 706
 local goodra={
   name = "goodra",
-  pos = {x = 0, y = 4},
   config = {extra = {Xmult_mod = 0.02}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
-    info_queue[#info_queue+1] = {set = 'Other', key = 'designed_by', vars = {"Eternalnacho"}}
     return {vars = {card.ability.extra.Xmult_mod}}
   end,
+  designer = "Eternalnacho",
   rarity = "poke_safari",
   cost = 11,
   stage = "Two",
   ptype = "Dragon",
-  atlas = "Pokedex6",
   blueprint_compat = true,
   calculate = function(self, card, context)
     if context.individual and (context.cardarea == G.hand or G.play) and not context.end_of_round then
@@ -262,6 +258,13 @@ local goodra={
 }
 
 
-list = {dedenne, carbink, goomy, sliggoo, goodra}
+list = {}
+if nacho_config.Dedenne then list[#list+1] = dedenne end
+if nacho_config.Carbink then list[#list+1] = carbink end
+
+if nacho_config.Goomy then list[#list+1] = goomy end
+if nacho_config.Goomy then list[#list+1] = sliggoo end
+if nacho_config.Goomy then list[#list+1] = goodra end
+
 return {name = "nachopokemon6", list = list}
 
