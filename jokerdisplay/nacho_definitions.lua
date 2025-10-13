@@ -62,7 +62,7 @@ jd_def["j_nacho_bagon"] = {
   },
   calc_function = function(card)
     local mult = 0
-    local text, _, _ = JokerDisplay.evaluate_hand()
+    local text, _, scoring_hand = JokerDisplay.evaluate_hand()
     if text == "Two Pair" then
         for _, scoring_card in pairs(scoring_hand) do
             local retriggers = JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
@@ -88,7 +88,7 @@ jd_def["j_nacho_shelgon"] = {
   },
   calc_function = function(card)
     local mult = 0
-    local text, _, _ = JokerDisplay.evaluate_hand()
+    local text, _, scoring_hand = JokerDisplay.evaluate_hand()
     if text == "Two Pair" then
         for _, scoring_card in pairs(scoring_hand) do
             local retriggers = JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)

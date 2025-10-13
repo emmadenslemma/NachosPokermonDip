@@ -20,6 +20,25 @@ calc_most_played_hand = function ()
 end
 
 
+deck_rank_evo = function (self, card, context, forced_key, rank, percentage, flat)
+  if can_evolve(self, card, context, forced_key) then
+    local high_count = 0
+    for k, v in pairs(G.playing_cards) do
+      if v.base.nominal >= rank then high_count = high_count + 1 end
+    end
+    if percentage and (high_count/#G.playing_cards >= percentage) then
+      return {
+        message = poke_evolve(card, forced_key)
+      }
+    elseif flat and (_count >= flat) then
+      return {
+        message = poke_evolve(card, forced_key)
+      }
+    end
+  end
+end
+
+
 local parse_highlighted = CardArea.parse_highlighted
 CardArea.parse_highlighted = function(self)
   for _, card in ipairs(self.highlighted) do

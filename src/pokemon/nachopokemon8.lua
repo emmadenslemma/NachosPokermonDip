@@ -61,10 +61,11 @@ local skwovet={
 -- Greedent 820
 local greedent={
   name = "greedent",
-  config = {extra = {mult = 0, mult_mod = 2, odds = 4, in_blind = false}},
+  config = {extra = {mult = 0, mult_mod = 2, num = 1, den = 4, in_blind = false}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
-    return {vars = {card.ability.extra.mult, card.ability.extra.mult_mod, card.ability.extra.odds}}
+    local num, den = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.den, 'greedent')
+    return {vars = {card.ability.extra.mult, card.ability.extra.mult_mod, num, den}}
   end,
   designer = "Eternalnacho",
   rarity = "poke_safari",
@@ -87,7 +88,7 @@ local greedent={
         card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod
       end
       -- 1 in 4 chance for Leftovers
-      if (pseudorandom('greedent') < G.GAME.probabilities.normal/card.ability.extra.odds) and not from_debuff and context.consumeable.ability.name ~= 'leftovers' then
+      if (pseudorandom('greedent') < G.GAME.probabilities.normal/card.ability.extra.odds) and not from_debuff and context.consumeable ~= 'c_poke_leftovers' then
         local _card = create_card('Item', G.consumeables, nil, nil, nil, nil, 'c_poke_leftovers')
         local edition = {negative = true}
         _card:set_edition(edition, true)

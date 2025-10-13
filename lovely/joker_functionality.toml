@@ -20,7 +20,6 @@ match_indent = true
 
 
 # Mega Gallade Hand Debuff Logic
-
 [[patches]]
 [patches.pattern]
 target = "blind.lua"
@@ -32,6 +31,33 @@ if self.disabled then return end
 position = "before"
 payload = '''
     if next(SMODS.find_card('j_nacho_mega_gallade')) then return end
+'''
+match_indent = true
+
+
+# Turtonator Cerulean Bell compat.
+[[patches]]
+[patches.pattern]
+target = "blind.lua"
+pattern = '''
+forced_card.ability.forced_selection = true
+'''
+position = "after"
+payload = '''
+forced_card.ability.pokermon_forced_selection = true
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "blind.lua"
+pattern = '''
+v.ability.forced_selection = nil
+'''
+position = "after"
+payload = '''
+-- v.ability.pokermon_forced_selection = nil
+print('nacho wuz here')
 '''
 match_indent = true
 

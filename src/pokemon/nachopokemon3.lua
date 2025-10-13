@@ -205,16 +205,16 @@ local mega_gardevoir={
 -- Bagon 371
 local bagon={
   name = "bagon",
-  config = {extra = {high_ranks = 0}, evo_rqmt = 28},
+  config = {extra = {}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
-    local deck_data = self.config.evo_rqmt
+    local deck_data = ''
     if G.playing_cards then
       local high_count = 0
       for k, v in pairs(G.playing_cards) do
-        if v.base.nominal > 9 then high_count = high_count + 1 end
+        if v.base.nominal >= 9 then high_count = high_count + 1 end
       end
-      deck_data = '['..tostring(high_count)..'/'..tostring(self.config.evo_rqmt)..']'
+      deck_data = ' ['..tostring(high_count)..'/'..tostring(math.ceil(#G.playing_cards * 9 / 16))..']'
     end
     return {vars = {deck_data}}
   end,
@@ -228,8 +228,8 @@ local bagon={
   eternal_compat = true,
   calculate = function(self, card, context)
     if context.before and context.scoring_name == "Two Pair" then
-      for k, v in pairs(G.play.cards) do
-        if not SMODS.in_scoring(v, context.scoring_hand) then
+      for k, v in pairs(G.hand.cards) do
+        if v == G.hand.cards[#G.hand.cards] then
           -- This whole set of events is just the Strength Tarot from VanillaRemade
           G.E_MANAGER:add_event(Event({
           trigger = 'after',
@@ -294,23 +294,23 @@ local bagon={
         end
       end
     end
-    return scaling_evo(self, card, context, "j_nacho_shelgon", card.ability.extra.high_ranks, self.config.evo_rqmt)
+    return deck_rank_evo(self, card, context, "j_nacho_shelgon", 9, .57)
   end
 }
 
 -- Shelgon 372
 local shelgon={
   name = "shelgon",
-  config = {extra = {high_ranks = 0}, evo_rqmt = 38},
+  config = {extra = {}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
-    local deck_data = self.config.evo_rqmt
+    local deck_data = ''
     if G.playing_cards then
       local high_count = 0
       for k, v in pairs(G.playing_cards) do
-        if v.base.nominal > 9 then high_count = high_count + 1 end
+        if v.base.nominal >= 9 then high_count = high_count + 1 end
       end
-      deck_data = '['..tostring(high_count)..'/'..tostring(self.config.evo_rqmt)..']'
+      deck_data = ' ['..tostring(high_count)..'/'..tostring(math.ceil(#G.playing_cards * 3 / 4))..']'
     end
     return {vars = {deck_data}}
   end,
@@ -324,8 +324,8 @@ local shelgon={
   eternal_compat = true,
   calculate = function(self, card, context)
     if context.before and context.scoring_name == "Two Pair" then
-      for k, v in pairs(G.play.cards) do
-        if not SMODS.in_scoring(v, context.scoring_hand) then
+      for k, v in pairs(G.hand.cards) do
+        if v == G.hand.cards[#G.hand.cards] or v == G.hand.cards[#G.hand.cards - 1] then
           -- This whole set of events is just the Strength Tarot from VanillaRemade
           G.E_MANAGER:add_event(Event({
           trigger = 'after',
@@ -353,7 +353,7 @@ local shelgon={
               delay = 0.1,
               func = function()
                   -- SMODS.modify_rank will increment/decrement a given card's rank by a given amount
-                  assert(SMODS.modify_rank(v, math.min(14 - v:get_id(), 2)))
+                  assert(SMODS.modify_rank(v, math.min(14 - v:get_id(), 1)))
                   return true
               end
           }))
@@ -390,7 +390,7 @@ local shelgon={
         end
       end
     end
-    return scaling_evo(self, card, context, "j_nacho_salamence", card.ability.extra.high_ranks, self.config.evo_rqmt)
+    return deck_rank_evo(self, card, context, "j_nacho_salamence", 9, .75)
   end
 }
 
@@ -453,6 +453,7 @@ local mega_salamence={
       }
     end
     if context.repetition and not context.end_of_round and context.cardarea == G.play and context.other_card:get_id() > 9 then
+      card.ability.extra.retriggers = math.max(context.other_card.base.nominal - 9, 0)
       return {
         message = localize('k_again_ex'),
         repetitions = card.ability.extra.retriggers,

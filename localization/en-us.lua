@@ -43,9 +43,10 @@ return {
                     "If played hand is a {C:attention}Two Pair{},",
                     "Scored cards give Mult",
                     "equal to {C:attention}1/3{} of their {C:attention}rank{}",
-                    "and raises the {C:attention}rank{}",
-                    "of unscored cards by {C:attention}1{}",
-                    "{C:inactive,s:0.8}(Evolves when {C:attention,s:0.8}#1#{C:inactive,s:0.8} cards have rank >9)",
+                    "and raises the {C:attention}rank{} of the",
+                    "rightmost card {C:attention}held in hand{} by {C:attention}1{}",
+                    "{C:inactive,s:0.8}(Evolves when >= 57%#1#",
+                    "{C:inactive,s:0.8}of your full deck has {C:attention,s:0.8}rank{C:inactive,s:0.8} >= {C:attention,s:0.8}9{C:inactive,s:0.8})",
                 } 
             },
             j_nacho_shelgon = {
@@ -54,9 +55,10 @@ return {
                     "If played hand is a {C:attention}Two Pair{},",
                     "Scored cards give Mult",
                     "equal to {C:attention}1/2{} of their {C:attention}rank{}",
-                    "and raises the {C:attention}rank{}",
-                    "of unscored cards by {C:attention}2{}",
-                    "{C:inactive,s:0.8}(Evolves when {C:attention,s:0.8}#1#{C:inactive,s:0.8} cards have rank >9)",
+                    "and raises the {C:attention}rank{} of the two",
+                    "rightmost cards {C:attention}held in hand{} by {C:attention}1{}",
+                    "{C:inactive,s:0.8}(Evolves when >= 75%#1#",
+                    "{C:inactive,s:0.8}of your full deck has {C:attention,s:0.8}rank{C:inactive,s:0.8} >= {C:attention,s:0.8}9{C:inactive,s:0.8})",
                 }
             },
             j_nacho_salamence = {
@@ -71,9 +73,10 @@ return {
             j_nacho_mega_salamence = {
                 name = "Mega Salamence",
                 text = {
-                    "Each scoring card gives {X:mult,C:white}X#1#{} Mult if",
+                    "Scoring cards give {X:mult,C:white}X#1#{} Mult if",
                     "played hand is a {C:attention}Two Pair{}",
-                    "Retrigger each scoring {C:attention}rank{} higher than {C:attention}9{}",
+                    "Retrigger each scoring card",
+                    "once per {C:attention}rank{} above {C:attention}9{}",
                 } 
             },
             j_nacho_turtwig = {
@@ -257,7 +260,7 @@ return {
                 name = "Greedent",
                 text = {
                     "Gains {C:mult}+#2#{} Mult and",
-                    "has a {C:green}1 in #3#{} chance to",
+                    "has a {C:green}#3# in #4#{} chance to",
                     "create a {C:dark_edition}Negative{} {C:item}Leftovers{}",
                     "when a consumable is used",
                     "during a blind",
