@@ -241,9 +241,10 @@ return {
             j_nacho_turtonator = {
                 name = "Turtonator",
                 text = {
-                    "If previous hand triggered",
-                    "the {C:attention}Boss Blind{} ability,",
-                    "scoring cards give {X:red,C:white}X#1#{} Mult",
+                    "If the {C:attention}Boss Blind{} ability",
+                    "triggers, scoring cards give",
+                    "{X:red,C:white}X#1#{} Mult during your",
+                    "next played hand",
                     "{C:inactive}(#2#){}",
                 }
             },
