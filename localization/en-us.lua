@@ -64,9 +64,9 @@ return {
                 name = "Mega Altaria",
                 text = {
                     "Adds {C:dark_edition}Foil{}, {C:dark_edition}Holographic{},",
-                    "or {C:dark_edition}Polychrome{} to each {C:attention}9{}",
-                    "without an {C:attention}edition{}",
-                    "in your {C:attention}first hand{}",
+                    "or {C:dark_edition}Polychrome{} to each",
+                    "played {C:attention}9{} without",
+                    "an {C:attention}edition{}",
                 }
             },
             j_nacho_bagon = {

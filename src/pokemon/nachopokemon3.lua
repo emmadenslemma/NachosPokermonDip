@@ -299,7 +299,7 @@ local mega_altaria={
   blueprint_compat = true,
   eternal_compat = true,
   calculate = function(self, card, context)
-    if context.before and context.cardarea == G.jokers and G.GAME.current_round.hands_played == 0 and not context.blueprint then
+    if context.before and context.cardarea == G.jokers and not context.blueprint then
       for k, v in pairs(G.play.cards) do
         if v:get_id() == 9 then
           local edition = poll_edition('aura', nil, true, true)
@@ -307,10 +307,6 @@ local mega_altaria={
           v:juice_up(0.3, 0.5)
         end
       end
-    end
-    if context.first_hand_drawn and not context.blueprint then
-      local eval = function() return G.GAME.current_round.hands_played == 0 and not G.RESET_JIGGLES end
-      juice_card_until(card, eval, true)
     end
   end,
 }
