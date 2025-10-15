@@ -58,6 +58,11 @@ SMODS.current_mod.config_tab = function()
                 ref_value = "Piplup",
                 }),
                 create_toggle({
+                    label = localize("clauncher_line"),
+                    ref_table = nacho_config,
+                    ref_value = "Clauncher",
+                }),
+                create_toggle({
                     label = localize("dedenne"),
                     ref_table = nacho_config,
                     ref_value = "Dedenne",

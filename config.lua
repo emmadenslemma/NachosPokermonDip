@@ -5,6 +5,7 @@ return {
     Turtwig = true,
     Chimchar = true,
     Piplup = true,
+    Clauncher = false,
 	Dedenne = true,
     Carbink = true,
     Goomy = true,

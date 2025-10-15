@@ -142,85 +142,28 @@ calc_boss_trigger = function(context)
   end
 end
 
--- Get Previous Evo funciton override lol
-get_previous_evo = function(card, full_key)
-  local name = nil
-  local found = nil
-  local prev = nil
-  local max = nil
-  local mega = nil
-  local prefix = card.config.center.poke_custom_prefix or "poke"
-  if not card.name and card.ability.name then
-    name = card.ability.name
-  else
-    name = card.name or "bulbasaur"
-  end
-  if string.sub(name,1,5) == "mega_" then mega = get_previous_from_mega(name, prefix, full_key) end
-  if mega then return mega end
-  for k, v in ipairs(pokermon.family) do
-    for x, y in ipairs(v) do
-      local cur_name = (type(y) == "table" and y.key) or y
-      if cur_name == name then
-        found = true
-        local stages = {"Baby", "Basic", "One", "Two", "Legendary", "Mega"}
-        local cur_stage
-        local prev_stage
-        if card.config.center.stage then cur_stage = card.config.center.stage end
-        for i = 1, #stages do
-          if cur_stage and cur_stage == stages[i] and i ~= 1 then
-            if cur_stage == "Legendary" then prev_stage = "Legendary"
-            else prev_stage = stages[i-1] end
-          end
-        end
-        -- Hardcode the branching legendaries because HATRED and RAGE
-        if cur_name == "Lunala" or cur_name == "Solgaleo" then
-          prev = "Cosmoem"
-          break
-        elseif cur_name == "Urshifu_Single_Strike" or cur_name == "Urshifu_Rapid_Strike" then
-          prev = "Kubfu"
-          break
-        end
-        -- Count backwards and skip the aux_poke jokers
-        while x > 1 do
-          x = x - 1
-          local prev_name = (type(v[x]) == "table" and v[x].key) or v[x]
-          if G.P_CENTERS['j_'..prefix..'_'..prev_name]['stage'] == prev_stage and not G.P_CENTERS['j_'..prefix..'_'..prev_name]['aux_poke'] == true then
-            prev = prev_name
-            break
-          end
-        end
-        if prev == nil then return end
-        break
-      end
-    end
-    if found then break end
-  end
-  if full_key then
-    prev = "j_"..prefix.."_"..prev
-  end
-  return prev
-end
-
 -- Pokemon Family Pre-evos win with current jokers?
 set_joker_family_win = function(card)
   if nacho_config.familyStickers then
     if get_family_keys(card.config.center.name, card.config.center.poke_custom_prefix, card) then
-      local index
       local keys = get_family_keys(card.config.center.name, card.config.center.poke_custom_prefix, card)
-      for k, v in ipairs(keys) do
-        if v == card.config.center.key then index = k end
-        if index and k > index and (G.P_CENTERS[v]['stage'] ~= card.config.center.stage or G.P_CENTERS[v]['stage'] == "Legendary") then break end -- Excludes higher evolutions
-        if G.P_CENTERS[v]['set'] == 'Joker' and not (G.P_CENTERS[v]['stage'] == card.config.center.stage) and not -- Excludes the same stage mons in an evo line
-            ((card.config.center.stage == "One" or card.config.center.stage == "Two" or card.config.center.stage == "Mega") and
-                (G.P_CENTERS[v]['stage'] == G.P_CENTERS[get_previous_evo(card, true)]['stage']) and v ~= get_previous_evo(card, true)) or -- Checks for branching evos in previous stages
-            (card.config.center.stage == "Legendary" and get_previous_evo(card, true) and (G.P_CENTERS[v]['stage'] == G.P_CENTERS[get_previous_evo(card, true)]['stage'])) or
-            (G.P_CENTERS[v]['set'] == 'Joker' and G.P_CENTERS[v]['aux_poke'] == true and G.P_CENTERS[v]['stage'] == card.config.center.stage) then -- Checks for forms (which have the same stage)
-          G.PROFILES[G.SETTINGS.profile].joker_usage[v] = G.PROFILES[G.SETTINGS.profile].joker_usage[v] or {count = 1, order = G.P_CENTERS[v]['order'], wins = {}, losses = {}, wins_by_key = {}, losses_by_key = {}}
-          if G.PROFILES[G.SETTINGS.profile].joker_usage[v] then
-            G.PROFILES[G.SETTINGS.profile].joker_usage[v].wins = G.PROFILES[G.SETTINGS.profile].joker_usage[v].wins or {}
-            G.PROFILES[G.SETTINGS.profile].joker_usage[v].wins[G.GAME.stake] = (G.PROFILES[G.SETTINGS.profile].joker_usage[v].wins[G.GAME.stake] or 0) + 1
-            G.PROFILES[G.SETTINGS.profile].joker_usage[v].wins_by_key[SMODS.stake_from_index(G.GAME.stake)] =
-                (G.PROFILES[G.SETTINGS.profile].joker_usage[v].wins_by_key[SMODS.stake_from_index(G.GAME.stake)] or 0) + 1
+      if #keys > 1 then
+        local index
+        for k, v in ipairs(keys) do
+          if v == card.config.center.key then index = k end
+          if index and k > index and (G.P_CENTERS[v]['stage'] ~= card.config.center.stage or G.P_CENTERS[v]['stage'] == "Legendary") then break end -- Excludes higher evolutions
+          if G.P_CENTERS[v]['set'] == 'Joker' and not (G.P_CENTERS[v]['stage'] == card.config.center.stage) and not -- Excludes the same stage mons in an evo line
+              ((card.config.center.stage == "One" or card.config.center.stage == "Two" or card.config.center.stage == "Mega") and
+                  (G.P_CENTERS[v]['stage'] == G.P_CENTERS[get_previous_evo(card, true)]['stage']) and v ~= get_previous_evo(card, true)) or -- Checks for branching evos in previous stages
+              (card.config.center.stage == "Legendary" and get_previous_evo(card, true) and (G.P_CENTERS[v]['stage'] == G.P_CENTERS[get_previous_evo(card, true)]['stage'])) or
+              (G.P_CENTERS[v]['set'] == 'Joker' and G.P_CENTERS[v]['aux_poke'] == true and G.P_CENTERS[v]['stage'] == card.config.center.stage) then -- Checks for forms (which have the same stage)
+            G.PROFILES[G.SETTINGS.profile].joker_usage[v] = G.PROFILES[G.SETTINGS.profile].joker_usage[v] or {count = 1, order = G.P_CENTERS[v]['order'], wins = {}, losses = {}, wins_by_key = {}, losses_by_key = {}}
+            if G.PROFILES[G.SETTINGS.profile].joker_usage[v] then
+              G.PROFILES[G.SETTINGS.profile].joker_usage[v].wins = G.PROFILES[G.SETTINGS.profile].joker_usage[v].wins or {}
+              G.PROFILES[G.SETTINGS.profile].joker_usage[v].wins[G.GAME.stake] = (G.PROFILES[G.SETTINGS.profile].joker_usage[v].wins[G.GAME.stake] or 0) + 1
+              G.PROFILES[G.SETTINGS.profile].joker_usage[v].wins_by_key[SMODS.stake_from_index(G.GAME.stake)] =
+                  (G.PROFILES[G.SETTINGS.profile].joker_usage[v].wins_by_key[SMODS.stake_from_index(G.GAME.stake)] or 0) + 1
+            end
           end
         end
       end
