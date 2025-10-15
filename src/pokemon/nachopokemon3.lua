@@ -226,11 +226,6 @@ local swablu={
   blueprint_compat = true,
   eternal_compat = true,
   calculate = function(self, card, context)
-    if context.joker_main then
-      for k, v in pairs(G.jokers.cards) do
-        print(get_previous_evo(v))
-      end
-    end
     return level_evo(self, card, context, "j_nacho_altaria")
   end,
   calc_dollar_bonus = function(self, card)
