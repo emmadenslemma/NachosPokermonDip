@@ -1,5 +1,6 @@
 return {
     Ralts = true,
+    Swablu = true,
     Bagon = true,
     Turtwig = true,
     Chimchar = true,
@@ -14,5 +15,6 @@ return {
     Terapagos = true,
     customJokers = true,
     customStakes = true,
+    familyStickers = false,
     -- customItems = true,
 }

@@ -33,6 +33,11 @@ SMODS.current_mod.config_tab = function()
                   ref_value = "Ralts",
                 }),
                 create_toggle({
+                    label = localize("swablu_line"),
+                    ref_table = nacho_config,
+                    ref_value = "Swablu",
+                }),
+                create_toggle({
                     label = localize("bagon_line"),
                     ref_table = nacho_config,
                     ref_value = "Bagon",
@@ -57,11 +62,6 @@ SMODS.current_mod.config_tab = function()
                     ref_table = nacho_config,
                     ref_value = "Dedenne",
                 }),
-                create_toggle({
-                    label = localize("carbink"),
-                    ref_table = nacho_config,
-                    ref_value = "Carbink",
-                }),
               }
             },
             {
@@ -73,6 +73,11 @@ SMODS.current_mod.config_tab = function()
               },
               nodes =
               {
+                create_toggle({
+                    label = localize("carbink"),
+                    ref_table = nacho_config,
+                    ref_value = "Carbink",
+                }),
                 create_toggle({
                     label = localize("goomy_line"),
                     ref_table = nacho_config,
@@ -125,6 +130,11 @@ SMODS.current_mod.config_tab = function()
                 label = "Allow Custom Stakes?",
                 ref_table = nacho_config,
                 ref_value = "customStakes",
+            }),
+            create_toggle({
+                label = "Pokermon Family Stickers?",
+                ref_table = nacho_config,
+                ref_value = "familyStickers",
             }),
           }
         }

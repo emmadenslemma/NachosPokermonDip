@@ -1,6 +1,7 @@
 -- Name relevant sprite locations and add families
 
 PokemonSprites["mega_gardevoir"] = {base = {pos = {x = 6, y = 4}, soul_pos = {x = 7, y = 4}}, gen_atlas = true}
+PokemonSprites["mega_altaria"] = {base = {pos = {x = 2, y = 6}, soul_pos = {x = 3, y = 6}}, gen_atlas = true}
 PokemonSprites["mega_salamence"] = {base = {pos = {x = 8, y = 6}, soul_pos = {x = 9, y = 6}}, gen_atlas = true}
 PokemonSprites["mega_gallade"] = {base = {pos = {x = 0, y = 7}, soul_pos = {x = 1, y = 7}}, gen_atlas = true}
 PokemonSprites["galarian_meowth"] = {base = {pos = {x = 8, y = 4}}, gen_atlas = true}
@@ -12,6 +13,7 @@ PokemonSprites["terapagos"] = {base = {pos = {x = 0, y = 6}, soul_pos = {x = 1, 
 PokemonSprites["terapagos_terastal"] = {base = {pos = {x = 2, y = 6}, soul_pos = {x = 3, y = 6}}, gen_atlas = true}
 
 pokermon.add_family({"ralts", "kirlia", "gardevoir", "mega_gardevoir", "gallade", "mega_gallade"})
+pokermon.add_family({"swablu", "altaria", "mega_altaria"})
 pokermon.add_family({"bagon", "shelgon", "salamence", "mega_salamence"})
 pokermon.add_family({"turtwig", "grotle", "torterra"})
 pokermon.add_family({"chimchar", "monferno", "infernape"})

@@ -23,7 +23,7 @@ local ralts={
   designer = "Foxthor, One Punch Idiot",
   rarity = 3,
   cost = 8,
-  stage = "Base",
+  stage = "Basic",
   ptype = "Psychic",
   perishable_compat = true,
   blueprint_compat = true,
@@ -198,6 +198,119 @@ local mega_gardevoir={
       _card:add_to_deck()
       G.consumeables:emplace(_card)
       card_eval_status_text(_card, 'extra', nil, nil, nil, {message = localize('k_plus_spectral'), colour = G.C.SECONDARY_SET.Spectral})
+    end
+  end,
+}
+
+-- Swablu 333
+local swablu={
+  name = "swablu",
+  config = {extra = {money = 1, rounds = 4}},
+  loc_vars = function(self, info_queue, card)
+    type_tooltip(self, info_queue, card)
+    local nine_tally = 0
+    if G.playing_cards then
+        for k, v in ipairs(G.playing_cards) do
+            if v:get_id() == 9 then nine_tally = nine_tally + 1 end
+        end
+    end
+    return {vars = {card.ability.extra.money, card.ability.extra.money * nine_tally, card.ability.extra.rounds}}
+  end,
+  designer = "roxie",
+  rarity = 2,
+  cost = 7,
+  stage = "Basic",
+  ptype = "Colorless",
+  gen = 3,
+  perishable_compat = true,
+  blueprint_compat = true,
+  eternal_compat = true,
+  calculate = function(self, card, context)
+    if context.joker_main then
+      for k, v in pairs(G.jokers.cards) do
+        print(get_previous_evo(v))
+      end
+    end
+    return level_evo(self, card, context, "j_nacho_altaria")
+  end,
+  calc_dollar_bonus = function(self, card)
+    local nine_tally = 0
+    if G.playing_cards then
+        for k, v in ipairs(G.playing_cards) do
+            if v:get_id() == 9 then nine_tally = nine_tally + 1 end
+        end
+    end
+    return ease_poke_dollars(card, "swablu", card.ability.extra.money * nine_tally, true)
+	end
+}
+
+-- Altaria 334
+local altaria={
+  name = "altaria",
+  config = {extra = {money = 1}},
+  loc_vars = function(self, info_queue, card)
+    type_tooltip(self, info_queue, card)
+    local nine_tally = 0
+    if G.playing_cards then
+        for k, v in ipairs(G.playing_cards) do
+            if v:get_id() == 9 then nine_tally = nine_tally + 1 end
+            if v.config.center ~= G.P_CENTERS.c_base then nine_tally = nine_tally + 1 end
+        end
+    end
+    return {vars = {card.ability.extra.money, card.ability.extra.money * 2, card.ability.extra.money * nine_tally}}
+  end,
+  designer = "roxie",
+  rarity = "poke_safari",
+  cost = 10,
+  stage = "One",
+  ptype = "Dragon",
+  gen = 3,
+  perishable_compat = true,
+  blueprint_compat = true,
+  eternal_compat = true,
+  calc_dollar_bonus = function(self, card)
+    local nine_tally = 0
+    if G.playing_cards then
+        for k, v in ipairs(G.playing_cards) do
+            if v:get_id() == 9 then nine_tally = nine_tally + 1 end
+            if v.config.center ~= G.P_CENTERS.c_base then nine_tally = nine_tally + 1 end
+        end
+    end
+    return ease_poke_dollars(card, "altaria", card.ability.extra.money * nine_tally, true)
+	end,
+  megas = {"mega_altaria"},
+}
+
+-- Mega Altaria 334-1
+local mega_altaria={
+  name = "mega_altaria",
+  config = {extra = {}},
+  loc_vars = function(self, info_queue, card)
+    type_tooltip(self, info_queue, card)
+    return {vars = {}}
+  end,
+  designer = "Eternalnacho",
+  rarity = "poke_mega",
+  cost = 12,
+  stage = "Mega",
+  ptype = "Dragon",
+  gen = 3,
+  perishable_compat = true,
+  blueprint_compat = true,
+  eternal_compat = true,
+  calculate = function(self, card, context)
+    if context.before and context.cardarea == G.jokers and G.GAME.current_round.hands_played == 0 and not context.blueprint then
+      for k, v in pairs(G.play.cards) do
+        if v:get_id() == 9 then
+          local edition = poll_edition('aura', nil, true, true)
+          v:set_edition(edition, true, true)
+          v:juice_up(0.3, 0.5)
+        end
+      end
+    end
+    if context.first_hand_drawn and not context.blueprint then
+      local eval = function() return G.GAME.current_round.hands_played == 0 and not G.RESET_JIGGLES end
+      juice_card_until(card, eval, true)
     end
   end,
 }
@@ -469,6 +582,10 @@ if nacho_config.Ralts then list[#list+1] = ralts end
 if nacho_config.Ralts then list[#list+1] = kirlia end
 if nacho_config.Ralts then list[#list+1] = gardevoir end
 if nacho_config.Ralts then list[#list+1] = mega_gardevoir end
+
+if nacho_config.Swablu then list[#list+1] = swablu end
+if nacho_config.Swablu then list[#list+1] = altaria end
+if nacho_config.Swablu then list[#list+1] = mega_altaria end
 
 if nacho_config.Bagon then list[#list+1] = bagon end
 if nacho_config.Bagon then list[#list+1] = shelgon end
