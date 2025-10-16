@@ -502,10 +502,10 @@ local empoleon={
 -- Gallade 475
 local gallade={
   name = "gallade",
-  config = {extra = {Xmult_multi = 0.15}},
+  config = {extra = {Xmult_mod = 0.15}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
-    return {vars = {card.ability.extra.Xmult_multi}}
+    return {vars = {card.ability.extra.Xmult_mod}}
   end,
   designer = "Eternalnacho",
   rarity = "poke_safari",
@@ -533,7 +533,7 @@ local gallade={
     -- Main Scoring
     if context.cardarea == G.jokers and context.scoring_hand then
       if context.joker_main then
-        local Xmult = 1 + card.ability.extra.Xmult_multi * G.GAME.hands[context.scoring_name].played
+        local Xmult = 1 + card.ability.extra.Xmult_mod * G.GAME.hands[context.scoring_name].played
         return {
           xmult = Xmult,
           card = card
@@ -547,10 +547,10 @@ local gallade={
 -- Mega-Gallade 475-1
 local mega_gallade={
   name = "mega_gallade",
-  config = {extra = {Xmult_multi = 0.3}},
+  config = {extra = {Xmult_mod = 0.3}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
-    return {vars = {card.ability.extra.Xmult_multi}}
+    return {vars = {card.ability.extra.Xmult_mod}}
   end,
   designer = "Eternalnacho",
   rarity = "poke_mega",
@@ -565,7 +565,7 @@ local mega_gallade={
     -- Main Scoring
     if context.cardarea == G.jokers and context.scoring_hand then
       if context.joker_main then
-        local Xmult = 1 + card.ability.extra.Xmult_multi * G.GAME.hands[context.scoring_name].played
+        local Xmult = 1 + card.ability.extra.Xmult_mod * G.GAME.hands[context.scoring_name].played
         return {
           xmult = Xmult,
           card = card

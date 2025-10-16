@@ -266,7 +266,7 @@ jd_def["j_nacho_gallade"] = {
     },
     calc_function = function(card)
         local text, _, _ = JokerDisplay.evaluate_hand()
-        card.joker_display_values.Xmult = 1 + card.ability.extra.Xmult_multi * ((text ~= 'Unknown' and G.GAME and G.GAME.hands[text] and G.GAME.hands[text].played + (next(G.play.cards) and 0 or 1)) or 0)
+        card.joker_display_values.Xmult = 1 + card.ability.extra.Xmult_mod * ((text ~= 'Unknown' and G.GAME and G.GAME.hands[text] and G.GAME.hands[text].played + (next(G.play.cards) and 0 or 1)) or 0)
     end
 }
 
@@ -281,7 +281,7 @@ jd_def["j_nacho_mega_gallade"] = {
     },
     calc_function = function(card)
         local text, _, _ = JokerDisplay.evaluate_hand()
-        card.joker_display_values.Xmult = 1 + card.ability.extra.Xmult_multi * ((text ~= 'Unknown' and G.GAME and G.GAME.hands[text] and G.GAME.hands[text].played + (next(G.play.cards) and 0 or 1)) or 0)
+        card.joker_display_values.Xmult = 1 + card.ability.extra.Xmult_mod * ((text ~= 'Unknown' and G.GAME and G.GAME.hands[text] and G.GAME.hands[text].played + (next(G.play.cards) and 0 or 1)) or 0)
     end
 }
 
