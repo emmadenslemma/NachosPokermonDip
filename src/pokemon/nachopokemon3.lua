@@ -99,14 +99,14 @@ local kirlia={
 -- Gardevoir 282
 local gardevoir={
   name = "gardevoir",
-  config = {extra = {Xmult_multi = 0.1, Xmult = 1.0}},
+  config = {extra = {Xmult_mod = 0.1, Xmult = 1.0}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
     local xmult = 1
     for _, v in pairs(G.GAME.hands) do
-      xmult = xmult + (v.level - 1) * card.ability.extra.Xmult_multi
+      xmult = xmult + (v.level - 1) * card.ability.extra.Xmult_mod
     end
-    return {vars = {card.ability.extra.Xmult_multi, xmult}}
+    return {vars = {card.ability.extra.Xmult_mod, xmult}}
   end,
   designer = "Foxthor, One Punch Idiot",
   rarity = "poke_safari",
@@ -122,9 +122,9 @@ local gardevoir={
         local xmult = 1
         for _, v in pairs(G.GAME.hands) do
           if (SMODS.Mods["Talisman"] or {}).can_load then
-            xmult = xmult + (to_number(v.level) - 1) * card.ability.extra.Xmult_multi
+            xmult = xmult + (to_number(v.level) - 1) * card.ability.extra.Xmult_mod
           else
-            xmult = xmult + (v.level - 1) * card.ability.extra.Xmult_multi
+            xmult = xmult + (v.level - 1) * card.ability.extra.Xmult_mod
           end
         end
         if xmult > 1 then

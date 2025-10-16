@@ -264,7 +264,7 @@ return {
                     "If scoring hand contains a Flush,",
                     "scoring cards and cards {C:attention}held in hand{}",
                     "with the {C:attention}same suit{} gain {C:red}+#1#{} Mult",
-                    "{C:inactive,s:0.8}(Evolves after playing {C:attention,s:0.8}#2# Flushes{C:inactive,s:0.8})",
+                    "{C:inactive,s:0.8}(Evolves after playing {C:attention,s:0.8}#2# {C:inactive,s:0.8}#3#)",
                     "{C:inactive,s:0.8}(Evolves after playing a {C:attention,s:0.8}Flush House{C:inactive,s:0.8})",
                 }
             },
@@ -275,7 +275,7 @@ return {
                     "and cards {C:attention}held in hand{} with",
                     "the {C:attention}same suit{} gain {C:red}+#1#{} Mult for each",
                     "unique {C:attention}rank{} among scoring cards",
-                    "{C:inactive,s:0.8}(Evolves after playing {C:attention,s:0.8}#2# Flushes{C:inactive,s:0.8})",
+                    "{C:inactive,s:0.8}(Evolves after playing {C:attention,s:0.8}#2# {C:inactive,s:0.8}#3#)",
                 }
             },
             j_nacho_goodra = {
@@ -368,7 +368,7 @@ return {
                     "Creates another {C:item}Metal Coat{} if",
                     "the difference in scoring {C:attention}ranks{} is",
                     "greater than {C:attention}6{}",
-                    "{C:inactive,s:0.8}(Evolves after playing {C:attention,s:0.8}#1# Flush Houses{C:inactive,s:0.8})",
+                    "{C:inactive,s:0.8}(Evolves after playing {C:attention,s:0.8}#1# {C:inactive,s:0.8}#2#)",
                 }
             },
             j_nacho_hisuian_goodra = {

@@ -144,7 +144,7 @@ end
 
 -- Pokemon Family Pre-evos win with current jokers?
 set_joker_family_win = function(card)
-  if nacho_config.familyStickers then
+  if nacho_config.familyStickers or pokermon_config.previous_evo_stickers then
     if get_family_keys(card.config.center.name, card.config.center.poke_custom_prefix, card) then
       local keys = get_family_keys(card.config.center.name, card.config.center.poke_custom_prefix, card)
       if #keys > 1 then

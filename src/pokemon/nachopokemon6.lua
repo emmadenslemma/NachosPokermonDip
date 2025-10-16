@@ -168,7 +168,13 @@ local goomy={
   config = {extra = {mult_mod = 1, flushes = 0, flush_houses = 0}, evo_rqmt1 = 6, evo_rqmt2 = 1},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
-    return {vars = {card.ability.extra.mult_mod, math.max(0, self.config.evo_rqmt1 - card.ability.extra.flushes)}}
+    return {
+      vars = {
+        card.ability.extra.mult_mod,
+        math.max(0, self.config.evo_rqmt1 - card.ability.extra.flushes),
+        self.config.evo_rqmt1 - card.ability.extra.flushes == 1 and "Flush" or "Flushes"
+      }
+    }
   end,
   designer = "Eternalnacho",
   rarity = 2,
@@ -228,7 +234,13 @@ local sliggoo={
   config = {extra = {mult_mod = 1, flushes = 0}, evo_rqmt = 8},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
-    return {vars = {card.ability.extra.mult_mod, math.max(0, self.config.evo_rqmt - card.ability.extra.flushes)}}
+    return {
+      vars = {
+        card.ability.extra.mult_mod,
+        math.max(0, self.config.evo_rqmt - card.ability.extra.flushes),
+        self.config.evo_rqmt - card.ability.extra.flushes == 1 and "Flush" or "Flushes"
+      }
+    }
   end,
   designer = "Eternalnacho",
   rarity = "poke_safari",

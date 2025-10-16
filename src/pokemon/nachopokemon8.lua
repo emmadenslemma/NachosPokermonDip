@@ -519,7 +519,8 @@ local hisuian_sliggoo={
   config = {extra = {flush_houses = 0}, evo_rqmt = 6},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
-    return {vars = {math.max(0, self.config.evo_rqmt - card.ability.extra.flush_houses)}}
+    return {vars = {math.max(0, self.config.evo_rqmt - card.ability.extra.flush_houses),
+      self.config.evo_rqmt - card.ability.extra.flush_houses == 1 and "Flush House" or "Flush Houses"}}
   end,
   designer = "Eternalnacho",
   rarity = "poke_safari",
