@@ -88,7 +88,7 @@ local greedent={
         card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod
       end
       -- 1 in 4 chance for Leftovers
-      if (pseudorandom('greedent') < G.GAME.probabilities.normal/card.ability.extra.odds) and not from_debuff and context.consumeable ~= 'c_poke_leftovers' then
+      if SMODS.pseudorandom_probability(card, 'greedent', card.ability.extra.num, card.ability.extra.den, 'greedent') and not card.debuff and context.consumeable ~= 'c_poke_leftovers' then
         local _card = create_card('Item', G.consumeables, nil, nil, nil, nil, 'c_poke_leftovers')
         local edition = {negative = true}
         _card:set_edition(edition, true)
