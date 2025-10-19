@@ -152,7 +152,7 @@ return {
                     "Adds the rank of {C:attention}highest{} ranked",
                     "card discarded this round to Mult",
                     "{C:inactive}(Currently {C:mult}+#2#{} {C:inactive}Mult)",
-                    "{C:inactive,s:0.8}(Evolves after scoring {C:red,s:0.8}+11{} {C:inactive,s:0.8}Mult{} {C:attention,s:0.8}#3#{C:inactive,s:0.8} Times){}",
+                    "{C:inactive,s:0.8}(Evolves after scoring {C:red,s:0.8}+11{} {C:inactive,s:0.8}Mult in {C:attention,s:0.8}#3#{C:inactive,s:0.8} Rounds){}",
                 }
             },
             j_nacho_monferno = {
@@ -163,7 +163,7 @@ return {
                     "{C:attention}highest{} ranked card discarded,",
                     "resets at end of round",
                     "{C:inactive}(Currently {C:mult}+#2#{} {C:inactive}Mult)",
-                    "{C:inactive,s:0.8}(Evolves after scoring {C:red,s:0.8}+30{} {C:inactive,s:0.8}Mult{} {C:attention,s:0.8}#3#{C:inactive,s:0.8} Times){}",
+                    "{C:inactive,s:0.8}(Evolves after scoring {C:red,s:0.8}+30{} {C:inactive,s:0.8}Mult in {C:attention,s:0.8}#3#{C:inactive,s:0.8} Rounds){}",
                 }
             },
             j_nacho_infernape = {
@@ -285,6 +285,25 @@ return {
                     "and cards {C:attention}held in hand{} with",
                     "the {C:attention}same suit{} gain {X:red,C:white}X#1#{} Mult for each",
                     "unique {C:attention}rank{} among scoring cards",
+                }
+            },
+            j_nacho_oranguru = {
+                name = "Oranguru",
+                text = {
+                    "{C:attention}+1{} card selection limit",
+                    "in {C:attention}Standard Packs{}",
+                    "{br:2}ERROR - CONTACT STEAK",
+                    "{C:attention}Standard Packs{} always",
+                    "contain the most common",
+                    "{C:attention}rank{} in your full deck",
+                }
+            },
+            j_nacho_passimian = {
+                name = "Passimian",
+                text = {
+                    "Gains the {C:attention}abilities{}",
+                    "of the next {C:attention}sold{}",
+                    "or {C:attention}destroyed{} Joker",
                 }
             },
             j_nacho_turtonator = {
@@ -438,15 +457,39 @@ return {
             nacho_elite_stake_sticker = {
                 name = "Elite Sticker",
                 text = {
-                    "Used this {C:attention}Joker{} to win on",
-                    "{C:attention}Elite Stake{} difficulty",
+                    "Used this {C:attention}Joker{}",
+                    "to win on {C:attention}Elite{}",
+                    "{C:attention}Stake{} difficulty",
                 },
             },
             stellar_type = {
                 name = "Stellar Type",
                 text = {
-                    "{C:nacho_sg1}S{C:nacho_sg2}t{C:nacho_sg3}e{C:nacho_sg4}l{C:nacho_sg5}l{C:nacho_sg6}a{C:nacho_sg7}r{} Jokers are every type",
+                    "{C:nacho_sg1}S{C:nacho_sg2}t{C:nacho_sg3}e{C:nacho_sg4}l{C:nacho_sg5}l{C:nacho_sg6}a{C:nacho_sg7}r{} Jokers are",
+                    "every type",
                 },
+            },
+            -- Rank lists for most common ranks
+            rank_lists_1 = {
+                name = "Common Ranks",
+                text = {
+                    '{C:attention}#1#{}',
+                }
+            },
+            rank_lists_2 = {
+                name = "Common Ranks",
+                text = {
+                    '{C:attention}#1#{}',
+                    '{C:attention}#2#{}',
+                }
+            },
+            rank_lists_3 = {
+                name = "Common Ranks",
+                text = {
+                    '{C:attention}#1#{}',
+                    '{C:attention}#2#{}',
+                    '{C:attention}#3#{}',
+                }
             },
         },
     },
@@ -483,6 +526,8 @@ return {
             clauncher_line = "Clauncher line?",
             dedenne = "Dedenne?",
             carbink = "Carbink?",
+            oranguru = "Oranguru?",
+            passimian = "Passimian?",
             goomy_line = "Goomy line?",
             turtonator = "Turtonator?",
             skwovet_line = "Skwovet line?",
