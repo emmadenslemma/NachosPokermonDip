@@ -32,8 +32,8 @@ This is an add-on mod for Pokermon - an add-on mod for Balatro.
 
 | Joker | Effect |
 | ------ | ------ |
-| Bagon | If played hand is a Two Pair, scoring cards give mult equal to one third of their rank and <br/>unscoring cards increase in rank by 1 |
-| Shelgon | If played hand is a Two Pair, scoring cards give mult equal to one third of their rank and <br/>unscoring cards increase in rank by 1 |
+| Bagon | If played hand is a Two Pair, scoring cards give mult equal to one third of their rank and <br/>rightmost card held in hand increases in rank by 1 |
+| Shelgon | If played hand is a Two Pair, scoring cards give mult equal to one third of their rank and <br/>the two rightmost cards held in hand increase in rank by 1 |
 | Salamence | If played hand is a Two Pair, scoring cards give X mult equal to <br/>one tenth the average rank of cards in your full deck |
 | Mega Salamence | If played hand is a Two Pair, scoring cards give X1.5 Mult <br/>Retrigger each scoring rank above 9 |
 
@@ -47,11 +47,19 @@ This is an add-on mod for Pokermon - an add-on mod for Balatro.
 
 | Joker | Effect |
 | ------ | ------ |
-| Goomy | If played hand contains a Flush, cards in hand with the same suit as scoring Flush gain +1 mult |
+| Goomy | If played hand contains a Flush, scoring cards and cards in hand with with the same suit as scoring Flush gain +1 mult |
 | Sliggoo | If played hand is a Flush, scoring cards and cards in hand with <br/>the same suit as scoring Flush gain +1 mult for each unique scoring rank |
 | Goodra | If played hand is a Flush, scoring cards and cards in hand with <br/>the same suit as scoring Flush gain X0.02 mult for each unique scoring rank |
 | Hisuian Sliggoo | If played hand is a Flush House, creates a Metal Coat <br/>Creates another if the difference in scoring ranks is greater than 6 |
 | Hisuian Goodra | If played hand is a Flush House, creates a Metal Coat <br/>If played hand is a Flush House, Steel cards held in hand give X mult <br/>equal to one third the difference in scoring ranks |
+
+| Joker | Effect |
+| ------ | ------ |
+| Oranguru | +1 card selection limit in Standard Packs <br/>Standard Packs always contain your most common rank(s) |
+
+| Joker | Effect |
+| ------ | ------ |
+| Passimian | Gains the abilities of the next sold or destroyed Joker <br/>+1 Joker slot if received joker had a non-negative edition |
 
 | Joker | Effect |
 | ------ | ------ |

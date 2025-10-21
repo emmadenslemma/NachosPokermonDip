@@ -306,7 +306,7 @@ return {
                     "or {C:attention}destroyed{} Joker",
                     "{br:2}ERROR - CONTACT STEAK",
                     "{C:attention}+1{} Joker slot if",
-                    "received card has a",
+                    "received Joker had a",
                     "non-{C:dark_edition}Negative{C:attention} edition{}"
                 }
             },
