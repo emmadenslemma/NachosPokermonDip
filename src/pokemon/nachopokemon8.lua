@@ -43,8 +43,6 @@ local skwovet={
     if context.cardarea == G.jokers and context.scoring_hand then
       if context.joker_main then
         return {
-          message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult}}, 
-          colour = G.C.MULT,
           mult = card.ability.extra.mult
         }
       end

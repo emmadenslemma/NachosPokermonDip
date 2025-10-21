@@ -9,6 +9,8 @@ return {
 	Dedenne = true,
     Carbink = true,
     Goomy = true,
+    Oranguru = true,
+    Passimian = true,
     Turtonator = true,
     Skwovet = true,
     Galarian_Meowth = true,
@@ -16,6 +18,5 @@ return {
     Terapagos = true,
     customJokers = true,
     customStakes = true,
-    familyStickers = false,
     -- customItems = true,
 }

@@ -180,8 +180,8 @@ return {
                 name = "Piplup",
                 text = {
                     "{C:blue}+#1#{} hand, {C:chips}+#2#{} Chips",
-                    "{C:chips}-#3#{} Chips per",
-                    "scoring card in played hand",
+                    "{C:chips}-#3#{} Chips per scoring",
+                    "card in played hand",
                     "{C:inactive,s:0.8}(Evolves after {C:attention,s:0.8}#4#{C:inactive,s:0.8} rounds)",
                 } 
             },
@@ -304,6 +304,10 @@ return {
                     "Gains the {C:attention}abilities{}",
                     "of the next {C:attention}sold{}",
                     "or {C:attention}destroyed{} Joker",
+                    "{br:2}ERROR - CONTACT STEAK",
+                    "{C:attention}+1{} Joker slot if",
+                    "received card has a",
+                    "non-{C:dark_edition}Negative{C:attention} edition{}"
                 }
             },
             j_nacho_turtonator = {
@@ -491,6 +495,12 @@ return {
                     '{C:attention}#3#{}',
                 }
             },
+            received_card = {
+                name = "Received Card",
+                text = {
+                    '#1#',
+                }
+            },
         },
     },
     misc = {
@@ -509,6 +519,8 @@ return {
             poke_brine_ex = "Brine!",
             -- From Gallade
             poke_psycho_cut_ex = "Psycho Cut!",
+            -- From Passimian
+            poke_receiver_ex = "Receiver!",
             -- From Turtonator
             poke_shell_trap_ex = "Shell Trap!",
             -- From Greedent
