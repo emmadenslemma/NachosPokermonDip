@@ -63,7 +63,7 @@ This is an add-on mod for Pokermon - an add-on mod for Balatro.
 
 | Joker | Effect |
 | ------ | ------ |
-| Turtonator | If Boss Blind was triggered in the previous hand, scoring cards give X1.5 Mult |
+| Turtonator | If the Boss Blind triggers, scoring cards in the next played hand give X1.5 Mult |
 
 | Joker | Effect |
 | ------ | ------ |
