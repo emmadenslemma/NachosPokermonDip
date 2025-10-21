@@ -82,6 +82,24 @@ end
 '''
 match_indent = true
 
+[[patches]]
+[patches.pattern]
+target = '=[SMODS Pokermon "functions/energyfunctions.lua"]'
+pattern = '''card.ability.extra[name] =  data + (card.config.center.config.extra[name] * addition) * (card.ability.extra.escale or 1)'''
+position = "at"
+payload = '''
+if card.config.center.key == 'j_nacho_passimian' then
+  card.ability.extra[name] =  data + (card.ability.received_card.config.extra[name] * addition) * (card.ability.extra.escale or 1)
+else
+  card.ability.extra[name] =  data + (card.config.center.config.extra[name] * addition) * (card.ability.extra.escale or 1)
+end
+'''
+match_indent = true
+
+
+
+
+
 
 # Ensuring that Terapagos-Stellar makes Pokemon always Tera Stellar
 [[patches]]
