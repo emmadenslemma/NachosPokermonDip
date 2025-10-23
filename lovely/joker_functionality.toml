@@ -1,7 +1,7 @@
 [manifest]
 version = "1.0.0"
 dump_lua = true
-priority = 22
+priority = 21
 
 # Gallade Planet Insert
 [[patches]]
@@ -97,10 +97,6 @@ end
 match_indent = true
 
 
-
-
-
-
 # Ensuring that Terapagos-Stellar makes Pokemon always Tera Stellar
 [[patches]]
 [patches.pattern]
@@ -116,14 +112,3 @@ if next(SMODS.find_card('j_nacho_terapagos_stellar')) then
 end
 '''
 match_indent = true
-
-
-
-
-
-
-
-
-
-
-

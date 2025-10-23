@@ -1,7 +1,7 @@
 [manifest]
 version = "1.0.0"
 dump_lua = true
-priority = -1
+priority = 1
 
 
 # Sinnoh Adventure Shop Function

@@ -1,7 +1,7 @@
 [manifest]
 version = "1.0.0"
 dump_lua = true
-priority = 22
+priority = 21
 
 # # # Terapagos Tera Logic Suite
 
