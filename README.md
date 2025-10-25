@@ -39,6 +39,16 @@ This is an add-on mod for Pokermon - an add-on mod for Balatro.
 
 | Joker | Effect |
 | ------ | ------ |
+| Hisuian Zorua | Copies the leftmost joker <br/>After scoring played hand while copying,<br/> remove copy effect |
+| Hisuian Zoroark | Copies the leftmost joker |
+
+| Joker | Effect |
+| ------ | ------ |
+| Clauncher | +6 Mult for each played card with an edition |
+| Clawitzer | Foil cards give X1.5 their total chips<br/>Holographic cards give X1.3 Mult when scored<br/>Polychrome cards give X1.2 mult when held in hand |
+
+| Joker | Effect |
+| ------ | ------ |
 | Dedenne | 1 in 4 chance to create an Item card when a Gold card triggers |
 
 | Joker | Effect |
@@ -74,11 +84,6 @@ This is an add-on mod for Pokermon - an add-on mod for Balatro.
 | ------ | ------ |
 | Galarian Meowth | Retriggers the first two Steel cards held in hand |
 | Perrserker | Each Metal Joker gives X1.5 Mult <br/> Retriggers if all Jokers are Metal |
-
-| Joker | Effect |
-| ------ | ------ |
-| Hisuian Zorua | Copies the leftmost joker <br/>After scoring played hand while copying,<br/> remove copy effect |
-| Hisuian Zoroark | Copies the leftmost joker |
 
 | Joker | Effect |
 | ------ | ------ |
