@@ -152,7 +152,10 @@ pattern = '''
 '''
 position = "before"
 payload = '''
-yoink_ralts()
+if (SMODS.Mods["PokermonMaelmc"] or {}).can_load and (SMODS.Mods["NachosPokermonDip"] or {}).can_load and nacho_config.Ralts then
+  local yoink_ralts = assert(SMODS.load_file("src/pokemon/0280_ralts.lua", "NachosPokermonDip"))()
+  if yoink_ralts.enabled then yoink_ralts:init() end
+end
 
 '''
 match_indent = true

@@ -16,6 +16,8 @@ PkmnDip.dex_order_groups[#PkmnDip.dex_order_groups+1] = {'skwovet', 'greedent'}
 PkmnDip.dex_order_groups[#PkmnDip.dex_order_groups+1] = {'perrserker'}
 PkmnDip.dex_order_groups[#PkmnDip.dex_order_groups+1] = {'terapagos', 'terapagos_terastal', 'terapagos_stellar'}
 
+PkmnDip.dex_order_groups[#PkmnDip.dex_order_groups+1] = {'gible', 'gabite', 'garchomp', 'mega_garchomp'}
+
 
 -- modifying this function for *two* different config settings
 SMODS.collection_pool = function(_base_pool)
@@ -72,15 +74,15 @@ PkmnDip.find_next_dex_number = function(name)
     if type(pokemon) == 'table' then
       for _, mon in ipairs(pokemon) do
         if i > dexNo and not table.contains(group_list, mon) and G.P_CENTERS['j_poke_'..mon] then
-          for k, v in pairs(poke_get_family_list(mon)) do if string.find(name, v) then goto continue end end
+          --for k, v in pairs(poke_get_family_list(mon)) do if string.find(name, v) then goto continue end end
           return i
         end
       end
     elseif i > dexNo and not table.contains(group_list, pokemon) and G.P_CENTERS['j_poke_'..pokemon] then
-      for k, v in pairs(poke_get_family_list(mon)) do if string.find(name, v) then goto continue end end
+      --for k, v in pairs(poke_get_family_list(mon)) do if string.find(name, v) then goto continue end end
       return i
     elseif pokemon == "missingno" then return i end
-    ::continue::
+    --::continue::
   end
 end
 
