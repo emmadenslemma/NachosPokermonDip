@@ -342,7 +342,7 @@ return {
                 }
             },
             j_nacho_galarian_meowth = {
-                name = "{s:0.6}Galarian{}Meowth",
+                name = "Galarian Meowth",
                 text = {
                     "Retriggers the first two",
                     "{C:attention}Steel{} cards {C:attention}held in hand{}",
@@ -364,7 +364,7 @@ return {
                 }
             },
             j_nacho_hisuian_zorua = {
-                name = "{s:0.6}Hisuian{}Zorua",
+                name = "Hisuian Zorua",
                 text = {
                     "{V:1}Copies the ability",
                     "of leftmost {C:attention}Joker{}",
@@ -376,14 +376,14 @@ return {
                 }
             },
             j_nacho_hisuian_zoroark = {
-                name = "{s:0.6}Hisuian{}Zoroark",
+                name = "Hisuian Zoroark",
                 text = {
                     "Copies the ability",
                     "of leftmost {C:attention}Joker{}",
                 }
             },
             j_nacho_hisuian_sliggoo = {
-                name = "{s:0.6}Hisuian{}Sliggoo",
+                name = "Hisuian Sliggoo",
                 text = {
                     "If played hand is a {C:attention}Flush House{},",
                     "creates a {C:item}Metal Coat{}",
@@ -395,7 +395,7 @@ return {
                 }
             },
             j_nacho_hisuian_goodra = {
-                name = "{s:0.6}Hisuian{}Goodra",
+                name = "Hisuian Goodra",
                 text = {
                     "If played hand is a {C:attention}Flush House{},",
                     "creates a {C:item}Metal Coat{}",
@@ -546,6 +546,12 @@ return {
             galarian_meowth_line = "Galarian Meowth line?",
             hisuian_zorua_line = "Hisuian Zorua line?",
             terapagos_line = "Terapagos line?",
+
+            -- Settings
+            nacho_pokemon1 = "Pokemon 1/3",
+            nacho_pokemon2 = "Pokemon 2/3",
+            nacho_pokemon3 = "Pokemon 3/3",
+            nacho_miscellaneous = "Miscellaneous",
         },
         v_text = {
             ch_c_sinnoh_adv={

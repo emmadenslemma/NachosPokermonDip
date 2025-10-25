@@ -5,7 +5,7 @@
 	"description": "An add-on mod for Pokermon",
 	"prefix": "nacho",
 	"main_file": "main.lua",
-	"priority": 22,
+	"priority": 1,
 	"badge_colour": "E9B800",
 	"badge_text_colour": "FFFFFF",
   "display_name": "Pokermon Dip",

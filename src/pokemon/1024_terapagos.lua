@@ -1,13 +1,3 @@
-function table.contains(table, element)
-  for _, value in pairs(table) do
-    if value == element then
-      return true
-    end
-  end
-  return false
-end
-
-
 -- Terapagos 1024
 local terapagos={
   name = "terapagos",
@@ -53,9 +43,6 @@ local terapagos={
       card_eval_status_text(_card, 'extra', nil, nil, nil, {message = localize('poke_plus_pokeitem'), colour = G.ARGS.LOC_COLOURS.item})
     end
   end,
-  prefix_config = {
-    atlas = false,
-  },
 }
 
 -- Terapagos-Terastal 1024-1
@@ -231,9 +218,8 @@ local terapagos_stellar={
   end,
 }
 
-list = {}
-if nacho_config.Terapagos then list[#list+1] = terapagos end
-if nacho_config.Terapagos then list[#list+1] = terapagos_terastal end
-if nacho_config.Terapagos then list[#list+1] = terapagos_stellar end
-
-return {name = "nachopokemon9", list = list}
+return {
+  name = "Nacho's Terapagos Line",
+  enabled = nacho_config.Terapagos or false,
+  list = {terapagos, terapagos_terastal, terapagos_stellar}
+}

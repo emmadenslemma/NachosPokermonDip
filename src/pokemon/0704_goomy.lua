@@ -1,167 +1,3 @@
-function table.contains(table, element)
-  for _, value in pairs(table) do
-    if value == element then
-      return true
-    end
-  end
-  return false
-end
-
--- Clauncher 692
-local clauncher = {
-  name = "clauncher",
-  config = {extra = {mult = 6, rounds = 4}},
-  loc_vars = function(self, info_queue, card)
-    type_tooltip(self, info_queue, card)
-    return {vars = {card.ability.extra.mult, card.ability.extra.rounds}}
-  end,
-  designer = "Eternalnacho",
-  rarity = 1,
-  cost = 5,
-  stage = "Basic",
-  ptype = "Water",
-  blueprint_compat = true,
-  custom_pool_func = true,
-  calculate = function(self, card, context)
-    if context.joker_main then
-      local editions = 0
-      for k, v in pairs(G.play.cards) do
-        if v.edition and (v.edition.foil or v.edition.holographic or v.edition.polychrome) then editions = editions + 1 end
-      end
-      return {
-        mult = card.ability.extra.mult * (editions),
-        card = card
-      }
-    end
-    return level_evo(self, card, context, "j_nacho_clawitzer")
-  end,
-  in_pool = function(self, args)
-    for k, v in pairs(G.playing_cards) do
-      if v.edition and (v.edition.foil or v.edition.holographic or v.edition.polychrome) then return true end
-    end
-    return false
-  end,
-}
-
--- Clawitzer 693
-local clawitzer = {
-  name = "clawitzer",
-  config = {extra = {Xchips = 1.5, Xmult = 1.3, Xmult1 = 1.2}},
-  loc_vars = function(self, info_queue, card)
-    type_tooltip(self, info_queue, card)
-    return {vars = {card.ability.extra.Xchips, card.ability.extra.Xmult, card.ability.extra.Xmult1}}
-  end,
-  designer = "Eternalnacho",
-  rarity = "poke_safari",
-  cost = 10,
-  stage = "One",
-  ptype = "Water",
-  blueprint_compat = true,
-  custom_pool_func = true,
-  calculate = function(self, card, context)
-    if context.individual and context.other_card.edition then
-      if context.other_card.edition.foil and context.cardarea == G.play then
-        return{
-          chips = card.ability.extra.Xchips * poke_total_chips(context.other_card),
-          card = context.other_card or card
-        }
-      elseif context.other_card.edition.holographic and context.cardarea == G.play then
-        return{
-          xmult = card.ability.extra.Xmult,
-          card = context.other_card or card
-        }
-      elseif context.other_card.edition.polychrome and context.cardarea == G.hand and not context.end_of_round then
-        return{
-          xmult = card.ability.extra.Xmult1,
-          card = context.other_card or card
-        }
-      end
-    end
-  end,
-  in_pool = function(self, args)
-    for k, v in pairs(G.playing_cards) do
-      if v.edition and (v.edition.foil or v.edition.holographic or v.edition.polychrome) then return true end
-    end
-    return false
-  end,
-}
-
--- Dedenne 702
-local dedenne = {
-  name = "dedenne",
-  config = {extra = {odds = 4}},
-  loc_vars = function(self, info_queue, card)
-    type_tooltip(self, info_queue, card)
-    info_queue[#info_queue+1] = G.P_CENTERS.m_gold
-    return {vars = {card.ability.extra.odds}}
-  end,
-  designer = "Eternalnacho",
-  rarity = 1,
-  cost = 4,
-  enhancement_gate = "m_gold",
-  stage = "Basic",
-  ptype = "Lightning",
-  blueprint_compat = true,
-  calculate = function(self, card, context)
-    if context.repetition and context.cardarea == G.hand then
-      if (next(context.card_effects[1]) or #context.card_effects > 1) and SMODS.has_enhancement(context.other_card, 'm_gold') and
-      #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-        if pseudorandom('dedenne') < G.GAME.probabilities.normal/card.ability.extra.odds then
-          G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-          G.E_MANAGER:add_event(Event({
-            trigger = 'before',
-            delay = 0.0,
-            func = (function()
-                  local _card = create_card('Item', G.consumeables, nil, nil, nil, nil)
-                  _card:add_to_deck()
-                  G.consumeables:emplace(_card)
-                  card_eval_status_text(_card, 'extra', nil, nil, nil, {message = localize('poke_plus_pokeitem'), colour = G.ARGS.LOC_COLOURS.item})
-                  G.GAME.consumeable_buffer = 0
-                  return true
-          end)}))
-          return {
-            repetitions = 0,
-            card = card,
-          }
-        end
-      end
-    end
-  end,
-}
-
--- Carbink 703
-local carbink = {
-  name = "carbink",
-  config = {extra = {}},
-  loc_vars = function(self, info_queue, card)
-    type_tooltip(self, info_queue, card)
-    info_queue[#info_queue+1] = G.P_CENTERS.m_poke_hazard
-    info_queue[#info_queue+1] = G.P_CENTERS.m_gold
-    return {vars = {}}
-  end,
-  designer = "Eternalnacho",
-  rarity = 1,
-  cost = 5,
-  stage = "Basic",
-  ptype = "Fairy",
-  blueprint_compat = true,
-  custom_pool_func = true, 
-  calculate = function(self, card, context)
-    if context.check_enhancement and not context.blueprint then
-      if context.other_card.config.center.key == "m_poke_hazard" then
-        return {m_gold = true}
-      end
-    end
-  end,
-  in_pool = function(self, args)
-    for i = 1, #G.jokers.cards do
-      if G.jokers.cards[i].ability and G.jokers.cards[i].ability.extra and type(G.jokers.cards[i].ability.extra) == "table" and
-        G.jokers.cards[i].ability.extra.hazards ~= nil then return true end
-    end
-    return false
-  end,
-}
-
 -- Goomy 704
 local goomy={
   name = "goomy",
@@ -348,17 +184,119 @@ local goodra={
   end,
 }
 
+-- Hisuian Sliggoo 705-1
+local hisuian_sliggoo={
+  name = "hisuian_sliggoo",
+  config = {extra = {flush_houses = 0}, evo_rqmt = 6},
+  loc_vars = function(self, info_queue, card)
+    type_tooltip(self, info_queue, card)
+    return {vars = {math.max(0, self.config.evo_rqmt - card.ability.extra.flush_houses),
+      self.config.evo_rqmt - card.ability.extra.flush_houses == 1 and "Flush House" or "Flush Houses"}}
+  end,
+  designer = "Eternalnacho",
+  rarity = "poke_safari",
+  cost = 8,
+  stage = "One",
+  ptype = "Metal",
+  gen = 6,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    -- Count # of Flush Houses played
+    if context.before and context.main_eval and context.scoring_name == 'Flush House' then
+      card.ability.extra.flush_houses = card.ability.extra.flush_houses + 1
+      return
+    end
+    -- Main function
+    if context.joker_main and context.scoring_name == 'Flush House' then
+      -- Get first rank id + rank, compare id to second rank id, get second rank
+      local first_rank_id = nil
+      local first_rank = nil
+      local second_rank = nil
+      for _, scoring_card in pairs(context.scoring_hand) do
+          if not first_rank and scoring_card:get_id() > 0 then
+            first_rank_id = scoring_card:get_id()
+            first_rank = scoring_card.base.nominal
+          elseif not second_rank and scoring_card:get_id() > 0 and scoring_card:get_id() ~= first_rank_id then
+              second_rank = scoring_card.base.nominal
+          end
+      end
+      -- Create metal coat
+      if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+        local _card = create_card('Item', G.consumeables, nil, nil, nil, nil, 'c_poke_metalcoat')
+        _card:add_to_deck()
+        G.consumeables:emplace(_card)
+        card_eval_status_text(_card, 'extra', nil, nil, nil, {message = localize('poke_plus_pokeitem'), colour = G.C.FILTER})
+      end
+      -- Create second metal coat if the difference in scoring ranks is > 6
+      if math.abs(second_rank - first_rank) > 6 then
+        if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+          local _card = create_card('Item', G.consumeables, nil, nil, nil, nil, 'c_poke_metalcoat')
+          _card:add_to_deck()
+          G.consumeables:emplace(_card)
+          card_eval_status_text(_card, 'extra', nil, nil, nil, {message = localize('poke_plus_pokeitem'), colour = G.C.FILTER})
+        end
+      end
+    end
+    return scaling_evo(self, card, context, "j_nacho_hisuian_goodra", card.ability.extra.flush_houses, self.config.evo_rqmt)
+  end,
+}
 
-list = {}
-if nacho_config.Clauncher then list[#list+1] = clauncher end
-if nacho_config.Clauncher then list[#list+1] = clawitzer end
+-- Hisuian Goodra 706-1
+local hisuian_goodra={
+  name = "hisuian_goodra",
+  config = {extra = {Xmult = 1}},
+  loc_vars = function(self, info_queue, card)
+    type_tooltip(self, info_queue, card)
+    return {vars = {}}
+  end,
+  designer = "Eternalnacho",
+  rarity = "poke_safari",
+  cost = 11,
+  stage = "Two",
+  ptype = "Metal",
+  gen = 6,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    -- Create a Metal Coat if Flush House played
+    if context.before and context.main_eval and context.scoring_name == 'Flush House' then
+      -- Create metal coat
+      if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+        local _card = create_card('Item', G.consumeables, nil, nil, nil, nil, 'c_poke_metalcoat')
+        _card:add_to_deck()
+        G.consumeables:emplace(_card)
+        card_eval_status_text(_card, 'extra', nil, nil, nil, {message = localize('poke_plus_pokeitem'), colour = G.C.FILTER})
+      end
+    end
+    if context.individual and context.cardarea == G.hand and not context.end_of_round then
+      if context.scoring_name == 'Flush House' then
+        -- Get first and second ranks of flush house
+        local first_rank_id = nil
+        local first_rank = nil
+        local second_rank = nil
+        for _, scoring_card in pairs(context.scoring_hand) do
+            if not first_rank and scoring_card:get_id() > 0 then
+              first_rank_id = scoring_card:get_id()
+              first_rank = scoring_card.base.nominal
+            elseif not second_rank and scoring_card:get_id() > 0 and scoring_card:get_id() ~= first_rank_id then
+                second_rank = scoring_card.base.nominal
+            end
+        end
+        -- Set Xmult_mod
+        card.ability.extra.Xmult = math.abs(second_rank - first_rank) / 3
+        -- Score Steel cards in hand
+        if SMODS.has_enhancement(context.other_card, 'm_steel') and card.ability.extra.Xmult > 1 then
+          return{
+            xmult = card.ability.extra.Xmult,
+            card = card,
+          }
+        end
+      end
+    end
+  end,
+}
 
-if nacho_config.Dedenne then list[#list+1] = dedenne end
-if nacho_config.Carbink then list[#list+1] = carbink end
-
-if nacho_config.Goomy then list[#list+1] = goomy end
-if nacho_config.Goomy then list[#list+1] = sliggoo end
-if nacho_config.Goomy then list[#list+1] = goodra end
-
-return {name = "nachopokemon6", list = list}
-
+return {
+  name = "Nacho's Goomy Evo Line",
+  enabled = nacho_config.Goomy or false,
+  list = { goomy, sliggoo, goodra, hisuian_sliggoo, hisuian_goodra}
+}

@@ -1,91 +1,3 @@
-function table.contains(table, element)
-  for _, value in pairs(table) do
-    if value == element then
-      return true
-    end
-  end
-  return false
-end
-
-
--- Oranguru 765
-local oranguru={
-  name = "oranguru",
-  config = {extra = {raised = false}},
-  loc_vars = function(self, info_queue, card)
-    type_tooltip(self, info_queue, card)
-    common_ranks_tooltip(self, info_queue)
-    return {vars = {}}
-  end,
-  designer = "Eternalnacho",
-  rarity = 3,
-  cost = 8,
-  stage = "Basic",
-  ptype = "Colorless",
-  perishable_compat = true,
-  blueprint_compat = true,
-  eternal_compat = true,
-  calculate = function(self, card, context)
-    if context.open_booster and not context.blueprint then
-      if context.card.ability.name:find('Standard') then
-        -- set booster_choice_mod if not raised
-        if not card.ability.extra.raised then
-          if G.GAME.modifiers.booster_choice_mod then G.GAME.modifiers.booster_choice_mod = G.GAME.modifiers.booster_choice_mod + 1
-          else G.GAME.modifiers.booster_choice_mod = 1 end
-          -- set booster choices
-          G.GAME.pack_choices =
-            math.min((context.card.ability.choose or context.card.config.center.config.choose or 1) + (G.GAME.modifiers.booster_choice_mod or 0),
-            context.card.ability.extra and math.max(1, context.card.ability.extra + (G.GAME.modifiers.booster_size_mod or 0)) or
-            context.card.config.center.extra and math.max(1, context.card.config.center.extra + (G.GAME.modifiers.booster_size_mod or 0)) or 1)
-          -- set raised to true
-          card.ability.extra.raised = true
-        end
-      elseif card.ability.extra.raised then
-        -- lower booster_choice_mod if raised, else do nothing
-        if G.GAME.modifiers.booster_choice_mod then G.GAME.modifiers.booster_choice_mod = G.GAME.modifiers.booster_choice_mod - 1
-        else G.GAME.modifiers.booster_choice_mod = 0 end
-        G.GAME.pack_choices =
-            math.min((context.card.ability.choose or context.card.config.center.config.choose or 1) + (G.GAME.modifiers.booster_choice_mod or 0),
-            context.card.ability.extra and math.max(1, context.card.ability.extra + (G.GAME.modifiers.booster_size_mod or 0)) or
-            context.card.config.center.extra and math.max(1, context.card.config.center.extra + (G.GAME.modifiers.booster_size_mod or 0)) or 1)
-        card.ability.extra.raised = false
-      end
-    end
-  end,
-  add_to_deck = function(self, card, from_debuff)
-    if (G.STATE == G.STATES.SMODS_BOOSTER_OPENED and SMODS.OPENED_BOOSTER.ability.name:find('Standard') or G.STATE == G.STATES.STANDARD_PACK) then
-      if not card.ability.extra.raised then
-        if G.GAME.modifiers.booster_choice_mod then
-          G.GAME.modifiers.booster_choice_mod = G.GAME.modifiers.booster_choice_mod + 1
-        else
-          G.GAME.modifiers.booster_choice_mod = 1
-        end
-        G.GAME.pack_choices =
-            math.min((context.card.ability.choose or context.card.config.center.config.choose or 1) + (G.GAME.modifiers.booster_choice_mod or 0),
-            context.card.ability.extra and math.max(1, context.card.ability.extra + (G.GAME.modifiers.booster_size_mod or 0)) or
-            context.card.config.center.extra and math.max(1, context.card.config.center.extra + (G.GAME.modifiers.booster_size_mod or 0)) or 1)
-        card.ability.extra.raised = true
-      end
-    end
-  end,
-  remove_from_deck = function(self, card, from_debuff)
-    if card.ability.extra.raised then
-      if G.GAME.modifiers.booster_choice_mod then
-        G.GAME.modifiers.booster_choice_mod = G.GAME.modifiers.booster_choice_mod - 1
-      else
-        G.GAME.modifiers.booster_choice_mod = 0
-      end
-      if (G.STATE == G.STATES.SMODS_BOOSTER_OPENED and SMODS.OPENED_BOOSTER.ability.name:find('Standard') or G.STATE == G.STATES.STANDARD_PACK) then
-        G.GAME.pack_choices =
-            math.min((context.card.ability.choose or context.card.config.center.config.choose or 1) + (G.GAME.modifiers.booster_choice_mod or 0),
-            context.card.ability.extra and math.max(1, context.card.ability.extra + (G.GAME.modifiers.booster_size_mod or 0)) or
-            context.card.config.center.extra and math.max(1, context.card.config.center.extra + (G.GAME.modifiers.booster_size_mod or 0)) or 1)
-      end
-      card.ability.extra.raised = false
-    end
-  end,
-}
-
 -- Passimian 766
 local passimian={
   name = "passimian",
@@ -175,9 +87,9 @@ local passimian={
       else card.config.center.blueprint_compat = false end
 
       -- play the funny noises
-      if not (card.edition or context.card.edition) then
+      if not (card.edition or context and context.card and context.card.edition) then
         card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('poke_receiver_ex')})
-      elseif context.card.edition then
+      elseif context.card and context.card.edition then
         card:juice_up(1, 0.5)
         if context.card.edition.foil then card_eval_status_text(card, 'extra', nil, nil, nil,
             {message = localize('poke_receiver_ex'), colour = G.C.DARK_EDITION, sound = 'foil2', percent = 1.2, volume = 0.4}) end
@@ -239,64 +151,46 @@ local passimian={
       localize{type = 'descriptions', key = _c.key, set = _c.set, nodes = desc_nodes}
     end
   end,
-  banlist = {'j_nacho_passimian', 'j_poke_zorua', 'j_poke_zoroark', 'j_nacho_hisuian_zorua', 'j_nacho_hisuian_zoroark'}
+  banlist = {'j_nacho_passimian', 'j_poke_zorua', 'j_poke_zoroark', 'j_nacho_hisuian_zorua', 'j_nacho_hisuian_zoroark', 'j_poke_smeargle'}
 }
 
--- Turtonator 776
-local turtonator={
-  name = "turtonator",
-  config = {extra = {Xmult_mod = 1.5, trapped = false, set_off = false, boss_trigger = false}},
-  loc_vars = function(self, info_queue, card)
-    type_tooltip(self, info_queue, card)
-    local active = nil
-    if card.ability.extra.trapped then active = "Active!"
-    else active = "Inactive" end
-    return {vars = {card.ability.extra.Xmult_mod, active}}
-  end,
-  designer = "Eternalnacho",
-  rarity = 2,
-  cost = 8,
-  stage = "Basic",
-  ptype = "Dragon",
-  perishable_compat = true,
-  blueprint_compat = true,
-  eternal_compat = true,
-  calculate = function(self, card, context)
-    -- Calculate boss trigger
-    if calc_boss_trigger(context) and not card.ability.extra.trapped then
-      card.ability.extra.trapped = true
-      card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('poke_shell_trap_ex')})
-    end
+-- local init = function()
+--   remove = function(self, card, context, check_shiny, skip_joker_type_destroyed)
+--     if not skip_joker_type_destroyed then
+--       card.getting_sliced = true
+--       local flags = SMODS.calculate_context({ joker_type_destroyed = true, card = card })
+--       if flags.no_destroy then
+--         card.getting_sliced = nil
+--         return
+--       end
+--     end
+--     if check_shiny and card.edition and card.edition.poke_shiny then
+--       SMODS.change_booster_limit(-1)
+--     end
+--     play_sound('tarot1')
+--     card.T.r = -0.2
+--     card:juice_up(0.3, 0.4)
+--     card.states.drag.is = true
+--     card.children.center.pinch.x = true
+--     G.E_MANAGER:add_event(Event({
+--       trigger = 'after',
+--       delay = 0.3,
+--       blockable = false,
+--       func = function()
+--         G.jokers:remove_card(card)
+--         card:remove()
+--         card = nil
+--         return true
+--       end
+--     }))
+--     card.gone = true
+--     return true
+--   end
+-- end
 
-    -- Scoring Bit Here
-    if context.before and context.main_eval and card.ability.extra.trapped then
-      return{
-        message = localize('poke_shell_trap_ex'),
-        colour = G.C.XMULT,
-        card = card,
-      }
-    end
-    if context.individual and context.cardarea == G.play and context.scoring_hand then 
-      if card.ability.extra.trapped then
-        card.ability.extra.set_off = true
-        return{
-          xmult = card.ability.extra.Xmult_mod,
-          colour = G.C.XMULT,
-        }
-      end
-    end
-
-    -- Shell Trap on/off switch
-    if (context.joker_main or context.debuffed_hand) and card.ability.extra.trapped and card.ability.extra.set_off then
-      card.ability.extra.trapped = false
-      card.ability.extra.set_off = false
-    end
-  end,
+return {
+  name = "Nacho's Passimian",
+  enabled = nacho_config.Passimian or false,
+  --init = init,
+  list = { passimian }
 }
-
-list = {}
-if nacho_config.Oranguru then list[#list+1] = oranguru end
-if nacho_config.Passimian then list[#list+1] = passimian end
-if nacho_config.Turtonator then list[#list+1] = turtonator end
-
-return {name = "nachopokemon7", list = list}

@@ -1,152 +1,225 @@
--- Config Tab UI
+local Tile = assert(SMODS.load_file("src/settings/tile.lua"))()
 
-SMODS.current_mod.config_tab = function()
-    return {
-      n = G.UIT.ROOT,
-      config = {
-          align = "cm",
-          padding = 0.05,
-          colour = G.C.CLEAR,
-      },
-      nodes = {
-        {
-          n = G.UIT.R,
-          config = {
-              align = "tm",
-              padding = 0.05,
-              colour = G.C.CLEAR,
-          },
-          nodes =
+local list_map = function(list, func)
+  new_list = {}
+  for _, v in pairs(list) do
+    new_list[#new_list + 1] = func(v)
+  end
+  return new_list
+end
+
+local content = assert(SMODS.load_file("src/settings/contents.lua"))()
+
+local function create_tile_spacer()
+  return { n = G.UIT.B, config = { w = 0.1, h = 3.5 } }
+end
+
+local function create_tile_grid(args)
+  local page_options = {}
+
+  for i, _ in ipairs(content.pages) do
+    page_options[#page_options + 1] = localize('k_page') .. " " .. i .. "/" .. #content.pages
+  end
+
+  local current_page = content.pages[args.page_num]
+
+  local first_row = { n = G.UIT.R, config = { align = "cm" }, nodes = { create_tile_spacer() } }
+  local second_row = { n = G.UIT.R, config = { align = "cm" }, nodes = { create_tile_spacer() } }
+
+  local tiles = current_page.tiles and list_map(current_page.tiles, function(tile)
+    return Tile {
+      label = tile.label(),
+      display_cards = tile.list,
+      ref_table = nacho_config,
+      ref_value = tile.config_key,
+    }
+  end) or {}
+  
+  for i, tile in ipairs(tiles) do
+    if i < 4 then
+      table.insert(first_row.nodes, tile:render())
+      table.insert(first_row.nodes, create_tile_spacer())
+    else
+      table.insert(second_row.nodes, tile:render())
+      table.insert(second_row.nodes, create_tile_spacer())
+    end
+  end
+  
+  return {
+    n = G.UIT.ROOT,
+    config = { colour = G.C.CLEAR },
+    nodes = {
+      {
+        n = G.UIT.C,
+        nodes = {
           {
-            {
-              n = G.UIT.C,
-              config = {
-                  align = "tl",
-                  padding = 0.05,
-                  colour = G.C.CLEAR,
-              },
-              nodes =
-              {
-                create_toggle({
-                  label = localize("ralts_line"),
-                  ref_table = nacho_config,
-                  ref_value = "Ralts",
-                }),
-                create_toggle({
-                    label = localize("swablu_line"),
-                    ref_table = nacho_config,
-                    ref_value = "Swablu",
-                }),
-                create_toggle({
-                    label = localize("bagon_line"),
-                    ref_table = nacho_config,
-                    ref_value = "Bagon",
-                }),
-                create_toggle({
-                    label = localize("turtwig_line"),
-                    ref_table = nacho_config,
-                    ref_value = "Turtwig",
-                }),
-                create_toggle({
-                    label = localize("chimchar_line"),
-                    ref_table = nacho_config,
-                    ref_value = "Chimchar",
-                }),
-                create_toggle({
-                label = localize("piplup_line"),
-                ref_table = nacho_config,
-                ref_value = "Piplup",
-                }),
-                create_toggle({
-                    label = localize("clauncher_line"),
-                    ref_table = nacho_config,
-                    ref_value = "Clauncher",
-                }),
-                create_toggle({
-                    label = localize("dedenne"),
-                    ref_table = nacho_config,
-                    ref_value = "Dedenne",
-                }),
-                create_toggle({
-                    label = localize("carbink"),
-                    ref_table = nacho_config,
-                    ref_value = "Carbink",
-                }),
-              }
-            },
-            {
-              n = G.UIT.C,
-              config = {
-                  align = "tr",
-                  padding = 0.05,
-                  colour = G.C.CLEAR,
-              },
-              nodes =
-              {
-                create_toggle({
-                    label = localize("oranguru"),
-                    ref_table = nacho_config,
-                    ref_value = "Oranguru",
-                }),create_toggle({
-                    label = localize("passimian"),
-                    ref_table = nacho_config,
-                    ref_value = "Passimian",
-                }),
-                create_toggle({
-                    label = localize("goomy_line"),
-                    ref_table = nacho_config,
-                    ref_value = "Goomy",
-                }),
-                create_toggle({
-                    label = localize("turtonator"),
-                    ref_table = nacho_config,
-                    ref_value = "Turtonator",
-                }),
-                create_toggle({
-                    label = localize("skwovet_line"),
-                    ref_table = nacho_config,
-                    ref_value = "Skwovet",
-                }),
-                create_toggle({
-                    label = localize("galarian_meowth_line"),
-                    ref_table = nacho_config,
-                    ref_value = "Galarian_Meowth",
-                }),
-                create_toggle({
-                    label = localize("hisuian_zorua_line"),
-                    ref_table = nacho_config,
-                    ref_value = "Hisuian_Zorua",
-                }),
-                create_toggle({
-                    label = localize("terapagos_line"),
-                    ref_table = nacho_config,
-                    ref_value = "Terapagos",
-                }),
-              }
-            },
-          }
-        },
-        {
-          n = G.UIT.R,
-          config = {
-              align = "bm",
-              padding = 0.05,
-              colour = G.C.CLEAR,
+            n = G.UIT.R,
+            config = { align = "cm", padding = 0.2 },
+            nodes = {
+              { n = G.UIT.T, config = { text = current_page.title(), colour = G.C.UI.TEXT, scale = 0.5 } },
+            }
           },
-          nodes =
+          first_row,
+          second_row,
           {
-            create_toggle({
-                label = localize("custom_jokers"),
-                ref_table = nacho_config,
-                ref_value = "customJokers",
-            }),
-            create_toggle({
-                label = "Allow Custom Stakes?",
-                ref_table = nacho_config,
-                ref_value = "customStakes",
-            }),
+            n = G.UIT.R,
+            config = { align = "cm", padding = 0.2 },
+            nodes = {
+              create_option_cycle({
+                options = page_options,
+                current_option = args.page_num,
+                opt_callback = "nacho_update_config_page",
+                scale = 0.8,
+                colour = G.C.RED,
+                cycle_shoulders = false,
+                no_pips = true
+              })
+            }
           }
         }
-      },
+      }
     }
+  }
 end
+
+function G.FUNCS.nacho_update_config_page(e)
+  if not e or not e.cycle_config then return end
+  
+  local grid_wrap = G.OVERLAY_MENU:get_UIE_by_ID("nacho_grid_wrap")
+  
+  grid_wrap.config.object:remove()
+  grid_wrap.config.object = UIBox {
+    definition = create_tile_grid { page_num = e.cycle_config.current_option },
+    config = { parent = grid_wrap, type = "cm" },
+  }
+  
+  grid_wrap.UIBox:recalculate()
+end
+
+function SMODS.current_mod.extra_tabs()
+	return {
+    {
+      label = 'Pokemon Config',
+      tab_definition_function = function ()
+        local grid = UIBox {
+          definition = create_tile_grid { page_num = 1 },
+          config = { type = "cm" },
+        }
+        return {
+          n = G.UIT.ROOT,
+          config = {
+          r = 0.1,
+          minw = 14,
+          minh = 8.5,
+          align = "cm",
+          colour = G.C.BLACK,
+          emboss = 0.05,
+          },
+          nodes = {
+          { n = G.UIT.O, config = { id = "nacho_grid_wrap", object = grid } }
+          }
+        }
+      end
+    },
+		{
+			label = 'Extra',
+			tab_definition_function = function()
+				-- works in the same way as mod.config_tab
+				return {n = G.UIT.ROOT, config = {
+        -- config values here, see 'Building a UI' page
+        r = 0.1,
+        minw = 7,
+        align = "cm",
+        colour = G.C.BLACK,
+        emboss = 0.05,
+				},
+        nodes =
+        {
+          {
+            n = G.UIT.C,
+            config = {
+                align = "bm",
+                padding = 0.05,
+                colour = G.C.CLEAR,
+            },
+            nodes =
+            {
+              {
+                n = G.UIT.R,
+                config = {
+                    align = "bm",
+                    padding = 0.05,
+                    colour = G.C.CLEAR,
+                },
+                nodes =
+                {{
+                  n = G.UIT.T,
+                  config = {
+                    align = 'tm',
+                    text = "Restart Required:",
+                    shadow = true,
+                    scale = 0.75 * 0.7,
+                    colour = HEX("ED533A")
+                  }
+                }},
+              },
+              create_toggle({
+                  label = "Allow Custom Stakes?",
+                  ref_table = nacho_config,
+                  ref_value = "customStakes",
+              }),
+              {
+                n = G.UIT.R,
+                config = {
+                    align = "bm",
+                    padding = 0.05,
+                    colour = G.C.CLEAR,
+                },
+                nodes =
+                {{
+                  n = G.UIT.T,
+                  config = {
+                    align = 'tm',
+                    text = "No Restart Required:",
+                    shadow = true,
+                    scale = 0.75 * 0.7,
+                    colour = HEX("ED533A")
+                  }
+                }},
+              },
+              create_toggle({
+                  label = "Dex Order Jokers?",
+                  ref_table = nacho_config,
+                  ref_value = "orderJokers",
+              }),
+              create_toggle({
+                label = "Only Pokemon Jokers in Gallery?",
+                ref_table = nacho_config,
+                ref_value = "pokemon_only",
+              }),
+              create_slider({label = 'Joker Gallery Width', w = 4, h = 0.3, ref_table = nacho_config, ref_value = 'gallery_width', min = 5, max = 11})
+            }
+          }
+        }
+      }
+			end,
+		},
+		-- insert more tables with the same structure here
+	}
+end
+
+
+
+-- {
+--     create_toggle({
+--         label = localize("custom_jokers"),
+--         ref_table = nacho_config,
+--         ref_value = "customJokers",
+--     }),
+--     create_toggle({
+--         label = "Allow Custom Stakes?",
+--         ref_table = nacho_config,
+--         ref_value = "customStakes",
+--     }),
+--     
+--   }

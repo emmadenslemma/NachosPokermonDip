@@ -17,25 +17,8 @@ deck_rank_evo = function(self, card, context, forced_key, rank, percentage, flat
   end
 end
 
--- Ripped straight from Ortalab
-function Count_ranks()
-    -- Count ranks
-    local ranks = {}
-    for _, pcard in ipairs(G.playing_cards) do
-        if not SMODS.has_no_rank(pcard) then ranks[pcard.base.value] = (ranks[pcard.base.value] or 0) + 1 end
-    end
-    local ranks_by_count = {}
-    for rank, count in pairs(ranks) do
-        table.insert(ranks_by_count, {rank = rank, count = count})
-    end
-    table.sort(ranks_by_count, function(a, b) return a.count > b.count end)
-    return ranks_by_count
-end
 
-
-
-
--- POKEMON SPECIFIC FUNCTIONS --
+-- POKEMON SPECIFIC FUNCTIONS/OVERRIDES --
 
 -- mega gallade card debuffing/un-debuffing function
 local parse_highlighted = CardArea.parse_highlighted

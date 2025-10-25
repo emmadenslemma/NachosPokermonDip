@@ -3,6 +3,8 @@ version = "1.0.0"
 dump_lua = true
 priority = 21
 
+### Gallade and Mega Gallade
+
 # Gallade Planet Insert
 [[patches]]
 [patches.pattern]
@@ -35,7 +37,8 @@ payload = '''
 match_indent = true
 
 
-# Turtonator Cerulean Bell compat.
+### Turtonator
+# Turtonator Cerulean Bell Compat.
 [[patches]]
 [patches.pattern]
 target = "blind.lua"
@@ -49,6 +52,7 @@ forced_card.ability.pokermon_forced_selection = true
 match_indent = true
 
 
+### Passimian
 # Passimian Evo Logic
 [[patches]]
 [patches.pattern]
@@ -96,7 +100,30 @@ end
 '''
 match_indent = true
 
+# Ensure Smeargle finds Passimian's *Copied* Card so it doesn't crash
+[[patches]]
+[patches.pattern]
+target = '=[SMODS Pokermon "pokemon/pokejokers_08.lua"]'
+pattern = '''
+local other_center = card.ability.extra.copy_joker.config.center
+local new_config = copy_table(card.ability.extra.copy_joker.ability)
+'''
+position = "at"
+payload = '''
+local other_center
+local new_config
+if card.ability.extra.copy_joker.config.center.key == 'j_nacho_passimian' then
+  other_center = card.ability.extra.copy_joker.ability.received_card
+  new_config = copy_table(card.ability.extra.copy_joker.ability.received_card.config)
+else
+  other_center = card.ability.extra.copy_joker.config.center
+  new_config = copy_table(card.ability.extra.copy_joker.ability)
+end
+'''
+match_indent = true
 
+
+### Terapagos
 # Ensuring that Terapagos-Stellar makes Pokemon always Tera Stellar
 [[patches]]
 [patches.pattern]
@@ -110,5 +137,35 @@ payload = '''
 if next(SMODS.find_card('j_nacho_terapagos_stellar')) then
     sticker_type = "Stellar"
 end
+'''
+match_indent = true
+
+
+
+### Ralts Cross-Mod Compat.
+# Yoinking Ralts from Mael if both Ralts are enabled
+[[patches]]
+[patches.pattern]
+target = '=[SMODS PokermonMaelmc "main.lua"]'
+pattern = '''
+--Load consumables
+'''
+position = "before"
+payload = '''
+yoink_ralts()
+
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS PokermonMaelmc "main.lua"]'
+pattern = '''
+pokermon.add_family({"ralts","kirlia","gardevoir","mega_gardevoir"})
+'''
+position = "at"
+payload = '''
+if not ((SMODS.Mods["NachosPokermonDip"] or {}).can_load and nacho_config.Ralts) then
+  pokermon.add_family({"ralts","kirlia","gardevoir","mega_gardevoir"}) end
 '''
 match_indent = true
