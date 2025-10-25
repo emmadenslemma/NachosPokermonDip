@@ -44,7 +44,7 @@ This is an add-on mod for Pokermon - an add-on mod for Balatro.
 
 | Joker | Effect |
 | ------ | ------ |
-| Clauncher | +6 Mult for each played card with an edition |
+| Clauncher | +6 Mult for each played card with an edition when scored |
 | Clawitzer | Foil cards give X1.5 their total chips<br/>Holographic cards give X1.3 Mult when scored<br/>Polychrome cards give X1.2 mult when held in hand |
 
 | Joker | Effect |
