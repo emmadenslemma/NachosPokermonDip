@@ -30,7 +30,9 @@ local gems = {
     key = "gems",
     jokers = {
         {id = "j_nacho_carbink", eternal = true},
-        {id = "j_poke_roggenrola", eternal = true},
+        {id = "j_poke_goldeen", eternal = true},
+        {id = "j_poke_roggenrola"},
+        {id = "j_poke_tarountula"},
     },
     rules = {
         custom = {
@@ -40,13 +42,6 @@ local gems = {
         modifiers = {
             { id = 'dollars',  value = 0 },
         },
-    },
-    restrictions = {
-        banned_cards = {
-            { id = 'j_poke_chikorita' },
-            { id = 'j_poke_bayleef' },
-            { id = 'j_poke_meganium' },
-        }
     },
 }
 
@@ -118,7 +113,12 @@ local goomygoomy = {
     }
 }
 
+local list = {}
+if nacho_config.Piplup and nacho_config.Chimchar and nacho_config.Turtwig then list[#list+1] = sinnoh_adv end
+if nacho_config.Skwovet then list[#list+1] = hibernation end
+if nacho_config.Carbink then list[#list+1] = gems end
+if nacho_config.Goomy then list[#list+1] = goomygoomy end
 
 return {name = "Challenges",
-    list = {sinnoh_adv, hibernation, gems, goomygoomy}
+    list = list
 }
