@@ -7,7 +7,7 @@ local passimian={
     return {vars = {}}
   end,
   designer = "Eternalnacho",
-  rarity = 3,
+  rarity = 1,
   cost = 8,
   stage = "Basic",
   ptype = "Fighting",
@@ -24,7 +24,7 @@ local passimian={
           and not table.contains(self.banlist, context.card.config.center.key) then
         self:receive_card(card, context.card.config.center.key, context)
       end
-    else
+    elseif card.ability.received_card.calculate then
       local ret = card.ability.received_card:calculate(card, context)
       return ret
     end
@@ -83,6 +83,8 @@ local passimian={
       if _r.blueprint_compat == true then card.config.center.blueprint_compat = true
       else card.config.center.blueprint_compat = false end
 
+      if _r.add_to_deck then _r:add_to_deck(card) end
+
       -- play the funny noises
       if not (card.edition or context and context.card and context.card.edition) then
         card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('poke_receiver_ex')})
@@ -121,6 +123,9 @@ local passimian={
     if card.ability.received_edition and not from_debuff then
       G.jokers.config.card_limit = G.jokers.config.card_limit - 1
     end
+    if card.ability.received_card and card.ability.received_card.remove_from_deck then
+      card.ability.received_card:remove_from_deck(card)
+    end
   end,
   generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
     type_tooltip(self, info_queue, card)
@@ -153,7 +158,7 @@ local passimian={
     if card_table.ability.received_card then
       card_table.ability.received_card = G.P_CENTERS[card_table.received_key]
     end
-  end
+  end,
 }
 
 local init = function()
@@ -192,7 +197,7 @@ local init = function()
   local save_card = Card.save
   Card.save = function (self)
     local saved_table = save_card(self)
-    if self.config.center_key == 'j_nacho_passimian' then
+    if self.config.center_key == 'j_nacho_passimian' and self.area == G.jokers and self.ability.received_card then
       saved_table.received_key = self.ability.received_card.key
     end
     return saved_table
