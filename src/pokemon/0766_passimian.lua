@@ -18,28 +18,25 @@ local passimian={
     if not card.ability.received_card then
       if context.selling_card and not context.selling_self and context.cardarea == G.jokers and not context.blueprint
           and not table.contains(self.banlist, context.card.config.center.key) then
-        card.ability.extra.to_key = context.card.config.center.key
-        self:receive_card(card, context)
+        self:receive_card(card, context.card.config.center.key, context)
       end
       if context.joker_type_destroyed and context.cardarea == G.jokers and not context.blueprint
           and not table.contains(self.banlist, context.card.config.center.key) then
-        card.ability.extra.to_key = context.card.config.center.key
-        self:receive_card(card, context)
+        self:receive_card(card, context.card.config.center.key, context)
       end
     else
       local ret = card.ability.received_card:calculate(card, context)
       return ret
     end
   end,
-  receive_card = function(self, card, context)
-    if card.ability.extra.to_key and card.area == G.jokers then
-      local _r = G.P_CENTERS[card.ability.extra.to_key]
-
+  receive_card = function(self, card, to_key, context)
+    if to_key and card.area == G.jokers then
+      local _r = G.P_CENTERS[to_key]
       -- Keep relevant values stored
       local values_to_keep = {}
       if card.ability.received_card then
         values_to_keep = copy_scaled_values(card)
-      elseif context.card and context.card.ability then
+      elseif context and context.card and context.card.ability then
         for k, v in pairs(context.card.ability) do
           if type(v) == 'table' then
             values_to_keep[k] = copy_table(v)
@@ -151,46 +148,60 @@ local passimian={
       localize{type = 'descriptions', key = _c.key, set = _c.set, nodes = desc_nodes}
     end
   end,
-  banlist = {'j_nacho_passimian', 'j_poke_zorua', 'j_poke_zoroark', 'j_nacho_hisuian_zorua', 'j_nacho_hisuian_zoroark', 'j_poke_smeargle'}
+  banlist = {'j_nacho_passimian', 'j_poke_zorua', 'j_poke_zoroark', 'j_nacho_hisuian_zorua', 'j_nacho_hisuian_zoroark', 'j_poke_smeargle'},
+  load = function(self, card, card_table, other_card)
+    if card_table.ability.received_card then
+      card_table.ability.received_card = G.P_CENTERS[card_table.received_key]
+    end
+  end
 }
 
--- local init = function()
---   remove = function(self, card, context, check_shiny, skip_joker_type_destroyed)
---     if not skip_joker_type_destroyed then
---       card.getting_sliced = true
---       local flags = SMODS.calculate_context({ joker_type_destroyed = true, card = card })
---       if flags.no_destroy then
---         card.getting_sliced = nil
---         return
---       end
---     end
---     if check_shiny and card.edition and card.edition.poke_shiny then
---       SMODS.change_booster_limit(-1)
---     end
---     play_sound('tarot1')
---     card.T.r = -0.2
---     card:juice_up(0.3, 0.4)
---     card.states.drag.is = true
---     card.children.center.pinch.x = true
---     G.E_MANAGER:add_event(Event({
---       trigger = 'after',
---       delay = 0.3,
---       blockable = false,
---       func = function()
---         G.jokers:remove_card(card)
---         card:remove()
---         card = nil
---         return true
---       end
---     }))
---     card.gone = true
---     return true
---   end
--- end
+local init = function()
+  remove = function(self, card, context, check_shiny, skip_joker_type_destroyed)
+    if not skip_joker_type_destroyed then
+      card.getting_sliced = true
+      local flags = SMODS.calculate_context({ joker_type_destroyed = true, card = card })
+      if flags.no_destroy then
+        card.getting_sliced = nil
+        return
+      end
+    end
+    if check_shiny and card.edition and card.edition.poke_shiny then
+      SMODS.change_booster_limit(-1)
+    end
+    play_sound('tarot1')
+    card.T.r = -0.2
+    card:juice_up(0.3, 0.4)
+    card.states.drag.is = true
+    card.children.center.pinch.x = true
+    G.E_MANAGER:add_event(Event({
+      trigger = 'after',
+      delay = 0.3,
+      blockable = false,
+      func = function()
+        G.jokers:remove_card(card)
+        card:remove()
+        card = nil
+        return true
+      end
+    }))
+    card.gone = true
+    return true
+  end
+
+  local save_card = Card.save
+  Card.save = function (self)
+    local saved_table = save_card(self)
+    if self.config.center_key == 'j_nacho_passimian' then
+      saved_table.received_key = self.ability.received_card.key
+    end
+    return saved_table
+  end
+end
 
 return {
   name = "Nacho's Passimian",
   enabled = nacho_config.Passimian or false,
-  --init = init,
+  init = init,
   list = { passimian }
 }

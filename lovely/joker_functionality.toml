@@ -78,8 +78,7 @@ position = "before"
 payload = '''
 -- Passimian passed abilities don't "Evolve" per se
 if card.config.center.key == 'j_nacho_passimian' then
-  card.ability.extra.to_key = to_key
-  card.config.center:receive_card(card)
+  card.config.center:receive_card(card, to_key)
   return
 end
 
