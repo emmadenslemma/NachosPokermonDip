@@ -18,7 +18,7 @@ local passimian={
     if not card.ability.received_card then
       if context.selling_card and not context.selling_self and context.cardarea == G.jokers and not context.blueprint
           and not table.contains(self.banlist, context.card.config.center.key) then
-        self:receive_card(card, context.card.config.center.key, context)
+        if context.card.area == G.jokers then self:receive_card(card, context.card.config.center.key, context) end
       end
       if context.joker_type_destroyed and context.cardarea == G.jokers and not context.blueprint
           and not table.contains(self.banlist, context.card.config.center.key) then
