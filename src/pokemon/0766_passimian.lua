@@ -7,7 +7,7 @@ local passimian={
     return {vars = {}}
   end,
   designer = "Eternalnacho",
-  rarity = 1,
+  rarity = 3,
   cost = 8,
   stage = "Basic",
   ptype = "Fighting",
