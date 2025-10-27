@@ -16,8 +16,6 @@ PkmnDip.dex_order_groups[#PkmnDip.dex_order_groups+1] = {'skwovet', 'greedent'}
 PkmnDip.dex_order_groups[#PkmnDip.dex_order_groups+1] = {'perrserker'}
 PkmnDip.dex_order_groups[#PkmnDip.dex_order_groups+1] = {'terapagos', 'terapagos_terastal', 'terapagos_stellar'}
 
-PkmnDip.dex_order_groups[#PkmnDip.dex_order_groups+1] = {'gible', 'gabite', 'garchomp', 'mega_garchomp'}
-
 
 -- modifying this function for *two* different config settings
 SMODS.collection_pool = function(_base_pool)
