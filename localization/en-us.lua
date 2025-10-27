@@ -254,14 +254,14 @@ return {
             j_nacho_carbink = {
                 name = "Carbink",
                 text = {
-                    "{C:attention}Hazard{} cards are also",
+                    "Cards with no {C:attention}rank{} are also",
                     "considered {C:attention}Gold{} cards",
                 }
             },
             j_nacho_goomy = {
                 name = "Goomy",
                 text = {
-                    "If scoring hand contains a Flush,",
+                    "If scoring hand contains a {C:attention}Flush{},",
                     "scoring cards and cards {C:attention}held in hand{}",
                     "with the {C:attention}same suit{} gain {C:red}+#1#{} Mult",
                     "{C:inactive,s:0.8}(Evolves after playing {C:attention,s:0.8}#2# {C:inactive,s:0.8}#3#)",
@@ -271,7 +271,7 @@ return {
             j_nacho_sliggoo = {
                 name = "Sliggoo",
                 text = {
-                    "If played hand is a Flush, scoring cards",
+                    "If played hand is a {C:attention}Flush{}, scoring cards",
                     "and cards {C:attention}held in hand{} with",
                     "the {C:attention}same suit{} gain {C:red}+#1#{} Mult for each",
                     "unique {C:attention}rank{} among scoring cards",
@@ -281,7 +281,7 @@ return {
             j_nacho_goodra = {
                 name = "Goodra",
                 text = {
-                    "If played hand is a Flush, scoring cards",
+                    "If played hand is a {C:attention}Flush{}, scoring cards",
                     "and cards {C:attention}held in hand{} with",
                     "the {C:attention}same suit{} gain {X:red,C:white}X#1#{} Mult for each",
                     "unique {C:attention}rank{} among scoring cards",
