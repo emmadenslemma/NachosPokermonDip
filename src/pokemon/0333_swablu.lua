@@ -44,8 +44,10 @@ local altaria={
     local nine_tally = 0
     if G.playing_cards then
         for k, v in ipairs(G.playing_cards) do
-            if v:get_id() == 9 then nine_tally = nine_tally + 1 end
-            if v.config.center ~= G.P_CENTERS.c_base then nine_tally = nine_tally + 1 end
+            if v:get_id() == 9 then
+              nine_tally = nine_tally + 1
+              if v.config.center ~= G.P_CENTERS.c_base then nine_tally = nine_tally + 1 end
+            end
         end
     end
     return {vars = {card.ability.extra.money, card.ability.extra.money * 2, card.ability.extra.money * nine_tally}}
@@ -63,8 +65,10 @@ local altaria={
     local nine_tally = 0
     if G.playing_cards then
         for k, v in ipairs(G.playing_cards) do
-            if v:get_id() == 9 then nine_tally = nine_tally + 1 end
-            if v.config.center ~= G.P_CENTERS.c_base then nine_tally = nine_tally + 1 end
+            if v:get_id() == 9 then
+              nine_tally = nine_tally + 1
+              if v.config.center ~= G.P_CENTERS.c_base then nine_tally = nine_tally + 1 end
+            end
         end
     end
     return ease_poke_dollars(card, "altaria", card.ability.extra.money * nine_tally, true)
@@ -92,7 +96,7 @@ local mega_altaria={
   calculate = function(self, card, context)
     if context.before and context.cardarea == G.jokers and not context.blueprint then
       for k, v in pairs(G.play.cards) do
-        if v:get_id() == 9 then
+        if v:get_id() == 9 and not v.edition then
           local edition = poll_edition('aura', nil, true, true)
           v:set_edition(edition, true, true)
           v:juice_up(0.3, 0.5)
