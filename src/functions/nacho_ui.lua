@@ -23,10 +23,10 @@ SMODS.collection_pool = function(_base_pool)
   if type(_base_pool) ~= 'table' then return pool end
   local is_array = _base_pool[1]
   local ipairs = is_array and ipairs or pairs
+  if nacho_config.orderJokers then table.sort(PkmnDip.dex_order_groups, function(a, b) return PkmnDip.get_dex_number(a[1]) < PkmnDip.get_dex_number(b[1]) end) end
   for _, v in ipairs(_base_pool) do
     local moved = false
     if (not G.ACTIVE_MOD_UI or v.mod == G.ACTIVE_MOD_UI) and not v.no_collection then
-
       if nacho_config.orderJokers then
         for x, y in pairs(PkmnDip.dex_order_groups) do
           if table.contains(y, v.name) then
@@ -38,7 +38,6 @@ SMODS.collection_pool = function(_base_pool)
         end
       end
       local empty_vanilla = v.set == 'Joker' and not v.stage and nacho_config.pokemon_only
-
       if not moved and not empty_vanilla then pool[#pool+1] = v end
     end
   end
