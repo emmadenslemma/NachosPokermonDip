@@ -121,6 +121,19 @@ end
 '''
 match_indent = true
 
+# Make sure the Mega Stone *doesn't* see Passimian
+[[patches]]
+[patches.pattern]
+target = '=[SMODS Pokermon "consumables/mart1.lua"]'
+pattern = '''card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_reset')})'''
+position = "before"
+payload = '''
+for k, v in pairs(G.jokers.cards) do
+  if v.ability and v.ability.received_card and v.ability.received_card.key == card.ability.extra.used_on then card.ability.extra.used_on = nil end
+end
+'''
+match_indent = true
+
 
 ### Terapagos
 # Ensuring that Terapagos-Stellar makes Pokemon always Tera Stellar

@@ -104,20 +104,3 @@ SMODS.Booster:take_ownership_by_kind('Standard', {
     true
 )
 
--- Passimian Find_Card override
-local find_card = SMODS.find_card
-function SMODS.find_card(key, count_debuffed)
-    local results = find_card(key, count_debuffed)
-    if not G.jokers or not G.jokers.cards then return {} end
-    for _, area in ipairs(SMODS.get_card_areas('jokers')) do
-        if area.cards then
-            for _, v in pairs(area.cards) do
-                if v and type(v) == 'table' and v.ability and v.ability.received_card and v.ability.received_card.key == key and (count_debuffed or not v.debuff) then
-                    table.insert(results, v)
-                end
-            end
-        end
-    end
-    return results
-end
-
