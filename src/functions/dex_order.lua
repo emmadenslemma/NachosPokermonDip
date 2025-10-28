@@ -10,7 +10,7 @@ PkmnDip.dex_order = {
   { "blastoise", "mega_blastoise", "gmax_blastoise" },
   "caterpie",
   "metapod",
-  "butterfree",
+  {"butterfree", "gmax_butterfree" },
   "weedle",
   "kakuna",
   { "beedrill", "mega_beedrill" },
