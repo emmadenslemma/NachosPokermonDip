@@ -14,6 +14,7 @@ return {
     {
       title = function() return localize("nacho_pokemon2") end,
       tiles = {
+        { list = { 'j_nacho_audino', 'j_nacho_mega_audino' }, label = function() return localize { type = "name_text", set = "Joker", key = "j_nacho_audino" } end, config_key = "Audino" },
         { list = { 'j_nacho_hisuian_zorua', 'j_nacho_hisuian_zoroark' }, label = function() return localize { type = "name_text", set = "Joker", key = "j_nacho_hisuian_zorua" } end, config_key = "Hisuian_Zorua" },
         { list = { 'j_nacho_clauncher', 'j_nacho_clawitzer' }, label = function() return localize { type = "name_text", set = "Joker", key = "j_nacho_clauncher" } end, config_key = "Clauncher" },
         { list = { 'j_nacho_dedenne' }, label = function() return localize { type = "name_text", set = "Joker", key = "j_nacho_dedenne" } end, config_key = "Dedenne" },

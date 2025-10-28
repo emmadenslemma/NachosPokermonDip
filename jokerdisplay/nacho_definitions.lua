@@ -1,7 +1,7 @@
 local jd_def = JokerDisplay.Definitions
 
 
-
+-- Ralts
 jd_def["j_nacho_ralts"] = {
     text = {
         { text = "+" },
@@ -17,6 +17,7 @@ jd_def["j_nacho_ralts"] = {
     end
 }
 
+-- Kirlia
 jd_def["j_nacho_kirlia"] = {
     text = {
         { text = "+" },
@@ -32,6 +33,7 @@ jd_def["j_nacho_kirlia"] = {
     end
 }
 
+-- Gardevoir
 jd_def["j_nacho_gardevoir"] = {
     text = {
         {
@@ -50,6 +52,54 @@ jd_def["j_nacho_gardevoir"] = {
     end
 }
 
+--	Swablu
+jd_def["j_nacho_swablu"] = {
+  text = {
+    { text = "+$" },
+    { ref_table = "card.joker_display_values", ref_value = "money" },
+  },
+  reminder_text = {
+    { ref_table = "card.joker_display_values", ref_value = "localized_text" },
+  },
+  text_config = { colour = G.C.GOLD },
+  calc_function = function(card)
+    local nine_tally = 0
+    if G.playing_cards then
+        for k, v in ipairs(G.playing_cards) do
+            if v:get_id() == 9 then nine_tally = nine_tally + 1 end
+        end
+    end
+    card.joker_display_values.money = nine_tally
+    card.joker_display_values.localized_text = "(" .. localize("k_round") .. ")"
+  end
+}
+
+-- Altaria
+jd_def["j_nacho_altaria"] = {
+  text = {
+    { text = "+$" },
+    { ref_table = "card.joker_display_values", ref_value = "money" },
+  },
+  reminder_text = {
+    { ref_table = "card.joker_display_values", ref_value = "localized_text" },
+  },
+  text_config = { colour = G.C.GOLD },
+  calc_function = function(card)
+    local nine_tally = 0
+    if G.playing_cards then
+      for k, v in ipairs(G.playing_cards) do
+          if v:get_id() == 9 then
+            nine_tally = nine_tally + 1
+            if v.config.center ~= G.P_CENTERS.c_base then nine_tally = nine_tally + 1 end
+          end
+      end
+    end
+    card.joker_display_values.money = nine_tally
+    card.joker_display_values.localized_text = "(" .. localize("k_round") .. ")"
+  end
+}
+
+-- Bagon
 jd_def["j_nacho_bagon"] = {
   text = {
         { text = "+" },
@@ -76,6 +126,7 @@ jd_def["j_nacho_bagon"] = {
   end
 }
 
+-- Shelgon
 jd_def["j_nacho_shelgon"] = {
   text = {
         { text = "+" },
@@ -102,6 +153,7 @@ jd_def["j_nacho_shelgon"] = {
   end
 }
 
+-- Salamence
 jd_def["j_nacho_salamence"] = {
   text = {
     {
@@ -137,6 +189,7 @@ jd_def["j_nacho_salamence"] = {
   end,
 }
 
+-- Mega Salamence
 jd_def["j_nacho_mega_salamence"] = {
   text = {
     {
@@ -172,6 +225,7 @@ jd_def["j_nacho_mega_salamence"] = {
 end,
 }
 
+-- Chimchar
 jd_def["j_nacho_chimchar"] = {
     text = {
         { text = "+" },
@@ -180,6 +234,7 @@ jd_def["j_nacho_chimchar"] = {
     text_config = { colour = G.C.MULT },
 }
 
+-- Monferno
 jd_def["j_nacho_monferno"] = {
     text = {
         { text = "+" },
@@ -188,7 +243,7 @@ jd_def["j_nacho_monferno"] = {
     text_config = { colour = G.C.MULT },
 }
 
-
+-- Infernape
 jd_def["j_nacho_infernape"] = {
     text = {
         { text = "+" ,
@@ -205,6 +260,7 @@ jd_def["j_nacho_infernape"] = {
     },
 }
 
+-- Piplup
 jd_def["j_nacho_piplup"] = {
     text = {
         { text = "+",                              colour = G.C.CHIPS },
@@ -217,6 +273,7 @@ jd_def["j_nacho_piplup"] = {
     end
 }
 
+-- Prinplup
 jd_def["j_nacho_prinplup"] = {
     text = {
         { text = "+",                              colour = G.C.CHIPS },
@@ -236,6 +293,7 @@ jd_def["j_nacho_prinplup"] = {
     end
 }
 
+-- Empoleon
 jd_def["j_nacho_empoleon"] = {
     text = {
         { text = "+",                              colour = G.C.CHIPS },
@@ -255,6 +313,7 @@ jd_def["j_nacho_empoleon"] = {
     end
 }
 
+-- Gallade
 jd_def["j_nacho_gallade"] = {
     text = {
         {
@@ -270,6 +329,7 @@ jd_def["j_nacho_gallade"] = {
     end
 }
 
+-- Mega Gallade
 jd_def["j_nacho_mega_gallade"] = {
     text = {
         {
@@ -285,6 +345,31 @@ jd_def["j_nacho_mega_gallade"] = {
     end
 }
 
+-- Audino
+jd_def["j_nacho_audino"] = {
+  text = {
+    {
+      border_nodes = {
+        { text = "X" },
+        { ref_table = "card.ability.extra", ref_value = "Xmult", retrigger_type = "exp" },
+      },
+    },
+  },
+}
+
+-- Mega Audino
+jd_def["j_nacho_mega_audino"] = {
+  text = {
+    {
+      border_nodes = {
+        { text = "X" },
+        { ref_table = "card.ability.extra", ref_value = "Xmult", retrigger_type = "exp" },
+      },
+    },
+  },
+}
+
+-- Turtonator
 jd_def["j_nacho_turtonator"] = {
     text = {
         {
@@ -307,6 +392,7 @@ jd_def["j_nacho_turtonator"] = {
     end
 }
 
+-- Skwovet
 jd_def["j_nacho_skwovet"] = {
     text = {
         { text = "+" },
@@ -315,6 +401,7 @@ jd_def["j_nacho_skwovet"] = {
     text_config = { colour = G.C.MULT },
 }
 
+-- Greedent
 jd_def["j_nacho_greedent"] = {
     text = {
         { text = "+" },
@@ -323,6 +410,7 @@ jd_def["j_nacho_greedent"] = {
     text_config = { colour = G.C.MULT },
 }
 
+-- Perrserker
 jd_def["j_nacho_perrserker"] = {
     reminder_text = {
         { text = "(" },
@@ -360,6 +448,7 @@ jd_def["j_nacho_perrserker"] = {
     end
 }
 
+-- Hisuian Goodra
 jd_def["j_nacho_hisuian_goodra"] = {
   text = {
         {
@@ -399,6 +488,7 @@ jd_def["j_nacho_hisuian_goodra"] = {
   end,
 }
 
+-- Terapagos-Terastal
 jd_def["j_nacho_terapagos_terastal"] = {
     text = {
         {
@@ -423,6 +513,7 @@ jd_def["j_nacho_terapagos_terastal"] = {
     end,
 }
 
+-- Terapagos-Stellar
 jd_def["j_nacho_terapagos_stellar"] = {
     reminder_text = {
         { text = "(" },

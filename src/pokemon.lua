@@ -4,6 +4,7 @@ PokemonSprites["mega_gardevoir"] = { base = { pos = { x = 6, y = 4 }, soul_pos =
 PokemonSprites["mega_altaria"] = { base = { pos = { x = 2, y = 6 }, soul_pos = { x = 3, y = 6 } }, gen_atlas = true }
 PokemonSprites["mega_salamence"] = { base = { pos = { x = 8, y = 6 }, soul_pos = { x = 9, y = 6 } }, gen_atlas = true }
 PokemonSprites["mega_gallade"] = { base = { pos = { x = 0, y = 7 }, soul_pos = { x = 1, y = 7 } }, gen_atlas = true }
+PokemonSprites["mega_audino"] = { base = { pos = { x = 6, y = 7 }, soul_pos = { x = 7, y = 7 } }, gen_atlas = true }
 PokemonSprites["galarian_meowth"] = { base = { pos = { x = 8, y = 4 } }, gen_atlas = true }
 PokemonSprites["hisuian_zorua"] = { base = { pos = { x = 0, y = 9 }, soul_pos = { x = 99, y = 99 } }, gen_atlas = true }
 PokemonSprites["hisuian_zoroark"] = { base = { pos = { x = 2, y = 9 }, soul_pos = { x = 99, y = 99 } }, gen_atlas = true }

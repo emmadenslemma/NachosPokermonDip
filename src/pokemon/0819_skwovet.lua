@@ -50,7 +50,7 @@ local skwovet={
 -- Greedent 820
 local greedent={
   name = "greedent",
-  config = {extra = {mult = 0, mult_mod = 2, num = 1, den = 4, in_blind = false}},
+  config = {extra = {mult = 0, mult_mod = 1, num = 1, den = 8, in_blind = false}},
   loc_vars = function(self, info_queue, card)
     type_tooltip(self, info_queue, card)
     local num, den = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.den, 'greedent')

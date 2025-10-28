@@ -226,6 +226,29 @@ return {
                     "This Joker can't be debuffed",
                 }
             },
+            j_nacho_audino = {
+              name = "Audino",
+              text = {
+                  "Pokemon Jokers gain",
+                  "an extra {C:attention}level{} at",
+                  "end of round",
+                  "{br:2}ERROR - CONTACT STEAK",
+                  "Gains {X:red,C:white}X#2#{} Mult when",
+                  "a Pokemon {C:attention}evolves{}",
+                  "{C:inactive}(Currently {X:red,C:white}X#1#{} {C:inactive}Mult)",
+              }
+            },
+            j_nacho_mega_audino = {
+              name = "Mega Audino",
+              text = {
+                  "{X:red,C:white}X#1#{} Mult",
+                  "{br:2}ERROR - CONTACT STEAK",
+                  "Creates a Mystery Egg",
+                  "with an {C:attention}edition{}",
+                  "at end of round",
+                  "({C:green}#2# in #3#{} to be shiny)",
+              }
+            },
             j_nacho_clauncher = {
                 name = "Clauncher",
                 text = {
@@ -495,12 +518,23 @@ return {
                     '{C:attention}#3#{}',
                 }
             },
+            -- Received Card tooltip for Passimian
             received_card = {
                 name = "Received Card",
                 text = {
                     '#1#',
                 }
             },
+            -- Daycare tooltip for Mega Audino
+            daycare = {
+              name = "Pokemon Day Care",
+              text = {
+                "Created Mystery Eggs can",
+                "exceed Joker slots if",
+                "you have no {C:attention}Basic{} or",
+                "{C:attention}Baby{} Jokers"
+              }
+            }
         },
     },
     misc = {

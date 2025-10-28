@@ -7,6 +7,7 @@ PkmnDip.dex_order_groups[#PkmnDip.dex_order_groups+1] = {'ralts', 'kirlia', 'gar
 PkmnDip.dex_order_groups[#PkmnDip.dex_order_groups+1] = {'bagon', 'shelgon', 'salamence', 'mega_salamence'}
 PkmnDip.dex_order_groups[#PkmnDip.dex_order_groups+1] = sinnoh_starters
 PkmnDip.dex_order_groups[#PkmnDip.dex_order_groups+1] = {'gallade', 'mega_gallade'}
+PkmnDip.dex_order_groups[#PkmnDip.dex_order_groups+1] = {'audino', 'mega_audino'}
 PkmnDip.dex_order_groups[#PkmnDip.dex_order_groups+1] = {'hisuian_zorua', 'hisuian_zoroark'}
 PkmnDip.dex_order_groups[#PkmnDip.dex_order_groups+1] = {'clauncher', 'clawitzer'}
 PkmnDip.dex_order_groups[#PkmnDip.dex_order_groups+1] = {'dedenne', 'carbink', 'goomy', 'sliggoo', 'goodra', 'hisuian_sliggoo', 'hisuian_goodra'}
