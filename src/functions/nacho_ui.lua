@@ -1,39 +1,18 @@
--- Placing the loaded jokers in dex order
-local sinnoh_starters = {'turtwig', 'grotle', 'torterra', 'chimchar', 'monferno', 'infernape', 'piplup', 'prinplup', 'empoleon'}
-
-PkmnDip.dex_order_groups[#PkmnDip.dex_order_groups+1] = {'galarian_meowth'}
-PkmnDip.dex_order_groups[#PkmnDip.dex_order_groups+1] = {'swablu', 'altaria', 'mega_altaria'}
-PkmnDip.dex_order_groups[#PkmnDip.dex_order_groups+1] = {'ralts', 'kirlia', 'gardevoir', 'mega_gardevoir'}
-PkmnDip.dex_order_groups[#PkmnDip.dex_order_groups+1] = {'bagon', 'shelgon', 'salamence', 'mega_salamence'}
-PkmnDip.dex_order_groups[#PkmnDip.dex_order_groups+1] = sinnoh_starters
-PkmnDip.dex_order_groups[#PkmnDip.dex_order_groups+1] = {'gallade', 'mega_gallade'}
-PkmnDip.dex_order_groups[#PkmnDip.dex_order_groups+1] = {'audino', 'mega_audino'}
-PkmnDip.dex_order_groups[#PkmnDip.dex_order_groups+1] = {'hisuian_zorua', 'hisuian_zoroark'}
-PkmnDip.dex_order_groups[#PkmnDip.dex_order_groups+1] = {'clauncher', 'clawitzer'}
-PkmnDip.dex_order_groups[#PkmnDip.dex_order_groups+1] = {'dedenne', 'carbink', 'goomy', 'sliggoo', 'goodra', 'hisuian_sliggoo', 'hisuian_goodra'}
-PkmnDip.dex_order_groups[#PkmnDip.dex_order_groups+1] = {'oranguru', 'passimian'}
-PkmnDip.dex_order_groups[#PkmnDip.dex_order_groups+1] = {'turtonator'}
-PkmnDip.dex_order_groups[#PkmnDip.dex_order_groups+1] = {'skwovet', 'greedent'}
-PkmnDip.dex_order_groups[#PkmnDip.dex_order_groups+1] = {'perrserker'}
-PkmnDip.dex_order_groups[#PkmnDip.dex_order_groups+1] = {'terapagos', 'terapagos_terastal', 'terapagos_stellar'}
-
 
 -- modifying this function for *two* different config settings
 SMODS.collection_pool = function(_base_pool)
   local pool = {}
+  local inserts = {}
   if type(_base_pool) ~= 'table' then return pool end
   local is_array = _base_pool[1]
   local ipairs = is_array and ipairs or pairs
-  if nacho_config.orderJokers then table.sort(PkmnDip.dex_order_groups, function(a, b) return PkmnDip.get_dex_number(a[1]) < PkmnDip.get_dex_number(b[1]) end) end
   for _, v in ipairs(_base_pool) do
     local moved = false
     if (not G.ACTIVE_MOD_UI or v.mod == G.ACTIVE_MOD_UI) and not v.no_collection then
       if nacho_config.orderJokers then
         for x, y in pairs(PkmnDip.dex_order_groups) do
           if table.contains(y, v.name) then
-            local next_index = PkmnDip.dex_order[PkmnDip.find_next_dex_number(v.name)]
-            if type(next_index) == "table" then next_index = next_index[1] end
-            table.insert(pool, next_index and PkmnDip.find_pool_index(pool, 'j_poke_'..next_index) or #pool + 1, v)
+            inserts[#inserts+1] = v
             moved = true
           end
         end
@@ -42,6 +21,20 @@ SMODS.collection_pool = function(_base_pool)
       if not moved and not empty_vanilla then pool[#pool+1] = v end
     end
   end
+
+  if nacho_config.orderJokers then
+    table.sort(inserts, function(a, b) return PkmnDip.get_dex_number(a.name) < PkmnDip.get_dex_number(b.name) end)
+    for k, v in pairs(inserts) do
+      for x, y in pairs(PkmnDip.dex_order_groups) do
+        if table.contains(y, v.name) then
+          local next_index = PkmnDip.dex_order[PkmnDip.find_next_dex_number(v.name)]
+          if type(next_index) == "table" then next_index = next_index[1] end
+          table.insert(pool, next_index and PkmnDip.find_pool_index(pool, 'j_poke_'..next_index) or #pool + 1, v)
+        end
+      end
+    end
+  end
+
   if not is_array then table.sort(pool, function(a,b) return a.order < b.order end) end
   return pool
 end
