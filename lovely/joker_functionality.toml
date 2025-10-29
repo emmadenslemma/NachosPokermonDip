@@ -46,7 +46,7 @@ card.ability.extra.rounds = card.ability.extra.rounds - 1
 '''
 position = "after"
 payload = '''
-if SMODS.find_card('j_nacho_audino') then card.ability.extra.rounds = card.ability.extra.rounds - 1 end
+for k, v in pairs(G.jokers.cards) do if v.config.center_key == 'j_nacho_audino' then card.ability.extra.rounds = card.ability.extra.rounds - 1 end end
 '''
 match_indent = true
 
@@ -58,7 +58,7 @@ card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {m
 '''
 position = "after"
 payload = '''
-if SMODS.find_card('j_nacho_audino') then card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize("poke_evolve_level")}) end
+for k, v in pairs(G.jokers.cards) do if v.config.center_key == 'j_nacho_audino' then card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize("poke_evolve_level")}) end end
 '''
 match_indent = true
 
