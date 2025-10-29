@@ -227,27 +227,27 @@ return {
                 }
             },
             j_nacho_audino = {
-              name = "Audino",
-              text = {
-                  "Pokemon Jokers gain",
-                  "an extra {C:attention}level{} at",
-                  "end of round",
-                  "{br:2}ERROR - CONTACT STEAK",
-                  "Gains {X:red,C:white}X#2#{} Mult when",
-                  "a Pokemon {C:attention}evolves{}",
-                  "{C:inactive}(Currently {X:red,C:white}X#1#{} {C:inactive}Mult)",
-              }
+                name = "Audino",
+                text = {
+                    "Pokemon Jokers gain",
+                    "an extra {C:attention}level{} at",
+                    "end of round",
+                    "{br:2}ERROR - CONTACT STEAK",
+                    "Gains {X:red,C:white}X#2#{} Mult when",
+                    "a Pokemon {C:attention}evolves{}",
+                    "{C:inactive}(Currently {X:red,C:white}X#1#{} {C:inactive}Mult)",
+                }
             },
             j_nacho_mega_audino = {
-              name = "Mega Audino",
-              text = {
-                  "{X:red,C:white}X#1#{} Mult",
-                  "{br:2}ERROR - CONTACT STEAK",
-                  "Creates a Mystery Egg",
-                  "with an {C:attention}edition{}",
-                  "at end of round",
-                  "({C:green}#2# in #3#{} to be shiny)",
-              }
+                name = "Mega Audino",
+                text = {
+                    "{X:red,C:white}X#1#{} Mult",
+                    "{br:2}ERROR - CONTACT STEAK",
+                    "Creates a Mystery Egg",
+                    "with an {C:attention}edition{}",
+                    "at end of round",
+                    "({C:green}#2# in #3#{} to be shiny)",
+                }
             },
             j_nacho_clauncher = {
                 name = "Clauncher",
@@ -562,7 +562,6 @@ return {
 
 
             -- Config Descriptions
-            custom_jokers = "Allow Custom Jokers?",
             ralts_line = "Ralts line?",
             swablu_line = "Swablu line?",
             bagon_line = "Bagon line?",
